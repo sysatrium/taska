@@ -61,3 +61,6 @@
 Используйте `specs/003-demo-integration-feature/` как integration-heavy reference example.
 
 Он показывает webhook contracts, async reconciliation, idempotency, stale-event handling, observability и ожидания verifier для интеграций с внешними системами.
+## Discovery phase
+
+Используйте discovery-prompts до bootstrap или до feature specification, когда команде ещё нужно прояснить сегмент, jobs, границы MVP или рискованные предположения.

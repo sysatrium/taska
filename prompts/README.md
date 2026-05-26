@@ -84,3 +84,6 @@ It demonstrates inline interaction modeling, UI state schema design, frontend ta
 Use `specs/003-demo-integration-feature/` as the integration-heavy reference example.
 
 It demonstrates webhook contracts, async reconciliation, idempotency, stale-event handling, observability, and verifier expectations for external-system integrations.
+## Discovery phase
+
+Use discovery prompts before bootstrap or before feature specification when the team still needs to clarify segment, jobs, MVP scope, or risky assumptions.

@@ -204,3 +204,14 @@ It demonstrates inline interaction modeling, UI state schema design, frontend ta
 Use `specs/003-demo-integration-feature/` as the integration-heavy reference example.
 
 It demonstrates webhook contracts, async reconciliation, idempotency, stale-event handling, observability, and verifier expectations for external-system integrations.
+## Discovery flow
+
+Run discovery before bootstrap when product context or MVP boundaries are still unclear.
+
+1. `prompts/00-discovery/01-run-prd-interview.md`
+2. `prompts/00-discovery/02-summarize-discovery.md`
+3. `prompts/00-discovery/03-generate-segments-and-jobs.md`
+4. `prompts/00-discovery/04-rank-risky-assumptions.md`
+5. `prompts/00-discovery/05-freeze-mvp-boundaries.md`
+
+These prompts feed `specs/000-project-overview/discovery.md`, `segments-and-jobs.md`, `risks-and-assumptions.md`, and `mvp-boundaries.md`.

@@ -116,3 +116,14 @@ Production-grade репозиторий для **Spec-Driven Development (SDD)
 Используйте `specs/003-demo-integration-feature/` как integration-heavy reference example.
 
 Он показывает webhook contracts, async reconciliation, idempotency, stale-event handling, observability и ожидания verifier для интеграций с внешними системами.
+## Discovery flow
+
+Запускайте discovery до bootstrap, когда продуктовый контекст или границы MVP ещё не прояснены.
+
+1. `prompts/00-discovery/01-run-prd-interview.md`
+2. `prompts/00-discovery/02-summarize-discovery.md`
+3. `prompts/00-discovery/03-generate-segments-and-jobs.md`
+4. `prompts/00-discovery/04-rank-risky-assumptions.md`
+5. `prompts/00-discovery/05-freeze-mvp-boundaries.md`
+
+Эти prompts наполняют `specs/000-project-overview/discovery.md`, `segments-and-jobs.md`, `risks-and-assumptions.md` и `mvp-boundaries.md`.
