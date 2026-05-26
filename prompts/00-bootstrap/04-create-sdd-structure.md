@@ -2,24 +2,48 @@
 
 ## Purpose
 
-Create deterministic repository structure for production-grade SDD.
+Create the repository structure and reusable templates that make the SDD workflow repeatable.
 
-## Outputs
+## When to use
 
-- `.specify/`
-- `specs/000-project-overview/`
-- `specs/templates/`
-- `.github/prompts/`
-- feature numbering convention
-- contract directories under each feature
+Use after the constitution and project overview exist, before starting the first feature.
+
+## Inputs
+
+- constitution and project overview artifacts
+- desired repository conventions
+- feature numbering convention, if already decided
+
+## Output files
+
+```text
+.specify/
+specs/
+specs/templates/
+src/
+SPEC_PROCESS.md
+README.md
+```
+
+## What to do
+
+1. Establish the core folders required by the repository.
+2. Create reusable templates for spec, plan, tasks, verification, and architecture decisions where applicable.
+3. Define a consistent feature numbering and naming convention.
+4. Make sure the structure supports the full lifecycle from spec to verification.
 
 ## Required decisions
 
-- feature folder naming convention
-- contract storage convention
-- template ownership model
-- review/update process for templates
+- feature numbering approach
+- template inventory
+- contract folder convention
+- where implementation code lives
+- where process documentation lives
 
 ## Quality gate
 
-Accept only if a new contributor can create the first feature folder without guessing paths or file names.
+Accept the result only if:
+
+- the folder layout is consistent and reusable
+- templates support the full lifecycle
+- conventions are explicit enough for a new contributor or agent to follow

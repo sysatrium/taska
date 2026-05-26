@@ -8,31 +8,82 @@ Draft
 
 Describe the product at system level before any feature implementation starts.
 
-## Required sections
+## 1. Product mission
 
-### 1. Product mission
+Define the system's primary purpose, who it serves, and what meaningful outcome it should create.
 
-- What is the product?
-- Who are the primary users?
-- What problem does it solve?
-- What business outcomes matter?
+## 2. Primary actors
 
-### 2. Primary workflows
+List the core user types, operators, administrators, external systems, and any other important actors.
 
-List the main end-to-end user journeys.
+For each actor capture:
 
-### 3. System boundaries
+- goals
+- key interactions
+- permissions or trust level
+- critical constraints
 
-Define what the system owns and what external systems remain outside.
+## 3. Primary workflows
 
-### 4. Non-goals
+Describe the end-to-end workflows that matter most at project level.
 
-List what the project will explicitly not solve in the first release.
+For each workflow capture:
 
-### 5. Success metrics
+- trigger
+- happy path
+- major decision points
+- failure or exception paths
+- expected outcome
 
-List measurable success signals.
+## 4. System boundaries
 
-### 6. Open questions
+Describe what belongs inside the system and what is intentionally outside it.
 
-List unresolved decisions that block downstream work.
+### In scope at project level
+
+- Describe the first project-level capability or boundary.
+- Describe the second project-level capability or boundary.
+- Describe the third project-level capability or boundary.
+
+### Out of scope at project level
+
+- Describe the first excluded capability or responsibility.
+- Describe the second excluded capability or responsibility.
+- Describe the third excluded capability or responsibility.
+
+## 5. Global constraints
+
+Document project-level constraints that should shape all feature planning.
+
+- stack or platform constraints
+- security and compliance constraints
+- performance constraints
+- delivery and rollout constraints
+- data residency or integration constraints
+
+## 6. Non-goals
+
+List things the project should explicitly avoid becoming.
+
+## 7. Success metrics
+
+Define measurable indicators that show whether the project is succeeding.
+
+- user outcome metrics
+- delivery metrics
+- quality metrics
+- operational metrics
+
+## 8. System-level verification
+
+Describe how the project will be validated beyond feature-level acceptance.
+
+- critical user journeys
+- operational checks
+- security validation
+- observability expectations
+- release-readiness criteria
+
+## 9. Open questions
+
+List unresolved project-level questions that must remain visible.

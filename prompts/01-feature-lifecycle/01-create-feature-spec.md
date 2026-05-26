@@ -2,32 +2,50 @@
 
 ## Purpose
 
-Create `spec.md` as the authoritative definition of what will be built.
+Create the feature-level specification that defines intent, scope, constraints, and verification expectations before design or coding starts.
+
+## When to use
+
+Use at the beginning of every new feature, epic, or substantial change request.
 
 ## Inputs
 
-- feature name
-- business context
-- relevant project-level artifacts
+- project overview artifacts
+- relevant constitution rules
+- business goal, user need, or problem statement
+- constraints, dependencies, and known decisions
 
-## Output
+## Output file
 
 ```text
-specs/<NNN-feature-name>/spec.md
+specs/NNN-feature-name/spec.md
 ```
+
+## What to do
+
+1. Clarify the feature outcome before describing implementation.
+2. Define what is in scope and out of scope.
+3. Record constraints, assumptions, dependencies, and decisions already made.
+4. Capture open questions instead of hiding uncertainty.
+5. Add verification criteria that later agents can test against.
 
 ## Required sections
 
-- outcomes
-- in scope
-- out of scope
-- constraints and assumptions
+- objective
+- expected outcomes
+- in-scope
+- out-of-scope
+- constraints
+- dependencies
 - decisions already made
-- edge cases
-- verification criteria
-- initial task hints
 - open questions
+- verification criteria
 
 ## Quality gate
 
-Accept only if the feature can be implemented without hidden assumptions.
+Accept the result only if:
+
+- the feature outcome is explicit
+- scope boundaries are concrete
+- implementation details do not replace specification intent
+- verification criteria are testable

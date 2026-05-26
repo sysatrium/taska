@@ -2,14 +2,19 @@
 
 ## Purpose
 
-Create the system-level specifications that every feature will inherit.
+Create the top-level project artifacts that define what the system is, which domain objects exist, and which architecture boundaries are already known.
 
-## Preconditions
+## When to use
 
-- constitution exists
-- agent context exists
+Use after the constitution is approved and before feature-specific specs are created.
 
-## Outputs
+## Inputs
+
+- `.specify/memory/constitution.md`
+- product vision and target users
+- known domain concepts and architecture constraints
+
+## Output files
 
 ```text
 specs/000-project-overview/spec.md
@@ -17,13 +22,19 @@ specs/000-project-overview/data-model.md
 specs/000-project-overview/architecture.md
 ```
 
-## Required work
+## What to do
 
-- define product mission and system boundaries
-- define top-level data model
-- capture initial ADRs
-- list non-goals and open questions
+1. Summarize the system at a project-wide level.
+2. Write `spec.md` for goals, actors, scope shape, and expected outcomes.
+3. Write `data-model.md` for core entities, relationships, invariants, and important lifecycle states.
+4. Write `architecture.md` for boundaries, modules, integrations, constraints, and major tradeoffs.
+5. Keep all three files consistent with the constitution.
 
 ## Quality gate
 
-Accept only if downstream feature authors can use these artifacts without guessing system context.
+Accept the result only if:
+
+- the project overview is specific to this system
+- the data model identifies meaningful entities and constraints
+- architecture boundaries are explicit enough to guide later plans
+- no file contradicts the constitution

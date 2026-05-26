@@ -4,41 +4,123 @@
 
 - Feature ID:
 - Feature name:
-- Status:
+- Status: Draft | Approved | In Progress | Completed
 - Based on spec:
+- Related contracts:
+- Last updated:
 
 ## 1. Scope summary
 
-Summarize what will be implemented.
+Summarize what will be implemented and what remains intentionally excluded.
 
-## 2. Component diagram
+## 2. Traceability to spec
+
+Map the main parts of the implementation plan back to spec outcomes and constraints.
+
+| Spec item | Plan response | Notes |
+|---|---|---|
+| Outcome / constraint | Component / change | |
+
+## 3. Architecture changes
+
+Describe which modules, services, boundaries, or layers will change.
+
+## 4. Component diagram
 
 Provide a Mermaid component or flow diagram.
 
-## 3. Data flow
+```mermaid
+flowchart TD
+  A[Client] --> B[Service]
+  B --> C[Database]
+```
 
-Provide a Mermaid sequence diagram.
+## 5. Data flow and sequence
 
-## 4. Technology choices
+Provide a Mermaid sequence diagram for the critical path.
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant App
+  participant API
+  participant DB
+  User->>App: action
+  App->>API: request
+  API->>DB: write/read
+  DB-->>API: result
+  API-->>App: response
+```
+
+## 6. Technology choices
 
 For each key choice include decision, rationale, and rejected alternatives.
 
-## 5. Database and schema changes
+- Decision:
+  - Rationale:
+  - Alternatives rejected:
+  - Consequence:
 
-Document new tables, collections, indexes, or migrations.
+## 7. Data model, database, and schema changes
 
-## 6. Integration points
+Document new entities, tables, collections, indexes, migrations, or schema updates.
 
-Document dependencies and upstream/downstream impact.
+- Change:
+  - Impact:
+  - Migration or rollout note:
 
-## 7. Risks and mitigations
+## 8. Integration points
 
-List technical and delivery risks.
+Document upstream and downstream dependencies and any contract implications.
 
-## 8. Non-functional requirements
+- Integration:
+  - Interface:
+  - Failure mode:
+  - Fallback behavior:
 
-Document performance, security, resilience, and observability needs.
+## 9. Risks and mitigations
 
-## 9. Rollout and rollback
+List technical, delivery, and operational risks.
 
-Document release, flags, migration sequencing, and rollback strategy.
+- Risk:
+  - Likelihood:
+  - Impact:
+  - Mitigation:
+
+## 10. Non-functional requirements
+
+Document performance, security, resilience, maintainability, and observability requirements.
+
+- Performance:
+- Security:
+- Reliability:
+- Observability:
+- Maintainability:
+
+## 11. Testing strategy
+
+Explain how the implementation will be validated.
+
+- unit tests:
+- integration tests:
+- contract tests:
+- end-to-end tests:
+- manual verification:
+
+## 12. Rollout and rollback
+
+Document release sequencing, flags, migrations, monitoring, and rollback strategy.
+
+- rollout plan:
+- rollback trigger:
+- rollback steps:
+- post-release checks:
+
+## 13. Plan readiness checklist
+
+- [ ] Plan maps back to spec intent.
+- [ ] Architecture changes are explicit.
+- [ ] Data changes are visible.
+- [ ] Risks and mitigations are documented.
+- [ ] Testing strategy exists.
+- [ ] Rollout and rollback are defined.

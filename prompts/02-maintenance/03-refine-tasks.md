@@ -1,72 +1,45 @@
-# Уточнение Feature Tasks
+# Maintenance 5.3 — Refine Tasks
 
-## Назначение
+## Purpose
 
-Уточнить `tasks.md`, если задачи слишком крупные, неоднозначные, заблокированные или не согласованы со spec и plan.
+Rebuild `tasks.md` when the current decomposition is too large, too vague, outdated, or no longer verifiable.
 
-## Когда использовать
+## When to use
 
-Используйте, когда:
+Use when:
 
-- Implementation agent говорит, что задача слишком широкая.
-- Verifier находит неясные acceptance criteria.
-- Task dependencies указаны неверно.
-- Plan изменился.
-- Задачу нужно разделить на несколько smaller tasks.
+- tasks exceed the intended 1-4 hour size
+- multiple unrelated concerns were bundled together
+- dependencies are unclear or contradictory
+- the spec or plan changed and invalidated the current task list
+- implementers cannot start without replanning the feature
 
-## Необходимые входные данные
+## Inputs
 
-- Feature folder.
-- Текущий `spec.md`
-- Текущий `plan.md`
-- Текущий `tasks.md`
-- Причина refinement.
+- current `spec.md`
+- current `plan.md`
+- current `tasks.md`
+- description of what is wrong with the current decomposition
 
-## Инструкции для AI
-
-Прочитай:
-
-```text
-AGENTS.md
-.specify/memory/constitution.md
-specs/NNN-feature-name/spec.md
-specs/NNN-feature-name/plan.md
-specs/NNN-feature-name/tasks.md
-```
-
-Уточни `tasks.md`.
-
-Правила:
-
-- Сохрани traceability к spec и plan.
-- Раздели крупные задачи на smaller tasks.
-- Добавь missing dependencies.
-- Сделай acceptance criteria конкретными.
-- Сохрани atomicity задач.
-- Не вводи scope, которого нет в spec.
-- Если сначала нужно изменить spec или plan, остановись и объясни почему.
-
-## Выходные файлы
-
-Обновлённый:
+## Output file
 
 ```text
 specs/NNN-feature-name/tasks.md
 ```
 
-Опционально:
+## What to do
 
-```text
-specs/NNN-feature-name/spec.md
-specs/NNN-feature-name/plan.md
-```
+1. Re-check the execution order implied by the plan.
+2. Split large tasks into smaller atomic tasks.
+3. Clarify task types, dependencies, affected files, and verification methods.
+4. Remove ambiguity that would force implementers to redesign the feature during coding.
+5. Keep the new task list aligned with the approved plan.
 
 ## Quality gate
 
-Результат приемлем только если:
+Accept the result only if:
 
-- Каждая задача может быть реализована независимо.
-- Acceptance criteria проверяемы.
-- Dependencies корректны.
-- Нет скрытого scope expansion.
-
+- each task is again atomic and verifiable
+- dependencies are explicit and consistent
+- implementers can pick one task without replanning the feature
+- verifier review remains possible task by task

@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: Шаблон API-контракта фичи
+  version: 0.1.0
+  description: >-
+    Шаблон для feature-level API-контрактов. Замените плейсхолдеры реальным
+    интерфейсом до начала реализации.
+servers:
+  - url: https://api.example.com
+    description: Пример production-сервера
+security: []
+paths:
+  /example:
+    get:
+      summary: Пример операции
+      operationId: getExample
+      tags:
+        - Example
+      parameters:
+        - name: requestId
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleResponse'
+        '400':
+          description: Ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ExampleResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum: [ok]
+      required: [id, status]
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+      required: [code, message]

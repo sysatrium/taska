@@ -1,22 +1,40 @@
 # taska
 
-Production-grade bootstrap kit for **Spec-Driven Development (SDD)** in greenfield projects.
+Production-grade repository for **Spec-Driven Development (SDD)** in greenfield projects.
 
-This repository is designed to help a human operator and AI coding agents create specifications **before** code, then implement software through deterministic handoffs.
+This repository helps a human operator and AI coding agents produce specifications before code, execute delivery through deterministic handoffs, and continuously improve the system through verification and incident feedback.
 
 ## Purpose
 
-Use this repository to operationalize the cycle:
+Use this repository to run the full cycle:
 
 `Bootstrap -> Specify -> Contract -> Plan -> Tasks -> Implement -> Verify -> Learn`
 
-The repository is intentionally biased toward:
+The operating model is intentionally biased toward:
 
 - deterministic AI execution
 - explicit scope boundaries
 - artifact-first delivery
-- separate verifier role
-- post-incident spec learning
+- separate verifier responsibility
+- post-incident specification learning
+
+## Canonical policy
+
+The repository root is the **canonical source** for structure and operating rules.
+
+Use the root documentation and prompt set when you want:
+
+- the source-of-truth structure
+- the canonical wording of operating rules
+- the baseline prompt-pack for tooling integration
+
+Use `ru/` when you want:
+
+- human-facing Russian documentation
+- Russian bootstrap and feature prompts
+- Russian onboarding for local teams
+
+When the root and `ru/` diverge, update the root first, then synchronize `ru/`.
 
 ## Operating model
 
@@ -27,7 +45,7 @@ This kit assumes a **human-led bootstrap**:
 3. Feature work starts only after the bootstrap gate is complete.
 4. Each feature is implemented through atomic tasks.
 5. Verification is performed by a separate verifier agent.
-6. Incidents update specs and constraints, not just code.
+6. Incidents update specs, constraints, or verification criteria, not just code.
 
 ## Repository structure
 
@@ -61,6 +79,13 @@ prompts/
   00-bootstrap/
   01-feature-lifecycle/
   02-maintenance/
+
+ru/
+  README.md
+  GLOSSARY.md
+  prompts/
+  .github/prompts/
+  specs/
 ```
 
 ## Bootstrap flow
@@ -143,7 +168,7 @@ Outputs:
 
 ## Feature flow
 
-For every new feature create a new folder under `specs/`:
+For every new feature create a folder under `specs/`:
 
 ```text
 specs/001-feature-name/
@@ -164,6 +189,17 @@ Run feature prompts in order:
 4. `04-create-tasks.md`
 5. `05-implement-task.md`
 6. `06-verify-task.md`
+
+## Maintenance flow
+
+Use maintenance prompts when reality changes the plan:
+
+1. `01-update-spec-after-incident.md`
+2. `02-update-constitution.md`
+3. `03-refine-tasks.md`
+4. `04-run-pre-implementation-checklist.md`
+
+These prompts prevent silent drift between intent, plan, and execution.
 
 ## Non-negotiable gates
 
@@ -208,6 +244,7 @@ Actively searches for scope violations, missed edge cases, forbidden patterns, a
 - No hidden assumptions; unresolved items must be listed as open questions.
 - No self-verification as the only quality control.
 - Every production incident must feed back into specs, constraints, or verification criteria.
+- Root documentation is canonical; localized documentation must be synchronized after root changes.
 
 ## Quick start
 
@@ -216,4 +253,5 @@ Actively searches for scope violations, missed edge cases, forbidden patterns, a
 3. Lock constitution and agent rules.
 4. Create `specs/001-first-feature/`.
 5. Run the feature lifecycle.
-6. Merge only after verifier feedback is resolved.
+6. Run the pre-implementation checklist before coding.
+7. Merge only after verifier feedback is resolved.

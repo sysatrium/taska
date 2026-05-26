@@ -1,73 +1,48 @@
-# Проверка Pre-Implementation Checklist
+# Maintenance 5.4 — Run Pre-Implementation Checklist
 
-## Назначение
+## Purpose
 
-Проверить, готова ли фича к началу кодинга.
+Decide whether a feature is actually ready for coding.
 
-Это финальный gate перед implementation.
+## When to use
 
-## Когда использовать
+Use before the first implementation task of every feature and again after any major spec, contract, or plan change.
 
-Используйте перед запуском `05-implement-task.md` для первой задачи фичи.
+## Inputs
 
-## Необходимые входные данные
+- `.specify/memory/constitution.md`
+- `AGENTS.md`
+- project overview artifacts
+- feature `spec.md`
+- feature contracts, if applicable
+- `plan.md`
+- `tasks.md`
 
-- Feature folder.
-- Project constitution.
-- AGENTS.md.
-- Feature `spec.md`.
-- Feature contracts.
-- Feature `plan.md`.
-- Feature `tasks.md`.
-
-## Инструкции для AI
-
-Прочитай:
+## Output file
 
 ```text
-.specify/memory/constitution.md
-AGENTS.md
-.specify/checklists/pre-implementation-checklist.md
-specs/NNN-feature-name/spec.md
-specs/NNN-feature-name/contracts/
-specs/NNN-feature-name/plan.md
-specs/NNN-feature-name/tasks.md
+Readiness decision in the current working context or task record
 ```
 
-Оцени готовность к реализации.
+## What to do
 
-Проверь:
+Check each item explicitly:
 
-1. Constitution существует и актуален.
-2. AGENTS.md существует и актуален.
-3. Feature spec содержит все обязательные разделы.
-4. Outcomes измеримы.
-5. In-scope и out-of-scope указаны явно.
-6. Constraints and assumptions указаны явно.
-7. Contracts существуют там, где нужны.
-8. Plan объясняет architecture и risks.
-9. Tasks атомарны и упорядочены по dependencies.
-10. Acceptance criteria проверяемы.
-11. Data model и migrations описаны, если релевантно.
-12. Security и non-functional requirements покрыты.
-
-Верни:
-
-```text
-READY / NOT READY
-```
-
-Если результат `NOT READY`, перечисли blockers и точные файлы, которые нужно исправить.
-
-## Выходные файлы
-
-Создание файлов не требуется, если это явно не запрошено.
+- constitution exists and is current
+- AGENTS.md exists and is current
+- feature spec exists and is complete
+- out-of-scope boundaries are explicit
+- contracts exist where needed
+- plan exists and is coherent
+- tasks are atomic and ordered
+- acceptance criteria are testable
+- major open questions are resolved or marked as blockers
 
 ## Quality gate
 
-Результат приемлем только если:
+Return only one of these outcomes:
 
-- Есть ясное решение ready/not-ready.
-- Blockers конкретны.
-- Кодинг не разрешается, если обязательные артефакты отсутствуют.
+- `READY FOR IMPLEMENTATION`
+- `NOT READY FOR IMPLEMENTATION`
 
+A ready decision is valid only if it is based on explicit artifact review, not intuition.

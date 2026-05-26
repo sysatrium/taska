@@ -2,32 +2,58 @@
 
 ## Purpose
 
-Describe the top-level domain entities and their relationships.
+Describe the top-level domain entities, relationships, invariants, and lifecycle states that define the system.
 
-## Required sections
-
-### 1. Core entities
+## 1. Core entities
 
 For each entity capture:
 
-- name
-- responsibility
-- key attributes
+- purpose
+- important attributes
+- owner or source of truth
 - lifecycle states
-- ownership boundary
+- sensitive fields
 
-### 2. Relationships
+## 2. Relationships
 
-Document entity relationships and cardinality.
+Describe how entities relate to one another.
 
-### 3. Invariants
+For each relationship capture:
 
-Document rules that must always remain true.
+- relationship type
+- cardinality
+- ownership
+- consistency expectations
 
-### 4. Sensitive data
+## 3. Invariants
 
-Document fields with privacy, security, or regulatory handling rules.
+Document domain rules that must always remain true.
 
-### 5. Open questions
+- identity invariants
+- state invariants
+- financial or numerical invariants
+- temporal invariants
 
-List unresolved modeling decisions.
+## 4. State transitions
+
+Describe major lifecycle transitions for important entities.
+
+For each entity include:
+
+- initial state
+- allowed transitions
+- forbidden transitions
+- terminal states
+
+## 5. Sensitive data
+
+Identify sensitive, regulated, or high-risk data elements.
+
+- PII
+- credentials or secrets
+- financial data
+- audit-critical fields
+
+## 6. Open questions
+
+List unresolved data-model questions.

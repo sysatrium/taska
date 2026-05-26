@@ -2,28 +2,19 @@
 
 ## Purpose
 
-Create `.specify/memory/constitution.md` as the governing contract for all AI agents and human contributors.
+Create the project's governing constitution so AI agents inherit stable operating rules instead of renegotiating them in every task.
+
+## When to use
+
+Use once at project start, before any feature specs, plans, or implementation work begin.
 
 ## Inputs
 
-- Project idea in 2-3 sentences
-- Target users
-- Business goal
-- Known constraints
-- Required integrations or compliance needs
-
-## Questions to ask
-
-Ask questions in batches of no more than 7 until all areas are covered:
-
-1. Product context
-2. Technology stack
-3. Architecture principles
-4. Code conventions
-5. Forbidden patterns
-6. Quality requirements
-7. Security rules
-8. Delivery process
+- project idea and product intent
+- target users and main outcomes
+- preferred stack or platform constraints
+- architecture preferences, if already known
+- testing, security, and delivery expectations
 
 ## Output file
 
@@ -31,29 +22,39 @@ Ask questions in batches of no more than 7 until all areas are covered:
 .specify/memory/constitution.md
 ```
 
+## What to do
+
+1. Interview the human operator before writing anything.
+2. Resolve missing decisions about stack, architecture boundaries, quality rules, security, and deployment.
+3. Create `constitution.md` as a stable rules document for all future agents.
+4. Prefer explicit rules over vague guidance.
+5. Mark unresolved issues as open questions instead of inventing answers.
+
 ## Required sections
 
-- Product context
-- Tech stack with exact choices
-- Architecture principles
-- Code conventions
-- Forbidden patterns
-- Testing rules
-- Security rules
-- Delivery rules
-- Open questions
+- project mission
+- product outcomes
+- approved stack
+- architecture principles
+- coding conventions
+- testing rules
+- security rules
+- forbidden patterns
+- delivery and release rules
+- decision log or open questions
 
 ## Quality gate
 
-Accept only if:
+Accept the result only if:
 
-- exact technologies are chosen
+- the file contains concrete rules, not generic best-practice filler
+- the rules are specific enough to constrain later implementation
 - forbidden patterns are explicit
-- security and testing rules are operational
-- unresolved items are listed as open questions
+- testing and security expectations are actionable
+- unresolved items are visible as open questions
 
 ## Do not proceed if
 
-- core stack is still undecided
-- architecture style is ambiguous
-- security model is missing
+- the constitution is mostly placeholders
+- critical decisions are silently assumed
+- architecture and quality rules are still ambiguous

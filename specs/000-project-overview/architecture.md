@@ -1,33 +1,82 @@
-# Architecture Decisions
+# Project Architecture Overview
 
 ## Purpose
 
-Record project-level architecture decisions before feature-level planning begins.
+Record the top-level architecture boundaries, modules, integrations, and key tradeoffs before feature-level planning begins.
 
-## Decision template
+## 1. System context
 
-## ADR-XXX: [Title]
+Describe the system's place in the wider environment.
 
-### Status
+- upstream systems
+- downstream systems
+- external dependencies
+- operator touchpoints
 
-Proposed | Accepted | Superseded
+## 2. Architecture boundaries
 
-### Context
+Describe the major boundaries that should shape implementation.
 
-What problem or constraint requires a decision?
+- domain boundaries
+- service boundaries
+- runtime boundaries
+- trust boundaries
+- deployment boundaries
 
-### Decision
+## 3. Major modules
 
-What was chosen?
+List the main modules or subsystems.
 
-### Rationale
+For each module capture:
 
-Why was it chosen over alternatives?
+- responsibility
+- inputs and outputs
+- dependencies
+- ownership
+- change risk
 
-### Consequences
+## 4. Integration patterns
 
-What trade-offs does this introduce?
+Describe how modules and external systems communicate.
 
-### Follow-up
+- sync vs async
+- API style
+- eventing or messaging
+- retry and failure handling
+- contract ownership
 
-What must happen next because of this decision?
+## 5. Cross-cutting concerns
+
+Document concerns that apply across the whole system.
+
+- authentication and authorization
+- observability
+- resilience
+- configuration and secrets
+- auditability
+
+## 6. Key constraints
+
+List project-level architecture constraints that later plans must honor.
+
+## 7. Tradeoffs and rationale
+
+Record major tradeoffs already accepted at project level.
+
+- tradeoff
+- rationale
+- downside accepted
+- follow-up implication
+
+## 8. Architecture decisions log
+
+Use this section for project-level ADR entries when needed.
+
+### ADR-XXX: [Title]
+
+- Status:
+- Context:
+- Decision:
+- Rationale:
+- Consequences:
+- Follow-up:

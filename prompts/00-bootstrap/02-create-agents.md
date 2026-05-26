@@ -2,42 +2,55 @@
 
 ## Purpose
 
-Create persistent operating context for AI agents after constitution is approved.
+Create stable operating context files so implementation and verification agents work from the same repository rules.
 
-## Preconditions
+## When to use
 
-- `.specify/memory/constitution.md` exists
-- constitution is reviewed by a human
+Use after `constitution.md` exists and before feature-level work starts.
 
-## Outputs
+## Inputs
+
+- `.specify/memory/constitution.md`
+- repository conventions already decided during bootstrap
+- expected agent/tool usage in the project
+
+## Output files
 
 ```text
 AGENTS.md
 CLAUDE.md
 ```
 
+## What to do
+
+1. Read the constitution before generating agent files.
+2. Create `AGENTS.md` as the persistent repository-wide context for all AI agents.
+3. Create `CLAUDE.md` as a compact tool-facing guide for Claude Code.
+4. Keep both files aligned with the constitution.
+5. Avoid duplicating long explanations when a short rule is enough.
+
 ## Required content for AGENTS.md
 
-1. Project overview
-2. SDD workflow
-3. Tech stack
-4. Architecture decisions
-5. Code conventions
-6. File organization
-7. Forbidden patterns
-8. Testing strategy
-9. Security rules
-10. Delivery and review rules
-11. Agent operating rules
+- project purpose
+- canonical artifact flow
+- agent role boundaries
+- repository rules
+- implementation guardrails
+- verification expectations
+- escalation rules for ambiguity
 
 ## Required content for CLAUDE.md
 
-- link to `AGENTS.md`
-- required file reading order
-- implementation rules
-- clarification rules
-- verification rules
+- short operating summary
+- repository commands or workflow conventions
+- what Claude must not do
+- how to respect spec boundaries and task atomicity
 
 ## Quality gate
 
-Accept only if both files are concise, operational, and tool-usable.
+Accept the result only if:
+
+- both files are consistent with the constitution
+- agent roles are clearly separated
+- implementer and verifier expectations are explicit
+- ambiguity escalation rules are present
