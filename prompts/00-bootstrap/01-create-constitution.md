@@ -1,111 +1,59 @@
-# Создание Project Constitution
+# Bootstrap 0.1 — Create Constitution
 
-## Назначение
+## Purpose
 
-Создать `.specify/memory/constitution.md` — основной свод правил проекта.
+Create `.specify/memory/constitution.md` as the governing contract for all AI agents and human contributors.
 
-Этот документ управляет поведением AI-агентов: технологическим стеком, архитектурными ограничениями, соглашениями по коду, запрещёнными практиками, требованиями к тестированию, безопасности и delivery-процессу.
+## Inputs
 
-## Когда использовать
+- Project idea in 2-3 sentences
+- Target users
+- Business goal
+- Known constraints
+- Required integrations or compliance needs
 
-Используйте один раз в начале greenfield-проекта, до создания feature specs и до написания кода.
+## Questions to ask
 
-Повторно используйте только тогда, когда меняются фундаментальные правила проекта.
+Ask questions in batches of no more than 7 until all areas are covered:
 
-## Необходимые входные данные
+1. Product context
+2. Technology stack
+3. Architecture principles
+4. Code conventions
+5. Forbidden patterns
+6. Quality requirements
+7. Security rules
+8. Delivery process
 
-- Идея проекта в 2-3 предложениях.
-- Целевые пользователи и бизнес-цель.
-- Предпочтительный или обязательный технологический стек, если он уже известен.
-- Известные ограничения, интеграции, security-требования и delivery-требования.
-
-## Инструкции для AI
-
-Ты помогаешь мне запустить greenfield-проект в подходе Spec-Driven Development.
-
-Не создавай `constitution.md` сразу.
-
-Сначала проведи интервью и собери все обязательные решения, необходимые для качественной project constitution.
-
-Задавай вопросы блоками. Не задавай больше 7 вопросов за один раз. Продолжай интервью, пока не будут покрыты все обязательные области.
-
-Покрой следующие области:
-
-1. Продуктовый контекст:
-   - Что мы строим?
-   - Для кого?
-   - Какую проблему решаем?
-   - Какие outcomes важны?
-
-2. Технологический стек:
-   - Язык.
-   - Framework.
-   - База данных.
-   - Frontend, если применимо.
-   - Инфраструктура и deployment.
-   - Инструменты тестирования.
-   - Инструменты observability.
-
-3. Архитектурные принципы:
-   - Monolith, modular monolith, microservices, serverless или другой стиль.
-   - Domain boundaries.
-   - DDD, CQRS, event-driven, layered architecture, hexagonal architecture или другие паттерны.
-   - Принципы интеграции.
-
-4. Code conventions:
-   - Naming.
-   - File organization.
-   - Error handling.
-   - Logging.
-   - Configuration.
-   - Dependency management.
-
-5. Forbidden patterns:
-   - Что AI-агенты никогда не должны делать.
-   - Примеры: hardcoded secrets, пропуск тестов, неутверждённые framework, скрытое global state, неподтверждённые зависимости.
-
-6. Quality requirements:
-   - Уровни тестирования.
-   - Минимальное покрытие.
-   - Performance expectations.
-   - Reliability expectations.
-   - Accessibility, если применимо.
-
-7. Security rules:
-   - Authentication и authorization.
-   - Secret management.
-   - Input validation.
-   - Data privacy.
-   - Audit logging.
-
-8. Delivery process:
-   - Branching.
-   - Pull request rules.
-   - CI checks.
-   - Release process.
-   - Definition of Done.
-
-Если мои ответы расплывчатые, задай уточняющие вопросы. Не придумывай важные правила проекта молча.
-
-Когда информации достаточно, сгенерируй полный файл:
+## Output file
 
 ```text
 .specify/memory/constitution.md
 ```
 
-## Выходные файлы
+## Required sections
 
-```text
-.specify/memory/constitution.md
-```
+- Product context
+- Tech stack with exact choices
+- Architecture principles
+- Code conventions
+- Forbidden patterns
+- Testing rules
+- Security rules
+- Delivery rules
+- Open questions
 
 ## Quality gate
 
-Результат приемлем только если:
+Accept only if:
 
-- Технологический стек содержит конкретные решения, а не варианты вида "X или Y".
-- Forbidden patterns описаны явно.
-- Testing и security rules применимы на практике.
-- AI-агенты могут использовать документ как стабильный контракт принятия решений.
-- Все неизвестные вопросы перечислены как open questions, а не спрятаны в assumptions.
+- exact technologies are chosen
+- forbidden patterns are explicit
+- security and testing rules are operational
+- unresolved items are listed as open questions
 
+## Do not proceed if
+
+- core stack is still undecided
+- architecture style is ambiguous
+- security model is missing

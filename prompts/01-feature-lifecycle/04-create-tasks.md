@@ -1,100 +1,23 @@
-# Создание Feature Tasks
+# Feature 3.1 — Create Tasks
 
-## Назначение
+## Purpose
 
-Создать `tasks.md` — упорядоченный список атомарных задач реализации фичи.
+Break the implementation plan into atomic execution units.
 
-Каждая задача должна быть достаточно небольшой, чтобы AI coding agent мог безопасно реализовать её отдельно.
-
-## Когда использовать
-
-Используйте после того, как существуют:
+## Output
 
 ```text
-specs/NNN-feature-name/spec.md
-specs/NNN-feature-name/plan.md
-specs/NNN-feature-name/contracts/
+specs/<NNN-feature-name>/tasks.md
 ```
 
-## Необходимые входные данные
+## Rules
 
-- Feature `spec.md`
-- Feature `plan.md`
-- Feature contracts
-- `AGENTS.md`
-- `.specify/memory/constitution.md`
-
-## Инструкции для AI
-
-Прочитай:
-
-```text
-AGENTS.md
-.specify/memory/constitution.md
-specs/NNN-feature-name/spec.md
-specs/NNN-feature-name/plan.md
-specs/NNN-feature-name/contracts/
-specs/templates/tasks-template.md
-```
-
-Создай:
-
-```text
-specs/NNN-feature-name/tasks.md
-```
-
-Правила:
-
-- Каждая задача должна быть атомарной.
-- Каждая задача должна соответствовать примерно 1-4 часам реализации.
-- У каждой задачи должны быть acceptance criteria.
-- У каждой задачи должен быть verification method.
-- У каждой задачи должны быть указаны dependencies.
-- У каждой задачи должны быть указаны ожидаемые affected files или modules.
-- У каждой задачи должен быть type: Setup, Schema, Backend, Frontend, Test, Docs, DevOps.
-
-Приоритизируй:
-
-```text
-Setup -> Schema/Data -> Business Logic -> API -> UI -> Tests -> Docs
-```
-
-Формат задачи:
-
-```text
-## Task N: Title
-
-**Type:** Backend / Frontend / Schema / Test / Docs / DevOps
-**Depends on:** Task X, Task Y или None
-**Files affected:** список ожидаемых файлов или modules
-
-### Description
-
-Что конкретно нужно сделать.
-
-### Acceptance Criteria
-
-- [ ] Конкретный проверяемый результат.
-- [ ] Конкретный проверяемый результат.
-
-### Verification
-
-Как проверить задачу.
-```
-
-## Выходные файлы
-
-```text
-specs/NNN-feature-name/tasks.md
-```
+- 1-4 hour tasks
+- explicit dependencies
+- acceptance criteria for every task
+- verification method for every task
+- prioritize infrastructure -> schema -> domain logic -> API -> UI -> tests -> docs
 
 ## Quality gate
 
-Результат приемлем только если:
-
-- Нет расплывчатых задач.
-- Нет слишком крупных задач.
-- Dependencies указаны явно.
-- Acceptance criteria проверяемы.
-- Tasks трассируются к feature spec и plan.
-
+Accept only if an implementer can pick a single task and execute it without re-planning the feature.

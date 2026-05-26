@@ -1,87 +1,33 @@
-# Создание Feature Spec
+# Feature 1.1 — Create Feature Specification
 
-## Назначение
+## Purpose
 
-Создать `spec.md` для новой фичи или эпика.
+Create `spec.md` as the authoritative definition of what will be built.
 
-Feature spec определяет, какой результат должен быть достигнут до начала архитектурного планирования и реализации.
+## Inputs
 
-## Когда использовать
+- feature name
+- business context
+- relevant project-level artifacts
 
-Используйте для каждой новой фичи до создания implementation plan, task breakdown и кода.
-
-## Необходимые входные данные
-
-- Название фичи.
-- Бизнес-контекст.
-- Пользователь или stakeholder.
-- Желаемый outcome.
-- Existing project overview.
-- `AGENTS.md`
-- `.specify/memory/constitution.md`
-
-## Инструкции для AI
-
-Прочитай:
+## Output
 
 ```text
-AGENTS.md
-.specify/memory/constitution.md
-specs/000-project-overview/spec.md
-specs/templates/spec-template.md
+specs/<NNN-feature-name>/spec.md
 ```
 
-Не создавай feature spec сразу.
+## Required sections
 
-Сначала проведи интервью. Спроси про:
-
-1. Измеримые outcomes.
-2. In-scope поведение.
-3. Out-of-scope поведение.
-4. Constraints and assumptions.
-5. Decisions already made.
-6. User flows.
-7. Edge cases.
-8. Verification criteria.
-9. Dependencies and integrations.
-
-Затем создай новую папку фичи:
-
-```text
-specs/NNN-feature-name/
-```
-
-Используй следующий доступный numeric prefix.
-
-Создай:
-
-```text
-specs/NNN-feature-name/spec.md
-```
-
-Spec должен включать:
-
-1. Outcomes
-2. In-Scope
-3. Out-of-Scope
-4. Constraints and Assumptions
-5. Decisions Already Made
-6. Preliminary Task Breakdown
-7. Verification Criteria
-
-## Выходные файлы
-
-```text
-specs/NNN-feature-name/spec.md
-```
+- outcomes
+- in scope
+- out of scope
+- constraints and assumptions
+- decisions already made
+- edge cases
+- verification criteria
+- initial task hints
+- open questions
 
 ## Quality gate
 
-Результат приемлем только если:
-
-- Outcomes измеримы.
-- Out-of-scope указан явно.
-- Verification criteria проверяемы.
-- Фича не противоречит project overview и constitution.
-- Любая неоднозначность зафиксирована как open question.
-
+Accept only if the feature can be implemented without hidden assumptions.
