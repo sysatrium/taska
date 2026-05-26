@@ -109,6 +109,33 @@ For each finding, use:
 - Required before merge:
 - Safe to defer:
 
+
+## Shared artifact update check
+
+Before closing verification, explicitly decide whether this task changed project-wide rules or reusable guidance.
+
+Check whether the result requires updates to any shared artifacts such as:
+
+- `AGENTS.md`
+- `.specify/memory/constitution.md`
+- `specs/templates/spec-template.md`
+- `specs/templates/plan-template.md`
+- repository-wide verification instructions or related bootstrap artifacts
+
+If no shared update is needed, say explicitly:
+
+- Shared artifact update required: No
+- Reason:
+
+If a shared update is needed, say explicitly:
+
+- Shared artifact update required: Yes
+- Files to update:
+- Why this became a project-wide rule:
+- Whether the update is required before merge or can be handled in a follow-up change:
+
+Add this decision to the final verification output.
+
 ## Quality gate
 
 Accept the verification only if:

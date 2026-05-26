@@ -46,3 +46,30 @@
 - замечания конкретны и опираются на факты
 - нарушения скоупа названы явно
 - неразрешённые дефекты не скрыты за формальным одобрением
+
+## Проверка обновления общих артефактов
+
+Перед закрытием verification явно решите, изменило ли это task-level изменение project-wide правила или переиспользуемые инструкции.
+
+Проверьте, требует ли результат обновления общих артефактов, например:
+
+- `AGENTS.md`
+- `.specify/memory/constitution.md`
+- `specs/templates/spec-template.md`
+- `specs/templates/plan-template.md`
+- repository-wide verification instructions или связанных bootstrap artifacts
+
+Если обновление общих артефактов не нужно, явно напишите:
+
+- Shared artifact update required: No
+- Reason:
+
+Если обновление общих артефактов нужно, явно напишите:
+
+- Shared artifact update required: Yes
+- Files to update:
+- Why this became a project-wide rule:
+- Whether the update is required before merge or can be handled in a follow-up change:
+
+Добавьте это решение в итоговый verification output.
+

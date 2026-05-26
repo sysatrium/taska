@@ -29,6 +29,8 @@ CLAUDE.md
 4. Define what agents may recommend by default and what always needs human confirmation.
 5. Define evidence labels and confidence expectations.
 6. Define how agents must escalate blockers and high-risk ambiguity.
+7. Add a mandatory post-feature review rule: after verification, the agent must explicitly decide whether the implemented change requires updates to shared artifacts such as `AGENTS.md`, `.specify/memory/constitution.md`, templates, or repository-wide verification instructions. If no update is needed, the agent must say so explicitly.
+
 
 ## Required content for AGENTS.md
 
