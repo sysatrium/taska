@@ -208,7 +208,96 @@
 Не перескакивай к следующему bootstrap-шагу, пока текущий не завершён.
 ```
 
+### 6.1. Проверка frontend defaults после bootstrap
+
+Используйте после создания constitution и agent-файлов:
+
+```text
+Проверь, что в constitution и связанных правилах явно зафиксированы frontend defaults проекта.
+Подтверди или добавь: modular monolith, feature-based structure, DDD-light, допустимое направление зависимостей pages -> widgets -> features -> entities -> shared, правило что shared UI не знает доменных терминов, и правило что feature UI использует semantic tokens вместо raw hex и raw px.
+Если чего-то не хватает, предложи точечное обновление и внеси его.
+```
+
+### 6.2. Скопируй и вставь UI/frontend policy pack
+
+Это лучший момент для policy pack: **сразу после bootstrap и до первой feature spec**.
+
+На этом шаге не нужно ничего долго придумывать.
+
+Сделайте так:
+
+1. скопируйте готовый набор ниже;
+2. вставьте его в чат IDE-агента;
+3. попросите агента разложить его по нужным местам проекта;
+4. проверьте, что агент действительно обновил нужные файлы.
+
+### Куда именно должен быть вставлен набор
+
+По инструкции агент должен разложить один и тот же policy pack так:
+
+- короткую версию — в `AGENTS.md`;
+- архитектурную версию — в `.specify/memory/constitution.md`;
+- обязательные поля и проверки — в `specs/templates/spec-template.md`, `specs/templates/plan-template.md` и `prompts/01-feature-lifecycle/06-verify-task.md`.
+
+Если какого-то файла ещё нет, агент должен создать его в правильном месте или встроить правила в ближайший подходящий проектный файл.
+
+### Что нужно скопировать
+
+Скопируйте весь блок ниже целиком:
+
+```text
+Используй этот готовый UI/frontend policy pack и разложи его по проектным правилам без сокращения смысла.
+
+Куда вставить:
+- короткую operational-версию — в AGENTS.md;
+- архитектурную версию — в .specify/memory/constitution.md;
+- обязательные поля и проверки — в specs/templates/spec-template.md, specs/templates/plan-template.md и prompts/01-feature-lifecycle/06-verify-task.md.
+
+Если какого-то файла нет, создай его или встрои правила в ближайший правильный файл проекта.
+
+UI/frontend policy pack:
+
+1. Architecture defaults
+- Default architecture is modular monolith.
+- Use feature-based structure by default.
+- Allowed dependency direction: pages -> widgets -> features -> entities -> shared.
+- shared must not depend on feature layers.
+- entities must not depend on pages.
+- one feature must not import private internals from another feature.
+
+2. UI layering rules
+- Every UI element must be classified as primitive, pattern, or feature UI.
+- Shared UI must not use domain-specific language.
+- Feature UI may use domain language when justified by the spec.
+- Prefer composition over universal super-components.
+
+3. Design token rules
+- Feature UI must use semantic tokens.
+- Do not use raw hex in feature UI.
+- Do not use raw px in feature UI where tokens already exist.
+- Spacing, radius, shadow, and typography should also go through tokens.
+
+4. Verification defaults
+- UI changes must define loading, empty, and error states.
+- Verifier must check correct layer placement and dependency direction.
+- Verifier must check that shared UI does not leak domain terminology.
+- Verifier must check token discipline and no accessibility regression.
+
+После вставки:
+1. покажи, в какие файлы ты добавил эти правила;
+2. коротко перечисли, что именно куда попало;
+3. не начинай feature spec, пока policy pack не будет встроен.
+```
+
+Результат шага:
+
+- у проекта есть готовый policy pack;
+- новичок ничего не формулирует вручную;
+- агент сам раскладывает набор по правильным файлам;
+- следующие spec и plan уже опираются на встроенные правила.
+
 ### 7. Первая feature spec
+
 
 Используйте вместе с `prompts/01-feature-lifecycle/01-create-feature-spec.md`:
 
@@ -218,6 +307,8 @@
 Не расширяй scope без необходимости.
 Сделай spec достаточно конкретной для plan и tasks.
 Если чего-то не хватает, зафиксируй это как open question или assumption.
+Объясняй мне сложные поля простыми словами и заполняй шаблон по шагам.
+Для UI-фич обязательно помоги определить: это primitive, pattern или feature UI; в каком слое живёт решение; какие semantic tokens используются; где доменные термины допустимы, а где нет.
 ```
 
 ### 8. План реализации
@@ -229,6 +320,7 @@
 Не добавляй новые фичи от себя.
 Покажи компоненты, data flow, риски и основные технические решения.
 Сохрани результат в соответствующий plan.md.
+Для frontend-задач явно покажи: по каким слоям пойдут изменения, не ломается ли направление зависимостей, какие primitives и patterns переиспользуются, какие loading/empty/error states нужны и как используются semantic tokens.
 ```
 
 ### 9. Декомпозиция на задачи
@@ -262,6 +354,7 @@
 Ищи несоответствия spec, выход за scope, пропущенные edge cases и слабые места в качестве.
 Если найдёшь проблему, укажи severity и объясни, в чём дефект.
 Не исправляй код молча — сначала покажи вывод проверки.
+Для frontend-задач отдельно проверь: корректен ли слой, не нарушено ли направление зависимостей, не утекли ли доменные термины в shared UI, нет ли raw hex и raw px в feature UI, и описаны ли loading/empty/error states.
 ```
 
 ## Самый безопасный путь для новичка
