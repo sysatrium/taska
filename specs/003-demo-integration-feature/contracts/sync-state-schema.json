@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/external-issue-sync-state.json",
+  "title": "External Issue Sync State",
+  "description": "Schema for tracking inbound webhook processing lifecycle in the integration demo.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["providerEventId", "state", "receivedAt"],
+  "properties": {
+    "providerEventId": { "type": "string" },
+    "externalIssueId": { "type": "string" },
+    "localTaskId": { "type": "string" },
+    "receivedAt": { "type": "string", "format": "date-time" },
+    "processedAt": { "type": "string", "format": "date-time" },
+    "state": {
+      "type": "string",
+      "enum": ["accepted", "queued", "processing", "synced", "duplicate", "stale", "failed", "manual_review"]
+    },
+    "externalStatus": { "type": "string" },
+    "mappedLocalStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] },
+    "failureType": {
+      "type": "string",
+      "enum": ["signature", "payload", "mapping", "linkage", "domain", "transport", "ordering"]
+    },
+    "message": { "type": "string" },
+    "attemptCount": { "type": "integer", "minimum": 0 }
+  },
+  "examples": [
+    {
+      "providerEventId": "evt_001",
+      "externalIssueId": "ISSUE-123",
+      "localTaskId": "task_123",
+      "receivedAt": "2026-05-26T19:10:01Z",
+      "processedAt": "2026-05-26T19:10:03Z",
+      "state": "synced",
+      "externalStatus": "In Progress",
+      "mappedLocalStatus": "in_progress",
+      "attemptCount": 1
+    },
+    {
+      "providerEventId": "evt_002",
+      "externalIssueId": "ISSUE-999",
+      "receivedAt": "2026-05-26T19:15:00Z",
+      "state": "manual_review",
+      "externalStatus": "QA Review",
+      "failureType": "mapping",
+      "message": "No mapping configured for external status 'QA Review'.",
+      "attemptCount": 1
+    }
+  ]
+}

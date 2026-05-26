@@ -6,6 +6,9 @@
 - Feature name:
 - Status: Draft | Approved | In Progress | Verified | Superseded
 - Owner:
+- Decision owner:
+- Confidence level: High | Medium | Low
+- Evidence status:
 - Last updated:
 - Related overview artifacts:
 - Related contracts:
@@ -21,33 +24,51 @@ State the problem being solved and the intended user or business outcome.
 - What changes if the feature succeeds
 - Why now
 
-## 3. Expected outcomes
+## 3. Evidence map
 
-Describe concrete, testable outcomes.
+### Known facts
+
+- Describe confirmed facts from approved context.
+
+### Inferred context
+
+- Describe context inferred from known information.
+
+### Recommended defaults
+
+- Describe recommended defaults and short tradeoff logic.
+
+### Provisional assumptions
+
+- Describe the first assumption clearly.
+- Describe the second assumption clearly.
+- Describe the third assumption clearly.
+
+### Needs confirmation
+
+- Capture the first unresolved confirmation item.
+- Capture the second unresolved confirmation item.
+- Capture the third unresolved confirmation item.
+
+## 4. Expected outcomes
 
 - Outcome 1:
 - Outcome 2:
 - Outcome 3:
 
-## 4. In scope
-
-List what will be built in this feature.
+## 5. In scope
 
 - Describe the first item explicitly.
 - Describe the second item explicitly.
 - Describe the third item explicitly.
 
-## 5. Out of scope
-
-List what must not be built as part of this feature.
+## 6. Out of scope
 
 - Describe the first excluded item explicitly.
 - Describe the second excluded item explicitly.
 - Describe the third excluded item explicitly.
 
-## 6. Constraints and assumptions
-
-Document constraints and assumptions explicitly.
+## 7. Constraints and assumptions
 
 ### Constraints
 
@@ -63,43 +84,35 @@ Document constraints and assumptions explicitly.
 - Describe the second assumption clearly.
 - Describe the third assumption clearly.
 
-## 7. Dependencies
+## 8. Dependencies
 
-List upstream, downstream, team, platform, or external dependencies.
+- Upstream dependency:
+- Downstream dependency:
+- External dependency:
 
-- Capture the first unresolved question.
-- Capture the second unresolved question.
-- Capture the third unresolved question.
-
-## 8. Decisions already made
-
-Record decisions that are already locked and must not be reopened during implementation.
+## 9. Decisions already made
 
 - Decision:
+  - Status: Approved | Recommended | Provisional
   - Rationale:
   - Implication:
+  - Requires confirmation by:
 
-## 9. Edge cases and failure scenarios
-
-List important boundary and failure scenarios.
+## 10. Edge cases and failure scenarios
 
 - Edge case:
   - Expected behavior:
 - Failure scenario:
   - Expected behavior:
 
-## 10. Verification criteria
-
-List how success and correctness will be checked.
+## 11. Verification criteria
 
 ### Functional verification
 
 - 
-- 
 
 ### Non-functional verification
 
-- 
 - 
 
 ### Observability and diagnostics
@@ -109,25 +122,23 @@ List how success and correctness will be checked.
 - traces:
 - alerts:
 
-## 11. Initial task hints
-
-List 5-10 likely implementation slices.
+## 12. Initial task hints
 
 1. Describe the first implementation slice.
 2. Describe the second implementation slice.
 3. Describe the third implementation slice.
 
-## 12. Open questions
+## 13. Open questions
 
-List unresolved questions that require clarification before planning or implementation.
+- Capture the first unresolved question.
+- Capture the second unresolved question.
+- Capture the third unresolved question.
 
-- 
-- 
-- 
-
-## 13. Ready-for-plan checklist
+## 14. Ready-for-plan checklist
 
 - [ ] Objective is explicit.
+- [ ] Evidence status is visible.
+- [ ] Provisional items are labeled.
 - [ ] In-scope and out-of-scope are separated clearly.
 - [ ] Constraints are concrete.
 - [ ] Dependencies are visible.

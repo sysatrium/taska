@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/task-status-update-response.json",
+  "title": "Task Status Update Response",
+  "description": "Schema for the successful response returned after a task status update.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "taskId",
+    "previousStatus",
+    "currentStatus",
+    "updatedAt",
+    "updatedBy"
+  ],
+  "properties": {
+    "taskId": {
+      "type": "string"
+    },
+    "previousStatus": {
+      "type": "string",
+      "enum": ["todo", "in_progress", "done", "blocked"]
+    },
+    "currentStatus": {
+      "type": "string",
+      "enum": ["todo", "in_progress", "done", "blocked"]
+    },
+    "blockedReason": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedBy": {
+      "type": "string"
+    }
+  },
+  "examples": [
+    {
+      "taskId": "task_123",
+      "previousStatus": "todo",
+      "currentStatus": "in_progress",
+      "updatedAt": "2026-05-26T20:00:00Z",
+      "updatedBy": "user_42"
+    },
+    {
+      "taskId": "task_123",
+      "previousStatus": "in_progress",
+      "currentStatus": "blocked",
+      "blockedReason": "Waiting for dependency from external team",
+      "updatedAt": "2026-05-26T20:10:00Z",
+      "updatedBy": "user_42"
+    }
+  ]
+}

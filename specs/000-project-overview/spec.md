@@ -14,30 +14,35 @@ Define the system's primary purpose, who it serves, and what meaningful outcome 
 
 ## 2. Primary actors
 
-List the core user types, operators, administrators, external systems, and any other important actors.
-
-For each actor capture:
-
-- goals
-- key interactions
-- permissions or trust level
-- critical constraints
+For each actor capture goals, interactions, permissions, and critical constraints.
 
 ## 3. Primary workflows
 
-Describe the end-to-end workflows that matter most at project level.
+Describe the project-level workflows that matter most.
 
-For each workflow capture:
+## 4. Evidence map
 
-- trigger
-- happy path
-- major decision points
-- failure or exception paths
-- expected outcome
+### Known facts
 
-## 4. System boundaries
+- Describe confirmed project facts.
 
-Describe what belongs inside the system and what is intentionally outside it.
+### Inferred context
+
+- Describe context inferred from approved inputs.
+
+### Provisional defaults
+
+- Describe defaults used to continue bootstrap safely.
+
+### Known unknowns
+
+- Describe unresolved project-level uncertainty.
+
+### Requires human confirmation
+
+- Describe decisions that must be confirmed explicitly.
+
+## 5. System boundaries
 
 ### In scope at project level
 
@@ -51,39 +56,22 @@ Describe what belongs inside the system and what is intentionally outside it.
 - Describe the second excluded capability or responsibility.
 - Describe the third excluded capability or responsibility.
 
-## 5. Global constraints
+## 6. Global constraints
 
 Document project-level constraints that should shape all feature planning.
 
-- stack or platform constraints
-- security and compliance constraints
-- performance constraints
-- delivery and rollout constraints
-- data residency or integration constraints
-
-## 6. Non-goals
+## 7. Non-goals
 
 List things the project should explicitly avoid becoming.
 
-## 7. Success metrics
+## 8. Success metrics
 
 Define measurable indicators that show whether the project is succeeding.
 
-- user outcome metrics
-- delivery metrics
-- quality metrics
-- operational metrics
-
-## 8. System-level verification
+## 9. System-level verification
 
 Describe how the project will be validated beyond feature-level acceptance.
 
-- critical user journeys
-- operational checks
-- security validation
-- observability expectations
-- release-readiness criteria
-
-## 9. Open questions
+## 10. Open questions
 
 List unresolved project-level questions that must remain visible.

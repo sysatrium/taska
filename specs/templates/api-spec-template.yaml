@@ -1,27 +1,28 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: Feature API Template
+  title: Feature API Contract Template
   version: 0.1.0
   description: >-
-    Template for feature-level API contracts. Replace placeholder content with
-    the real interface before implementation begins.
+    Template for feature-level API contracts created before implementation.
 servers:
   - url: https://api.example.com
-    description: Example production server
-security: []
+    description: Example server placeholder
+tags:
+  - name: feature
+    description: Replace with feature-specific tag
 paths:
-  /example:
+  /example-resource:
     get:
-      summary: Example operation
-      operationId: getExample
-      tags:
-        - Example
+      tags: [feature]
+      summary: Describe the read operation
+      operationId: getExampleResource
       parameters:
-        - name: requestId
-          in: header
-          required: false
+        - name: id
+          in: query
+          required: true
           schema:
             type: string
+          description: Replace with real query parameter description
       responses:
         '200':
           description: Successful response
@@ -35,12 +36,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Authentication required
+        '403':
+          description: Forbidden
+        '404':
+          description: Resource not found
         '500':
           description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 components:
   securitySchemes:
     bearerAuth:
@@ -51,16 +54,20 @@ components:
     ExampleResponse:
       type: object
       additionalProperties: false
+      required: [id, status]
       properties:
         id:
           type: string
         status:
           type: string
-          enum: [ok]
-      required: [id, status]
+          description: Replace with business-specific state meaning
+        meta
+          type: object
+          additionalProperties: true
     ErrorResponse:
       type: object
       additionalProperties: false
+      required: [code, message]
       properties:
         code:
           type: string
@@ -70,4 +77,5 @@ components:
           type: array
           items:
             type: string
-      required: [code, message]
+security:
+  - bearerAuth: []

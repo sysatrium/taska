@@ -1,59 +1,82 @@
-# Project Data Model
+# Project Data Model Overview
 
 ## Purpose
 
-Describe the top-level domain entities, relationships, invariants, and lifecycle states that define the system.
+Describe the system-level domain model before feature-level implementation begins.
 
-## 1. Core entities
+## 1. Modeling principles
+
+- Keep the model aligned with approved project boundaries.
+- Separate confirmed entities from inferred or provisional ones.
+- Avoid inventing persistence details before they are needed.
+
+## 2. Evidence map
+
+### Known entities
+
+- Describe confirmed domain entities.
+
+### Inferred entities
+
+- Describe entities inferred from approved context.
+
+### Provisional entities or relationships
+
+- Describe temporary modeling defaults that require later confirmation.
+
+### Open questions
+
+- Capture unresolved modeling uncertainty.
+
+## 3. Core entities
 
 For each entity capture:
 
+- name
 - purpose
-- important attributes
-- owner or source of truth
-- lifecycle states
-- sensitive fields
+- key attributes
+- constraints
+- lifecycle notes
 
-## 2. Relationships
-
-Describe how entities relate to one another.
+## 4. Relationships
 
 For each relationship capture:
 
-- relationship type
+- source entity
+- target entity
 - cardinality
-- ownership
-- consistency expectations
+- ownership or dependency notes
+- deletion or mutation implications
 
-## 3. Invariants
+## 5. Value objects and enums
 
-Document domain rules that must always remain true.
+- Value object:
+  - purpose:
+  - fields:
+- Enum:
+  - allowed values:
+  - business meaning:
 
-- identity invariants
-- state invariants
-- financial or numerical invariants
-- temporal invariants
+## 6. State transitions
 
-## 4. State transitions
+Describe important entity states and valid transitions.
 
-Describe major lifecycle transitions for important entities.
+## 7. Invariants and business rules
 
-For each entity include:
+- Rule:
+  - affected entities:
+  - enforcement point:
 
-- initial state
-- allowed transitions
-- forbidden transitions
-- terminal states
+## 8. Storage implications
 
-## 5. Sensitive data
+Describe storage or schema implications only at a high level.
 
-Identify sensitive, regulated, or high-risk data elements.
+## 9. Sensitive data and compliance notes
 
-- PII
-- credentials or secrets
-- financial data
-- audit-critical fields
+- data class:
+- reason for sensitivity:
+- handling expectation:
 
-## 6. Open questions
+## 10. Decisions requiring confirmation
 
-List unresolved data-model questions.
+- Capture entity or relationship decisions that later planning must not guess.

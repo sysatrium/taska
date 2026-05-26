@@ -10,35 +10,19 @@ Use this repository to run the full cycle:
 
 `Bootstrap -> Specify -> Contract -> Plan -> Tasks -> Implement -> Verify -> Learn`
 
-The operating model is intentionally biased toward:
-
-- deterministic AI execution
-- explicit scope boundaries
-- artifact-first delivery
-- separate verifier responsibility
-- post-incident specification learning
-
 ## Canonical policy
 
-The repository root is the **canonical source** for structure and operating rules.
+The repository root is the canonical source for structure and operating rules.
 
-Use the root documentation and prompt set when you want:
+Use the root documentation and prompt set for source-of-truth rules.
 
-- the source-of-truth structure
-- the canonical wording of operating rules
-- the baseline prompt-pack for tooling integration
-
-Use `ru/` when you want:
-
-- human-facing Russian documentation
-- Russian bootstrap and feature prompts
-- Russian onboarding for local teams
+Use `ru/` for Russian onboarding and synchronized local-team documentation.
 
 When the root and `ru/` diverge, update the root first, then synchronize `ru/`.
 
 ## Operating model
 
-This kit assumes a **human-led bootstrap**:
+This kit assumes a human-led bootstrap:
 
 1. A human runs bootstrap prompts in order.
 2. AI agents generate project operating artifacts.
@@ -46,6 +30,67 @@ This kit assumes a **human-led bootstrap**:
 4. Each feature is implemented through atomic tasks.
 5. Verification is performed by a separate verifier agent.
 6. Incidents update specs, constraints, or verification criteria, not just code.
+
+## Guided bootstrap mode
+
+Beginner uncertainty is expected.
+
+When the user does not know the answer, the agent must work as a decision partner rather than a passive interviewer.
+
+The required sequence is:
+
+`what is already known -> what is missing -> viable options -> recommended default -> what requires user confirmation`
+
+Recommendations must be grounded in:
+
+- known project context
+- relevant industry good and best practices
+- proven patterns from similar systems
+
+Recommendation rules:
+
+- prefer the safest manageable default over the most fashionable option
+- show 2-3 viable options, not an unbounded list
+- explain tradeoffs briefly
+- mark provisional defaults explicitly
+- escalate instead of guessing when ambiguity is high-risk
+
+## Anti-hallucination policy
+
+The repository uses controlled uncertainty instead of silent invention.
+
+Required controls:
+
+- no hidden assumptions; unresolved items must be listed as open questions
+- major decisions should be labeled as Known, Inferred, Recommended, Assumed, Open Question, or Blocked
+- recommendations should include a confidence level when the context is incomplete
+- high-risk ambiguity must block finalization instead of being guessed away
+- verifier review must search for unsupported claims and phantom certainty
+
+## Decision governance
+
+### Source-of-truth precedence
+
+Use this order when information conflicts:
+
+1. explicit human approval
+2. current constitution
+3. approved project overview
+4. approved feature spec
+5. approved plan
+6. inferred context
+
+### Assumption budget
+
+Do not allow a large number of silent assumptions to accumulate.
+
+If too many unresolved assumptions are needed to continue, convert them into open questions or block the artifact.
+
+### Decision freeze points
+
+After constitution, approved spec, or approved plan are accepted, agents must not silently revise those decisions during later phases.
+
+Use explicit update flows instead.
 
 ## Repository structure
 
@@ -92,125 +137,37 @@ ru/
 
 Run the bootstrap prompts in this exact order.
 
-### 0.1 Create Constitution
+1. `prompts/00-bootstrap/01-create-constitution.md`
+2. `prompts/00-bootstrap/02-create-agents.md`
+3. `prompts/00-bootstrap/03-create-project-overview.md`
+4. `prompts/00-bootstrap/04-create-sdd-structure.md`
+5. `prompts/00-bootstrap/05-create-operational-prompts.md`
 
-Prompt file:
+## Reference example
 
-```text
-prompts/00-bootstrap/01-create-constitution.md
-```
+Use the demo feature pack as the canonical example of how one feature should move through the SDD lifecycle.
 
-Output:
+Primary example:
 
-```text
-.specify/memory/constitution.md
-```
+- `specs/001-demo-feature/spec.md`
+- `specs/001-demo-feature/plan.md`
+- `specs/001-demo-feature/tasks.md`
+- `specs/001-demo-feature/contracts/api-spec.yaml`
+- `specs/001-demo-feature/contracts/data-schema.json`
+- `specs/001-demo-feature/verify.md`
 
-### 0.2 Create Agent Operating Context
-
-Prompt file:
-
-```text
-prompts/00-bootstrap/02-create-agents.md
-```
-
-Outputs:
-
-```text
-AGENTS.md
-CLAUDE.md
-```
-
-### 0.3 Create Project Overview
-
-Prompt file:
-
-```text
-prompts/00-bootstrap/03-create-project-overview.md
-```
-
-Outputs:
-
-```text
-specs/000-project-overview/spec.md
-specs/000-project-overview/data-model.md
-specs/000-project-overview/architecture.md
-```
-
-### 0.4 Create SDD Structure
-
-Prompt file:
-
-```text
-prompts/00-bootstrap/04-create-sdd-structure.md
-```
-
-Outputs:
-
-- project folders for specs and contracts
-- reusable templates
-- prompt-pack structure
-- feature numbering convention
-
-### 0.5 Create Operational Prompts
-
-Prompt file:
-
-```text
-prompts/00-bootstrap/05-create-operational-prompts.md
-```
-
-Outputs:
-
-```text
-.github/prompts/*.md
-```
-
-## Feature flow
-
-For every new feature create a folder under `specs/`:
-
-```text
-specs/001-feature-name/
-  spec.md
-  plan.md
-  tasks.md
-  research.md
-  contracts/
-    api-spec.yaml
-    data-schema.json
-```
-
-Run feature prompts in order:
-
-1. `01-create-feature-spec.md`
-2. `02-create-api-contract.md`
-3. `03-create-plan.md`
-4. `04-create-tasks.md`
-5. `05-implement-task.md`
-6. `06-verify-task.md`
-
-## Maintenance flow
-
-Use maintenance prompts when reality changes the plan:
-
-1. `01-update-spec-after-incident.md`
-2. `02-update-constitution.md`
-3. `03-refine-tasks.md`
-4. `04-run-pre-implementation-checklist.md`
-
-These prompts prevent silent drift between intent, plan, and execution.
+Use this pack to calibrate agent output format, traceability depth, evidence labeling, and verifier expectations before generating new feature artifacts.
 
 ## Non-negotiable gates
 
-Coding may start **only after** the following are true:
+Coding may start only after:
 
 - `constitution.md` exists and is current
 - `AGENTS.md` exists and is current
 - project overview artifacts exist
 - feature `spec.md` exists
 - `Out-of-Scope` is explicit
-- API/data contracts exist where applicable
+- API and data contracts exist where applicable
 - `plan.md` exists
 - `tasks.md` exists with dependencies and verification steps
 
@@ -234,24 +191,16 @@ Implements exactly one task at a time.
 
 ### Verifier
 
-Actively searches for scope violations, missed edge cases, forbidden patterns, and security defects.
+Searches for scope violations, unsupported claims, missed edge cases, forbidden patterns, weak tests, and security defects.
 
-## Production rules
+## Secondary reference example
 
-- Specs are the primary artifacts; code is downstream.
-- No feature implementation from vague prompts.
-- No multi-day tasks in `tasks.md`.
-- No hidden assumptions; unresolved items must be listed as open questions.
-- No self-verification as the only quality control.
-- Every production incident must feed back into specs, constraints, or verification criteria.
-- Root documentation is canonical; localized documentation must be synchronized after root changes.
+Use `specs/002-demo-ui-feature/` as the UI-heavy companion example to `specs/001-demo-feature/`.
 
-## Quick start
+It demonstrates inline interaction modeling, UI state schema design, frontend task decomposition, and verifier expectations for stateful user-facing features.
 
-1. Complete bootstrap phase `00-bootstrap`.
-2. Review generated artifacts with a human.
-3. Lock constitution and agent rules.
-4. Create `specs/001-first-feature/`.
-5. Run the feature lifecycle.
-6. Run the pre-implementation checklist before coding.
-7. Merge only after verifier feedback is resolved.
+## Third reference example
+
+Use `specs/003-demo-integration-feature/` as the integration-heavy reference example.
+
+It demonstrates webhook contracts, async reconciliation, idempotency, stale-event handling, observability, and verifier expectations for external-system integrations.

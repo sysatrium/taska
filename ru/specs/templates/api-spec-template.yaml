@@ -1,27 +1,28 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Шаблон API-контракта фичи
   version: 0.1.0
   description: >-
-    Шаблон для feature-level API-контрактов. Замените плейсхолдеры реальным
-    интерфейсом до начала реализации.
+    Шаблон для feature-level API-контрактов, которые создаются до реализации.
 servers:
   - url: https://api.example.com
-    description: Пример production-сервера
-security: []
+    description: Плейсхолдер сервера
+tags:
+  - name: feature
+    description: Замените на тег конкретной фичи
 paths:
-  /example:
+  /example-resource:
     get:
-      summary: Пример операции
-      operationId: getExample
-      tags:
-        - Example
+      tags: [feature]
+      summary: Опишите операцию чтения
+      operationId: getExampleResource
       parameters:
-        - name: requestId
-          in: header
-          required: false
+        - name: id
+          in: query
+          required: true
           schema:
             type: string
+          description: Замените на реальное описание параметра
       responses:
         '200':
           description: Успешный ответ
@@ -35,12 +36,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Требуется аутентификация
+        '403':
+          description: Доступ запрещён
+        '404':
+          description: Ресурс не найден
         '500':
           description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 components:
   securitySchemes:
     bearerAuth:
@@ -51,16 +54,20 @@ components:
     ExampleResponse:
       type: object
       additionalProperties: false
+      required: [id, status]
       properties:
         id:
           type: string
         status:
           type: string
-          enum: [ok]
-      required: [id, status]
+          description: Замените на бизнес-смысл состояния
+        meta
+          type: object
+          additionalProperties: true
     ErrorResponse:
       type: object
       additionalProperties: false
+      required: [code, message]
       properties:
         code:
           type: string
@@ -70,4 +77,5 @@ components:
           type: array
           items:
             type: string
-      required: [code, message]
+security:
+  - bearerAuth: []

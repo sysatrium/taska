@@ -7,5 +7,6 @@ Rules:
 - acceptance criteria required
 - verification method required
 - no multi-day tasks
-
-Refuse task sets that force replanning during implementation.
+- tasks must not silently decide unresolved product or architecture questions
+- each task should state what it must not decide
+- block instead of improvising when upstream decisions are missing

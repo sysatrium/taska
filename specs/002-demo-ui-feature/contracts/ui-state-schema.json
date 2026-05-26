@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/inline-task-status-editor-ui-state.json",
+  "title": "Inline Task Status Editor UI State",
+  "description": "Schema describing the local UI state for the inline status editor demo.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "taskId", "currentStatus"],
+      "properties": {
+        "state": { "const": "idle" },
+        "taskId": { "type": "string" },
+        "currentStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "taskId", "currentStatus", "availableStatuses"],
+      "properties": {
+        "state": { "const": "open" },
+        "taskId": { "type": "string" },
+        "currentStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] },
+        "availableStatuses": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] },
+          "minItems": 1
+        },
+        "selectedStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "taskId", "currentStatus", "selectedStatus"],
+      "properties": {
+        "state": { "const": "submitting" },
+        "taskId": { "type": "string" },
+        "currentStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] },
+        "selectedStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "taskId", "currentStatus", "previousStatus"],
+      "properties": {
+        "state": { "const": "success" },
+        "taskId": { "type": "string" },
+        "previousStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] },
+        "currentStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "taskId", "currentStatus", "message", "errorType"],
+      "properties": {
+        "state": { "const": "error" },
+        "taskId": { "type": "string" },
+        "currentStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] },
+        "message": { "type": "string" },
+        "errorType": { "type": "string", "enum": ["validation", "not_found", "unauthorized", "transport"] },
+        "selectedStatus": { "type": "string", "enum": ["todo", "in_progress", "done", "blocked"] }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "state": "open",
+      "taskId": "task_123",
+      "currentStatus": "todo",
+      "availableStatuses": ["todo", "in_progress", "done", "blocked"],
+      "selectedStatus": "in_progress"
+    },
+    {
+      "state": "error",
+      "taskId": "task_123",
+      "currentStatus": "in_progress",
+      "selectedStatus": "blocked",
+      "errorType": "validation",
+      "message": "Blocked status requires a reason."
+    }
+  ]
+}

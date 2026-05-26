@@ -1,0 +1,96 @@
+openapi: 3.1.0
+info:
+  title: External Issue Tracker Webhook Contract
+  version: 1.0.0
+  description: Contract for inbound issue status change events from an external tracker.
+paths:
+  /integrations/external-issues/webhooks/status-changed:
+    post:
+      summary: Receive issue status change events
+      description: Accept signed webhook events and acknowledge receipt for asynchronous reconciliation.
+      operationId: receiveIssueStatusChangedWebhook
+      parameters:
+        - name: X-Provider-Event-Id
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: X-Provider-Signature
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusChangedEvent'
+      responses:
+        '202':
+          description: Event accepted for asynchronous processing
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [accepted, eventId]
+                properties:
+                  accepted:
+                    type: boolean
+                    const: true
+                  eventId:
+                    type: string
+        '400':
+          description: Invalid payload
+        '401':
+          description: Invalid signature
+        '409':
+          description: Duplicate event recognized
+components:
+  schemas:
+    StatusChangedEvent:
+      type: object
+      additionalProperties: false
+      required:
+        - providerEventId
+        - occurredAt
+        - issue
+        - change
+      properties:
+        providerEventId:
+          type: string
+        occurredAt:
+          type: string
+          format: date-time
+        issue:
+          type: object
+          additionalProperties: false
+          required: [externalIssueId, externalProjectKey]
+          properties:
+            externalIssueId:
+              type: string
+            externalProjectKey:
+              type: string
+        change:
+          type: object
+          additionalProperties: false
+          required: [field, fromStatus, toStatus]
+          properties:
+            field:
+              type: string
+              const: status
+            fromStatus:
+              type: string
+            toStatus:
+              type: string
+      examples:
+        - providerEventId: evt_001
+          occurredAt: '2026-05-26T19:10:00Z'
+          issue:
+            externalIssueId: ISSUE-123
+            externalProjectKey: DEMO
+          change:
+            field: status
+            fromStatus: Open
+            toStatus: In Progress

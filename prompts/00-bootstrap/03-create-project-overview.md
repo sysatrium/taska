@@ -25,10 +25,11 @@ specs/000-project-overview/architecture.md
 ## What to do
 
 1. Summarize the system at a project-wide level.
-2. Write `spec.md` for goals, actors, scope shape, and expected outcomes.
-3. Write `data-model.md` for core entities, relationships, invariants, and important lifecycle states.
-4. Write `architecture.md` for boundaries, modules, integrations, constraints, and major tradeoffs.
-5. Keep all three files consistent with the constitution.
+2. If actors, workflows, or boundaries are unclear, propose candidate versions from the constitution and product intent.
+3. Label major statements as Known, Inferred, Recommended, Assumed, Open Question, or Blocked.
+4. Mark provisional defaults explicitly.
+5. Block only on high-risk ambiguity.
+6. Keep all three files consistent with the constitution.
 
 ## Quality gate
 
@@ -37,4 +38,5 @@ Accept the result only if:
 - the project overview is specific to this system
 - the data model identifies meaningful entities and constraints
 - architecture boundaries are explicit enough to guide later plans
+- provisional items are clearly marked
 - no file contradicts the constitution

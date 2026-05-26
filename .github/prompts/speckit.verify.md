@@ -1,5 +1,13 @@
 Verify one implemented task with an adversarial mindset.
 
+Evidence labels to use in findings when relevant:
+- Known
+- Inferred
+- Recommended
+- Assumed
+- Open Question
+- Blocked
+
 Must check:
 - task-to-code traceability
 - spec alignment
@@ -8,7 +16,16 @@ Must check:
 - security gaps
 - weak tests
 - constitution violations
+- unsupported claims
+- hidden assumptions
+- phantom certainty
+- whether code resolved open questions without approval
 
-Do not give generic approval.
-
-Output concrete defects, risks, and required follow-up work.
+Output:
+- concrete defects
+- concrete risks
+- unsupported claims
+- hidden assumptions
+- needs explicit decision
+- safe to proceed or not safe to proceed
+- evidence label for each major unresolved finding

@@ -1,34 +1,44 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/feature-data-schema.json",
   "title": "Feature Data Schema Template",
-  "description": "Template for feature-level data contracts. Replace placeholders with a real domain schema before implementation.",
+  "description": "Template for feature-level JSON schema artifacts used in contracts or validation.",
   "type": "object",
   "additionalProperties": false,
+  "required": ["id", "status"],
   "properties": {
     "id": {
       "type": "string",
-      "description": "Stable identifier for the entity"
+      "description": "Replace with the canonical identifier field."
     },
     "status": {
       "type": "string",
-      "description": "Lifecycle state of the entity"
+      "enum": ["draft", "active", "archived"],
+      "description": "Replace with business-valid states."
     },
     "createdAt": {
       "type": "string",
-      "format": "date-time",
-      "description": "Creation timestamp"
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Replace or remove if unneeded.",
+      "additionalProperties": true
     }
   },
-  "required": ["id", "status"],
-  "$defs": {
-    "Error": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "code": { "type": "string" },
-        "message": { "type": "string" }
-      },
-      "required": ["code", "message"]
+  "examples": [
+    {
+      "id": "obj_123",
+      "status": "active",
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-02T00:00:00Z",
+      "metadata": {
+        "source": "template"
+      }
     }
-  }
+  ]
 }

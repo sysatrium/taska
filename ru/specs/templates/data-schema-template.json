@@ -1,34 +1,44 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/feature-data-schema.json",
   "title": "Шаблон схемы данных фичи",
-  "description": "Шаблон для feature-level data-контрактов. Замените плейсхолдеры реальной доменной схемой до начала реализации.",
+  "description": "Шаблон для feature-level JSON schema артефактов, используемых в контрактах или валидации.",
   "type": "object",
   "additionalProperties": false,
+  "required": ["id", "status"],
   "properties": {
     "id": {
       "type": "string",
-      "description": "Стабильный идентификатор сущности"
+      "description": "Замените на каноническое поле идентификатора."
     },
     "status": {
       "type": "string",
-      "description": "Состояние жизненного цикла сущности"
+      "enum": ["draft", "active", "archived"],
+      "description": "Замените на допустимые бизнес-состояния."
     },
     "createdAt": {
       "type": "string",
-      "format": "date-time",
-      "description": "Временная метка создания"
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Замените или удалите, если не нужно.",
+      "additionalProperties": true
     }
   },
-  "required": ["id", "status"],
-  "$defs": {
-    "Error": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "code": { "type": "string" },
-        "message": { "type": "string" }
-      },
-      "required": ["code", "message"]
+  "examples": [
+    {
+      "id": "obj_123",
+      "status": "active",
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-02T00:00:00Z",
+      "metadata": {
+        "source": "template"
+      }
     }
-  }
+  ]
 }

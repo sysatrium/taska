@@ -8,7 +8,15 @@
 - пробелы безопасности
 - слабые тесты
 - нарушения конституции
+- unsupported claims
+- hidden assumptions
+- phantom certainty
+- не решил ли код open questions без approval
 
-Не давайте формальное общее одобрение.
-
-Возвращайте конкретные дефекты, риски и обязательную follow-up работу.
+Выход:
+- конкретные дефекты
+- конкретные риски
+- unsupported claims
+- hidden assumptions
+- requires explicit decision
+- safe to proceed или not safe to proceed

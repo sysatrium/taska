@@ -8,6 +8,7 @@
 - Every task must have a verification method.
 - Dependencies must be explicit.
 - Tasks must be sequenced so an implementer can execute one task without replanning the feature.
+- Tasks must not silently decide unresolved product or architecture questions.
 
 ## Task list metadata
 
@@ -27,13 +28,13 @@
 6. Tests
 7. Documentation / cleanup
 
----
-
 ## Task N: [Title]
 
 **Type:** Setup | Schema | Backend | Frontend | Test | Docs | Infra
 
 **Depends on:**
+
+**Upstream decision dependency:**
 
 **Files affected:**
 
@@ -51,23 +52,17 @@ Describe the exact change.
 
 ### Verification
 
-Describe how to verify the task.
+Describe how to verify the task and confirm that it did not introduce unsupported decisions.
 
-### Out of scope for this task
+### This task must not decide
 
 - Describe the first excluded item for this task.
 - Describe the second excluded item for this task.
 
+### Blocked if
+
+- Describe the condition that should stop execution instead of improvisation.
+
 ### Notes
 
 Optional implementation notes, risks, or constraints.
-
----
-
-## Task set readiness checklist
-
-- [ ] Every task is atomic.
-- [ ] Dependencies are explicit.
-- [ ] Acceptance criteria are concrete.
-- [ ] Verification is possible task by task.
-- [ ] No task silently bundles multiple independent changes.

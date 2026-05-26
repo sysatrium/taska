@@ -1,0 +1,117 @@
+openapi: 3.1.0
+info:
+  title: Task Status Update API
+  version: 0.1.0
+  description: Demo contract for updating the status of an existing task.
+servers:
+  - url: https://api.example.com
+    description: Demo server
+tags:
+  - name: tasks
+    description: Task lifecycle operations
+paths:
+  /tasks/{taskId}/status:
+    post:
+      tags: [tasks]
+      summary: Update task status
+      operationId: updateTaskStatus
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Canonical task identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskStatusUpdateRequest'
+            examples:
+              moveToInProgress:
+                value:
+                  status: in_progress
+              moveToBlocked:
+                value:
+                  status: blocked
+                  blockedReason: Waiting for dependency from external team
+      responses:
+        '200':
+          description: Task status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskStatusUpdateResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    TaskStatusUpdateRequest:
+      type: object
+      additionalProperties: false
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [todo, in_progress, done, blocked]
+        blockedReason:
+          type: string
+          minLength: 3
+          description: Required when status is blocked
+    TaskStatusUpdateResponse:
+      type: object
+      additionalProperties: false
+      required: [taskId, previousStatus, currentStatus, updatedAt, updatedBy]
+      properties:
+        taskId:
+          type: string
+        previousStatus:
+          type: string
+          enum: [todo, in_progress, done, blocked]
+        currentStatus:
+          type: string
+          enum: [todo, in_progress, done, blocked]
+        blockedReason:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required: [code, message]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string

@@ -9,5 +9,9 @@
 - риски и меры снижения
 - нефункциональные требования
 - rollout и rollback
+- decision status для ключевых решений
+- unsupported или weakly supported areas
 
-Не расширяйте скоуп за пределы утверждённой спецификации.
+Правила:
+- не вводить архитектурные изменения без traceability
+- различать approved decisions и provisional recommendations

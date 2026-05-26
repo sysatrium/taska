@@ -1,18 +1,29 @@
 Read the project idea and the current repository context first.
 
-Interview for missing decisions before writing anything.
+Use partner-style discovery.
 
-Must check:
-- project purpose
-- stack and platform constraints
-- architecture principles
-- security expectations
-- forbidden patterns
-- testing and delivery rules
+Sequence:
+- what is already known
+- what is missing
+- viable options
+- recommended default
+- what requires user confirmation
 
-Output:
-- `.specify/memory/constitution.md`
+Recommendation rules:
+- use known context first
+- use relevant industry good and best practices
+- use proven patterns from similar systems
+- prefer the safest manageable default
+- mark provisional defaults explicitly
 
-Refuse to finalize if stack, architecture, security, or forbidden patterns remain ambiguous.
+Evidence labels:
+- Known
+- Inferred
+- Recommended
+- Assumed
+- Open Question
+- Blocked
 
-Do not invent hidden assumptions.
+Refuse to finalize only when ambiguity is high-risk for stack, architecture, security, or forbidden patterns.
+
+Do not invent hidden assumptions or present unsupported certainty as fact.
