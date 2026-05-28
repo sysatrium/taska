@@ -1,37 +1,37 @@
-# Maintenance 5.1 — Update Spec After Incident
+# Этап 5.1 — Обновление спецификации после инцидента
 
-## Purpose
+## Назначение
 
-Update the feature specification after an incident so the system learns from production reality instead of only patching code.
+Обновить feature-спецификацию после инцидента, чтобы система училась на production-реальности, а не только на уровне патча в коде.
 
-## When to use
+## Когда использовать
 
-Use after a bug, outage, security event, data issue, or serious verification miss reveals a gap in the current spec.
+Используйте после бага, outage, security event, data issue или серьёзного пропуска на этапе проверки, если инцидент выявил пробел в текущей спецификации.
 
-## Inputs
+## Входные данные
 
-- incident summary
-- affected feature `spec.md`
-- current `plan.md` and `tasks.md`, if relevant
-- new constraints or lessons learned
+- краткое описание инцидента
+- затронутый `spec.md`
+- текущие `plan.md` и `tasks.md`, если они релевантны
+- новые ограничения или извлечённые уроки
 
-## Output file
+## Выходной файл
 
 ```text
 specs/NNN-feature-name/spec.md
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Identify what the existing spec failed to express.
-2. Add missing constraints, edge cases, assumptions, or verification criteria.
-3. Update scope notes if the incident exposed hidden requirements.
-4. Keep the spec focused on intent and rules, not just the code patch.
+1. Понять, что именно текущая спецификация не выразила.
+2. Добавить недостающие ограничения, пограничные сценарии, допущения или критерии проверки.
+3. Обновить заметки о границах скоупа, если инцидент вскрыл скрытые требования.
+4. Сосредоточиться на замысле и правилах, а не только на описании патча.
 
-## Quality gate
+## Критерии готовности
 
-Accept the update only if:
+Результат принимается только если:
 
-- the incident caused a real spec improvement
-- new constraints are explicit and reusable
-- verification criteria became stronger after the update
+- инцидент привёл к реальному улучшению спецификации
+- новые ограничения сформулированы явно и переиспользуемо
+- критерии проверки стали сильнее после обновления

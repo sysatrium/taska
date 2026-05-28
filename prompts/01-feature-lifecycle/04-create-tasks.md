@@ -1,44 +1,47 @@
-# Feature 3.1 — Create Tasks
+# Этап 3.1 — Создание задач
 
-## Purpose
+## Назначение
 
-Break the approved implementation plan into atomic, verifiable tasks that an implementation agent can execute one at a time.
+Разбить утверждённый план реализации на атомарные и проверяемые задачи, которые агент-реализатор может выполнять по одной.
 
-## When to use
+## Примечание о путях
 
-Use after `plan.md` is approved and before coding starts.
+Пути вида `specs/NNN-feature-name/...` в этом prompt — это шаблонный placeholder. Перед работой агент должен использовать реальный feature folder, созданный по принятому naming convention.
+## Когда использовать
 
-## Inputs
+Используйте после утверждения `plan.md` и до начала кодинга.
+
+## Входные данные
 
 - `specs/NNN-feature-name/spec.md`
 - `specs/NNN-feature-name/plan.md`
-- relevant contracts
+- релевантные контракты
 
-## Output file
+## Выходной файл
 
 ```text
 specs/NNN-feature-name/tasks.md
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Split work into atomic tasks, usually no larger than 1-4 hours.
-2. Assign each task a type, dependencies, affected files, acceptance criteria, and verification method.
-3. Preserve a logical implementation order.
-4. Avoid bundling multiple independent concerns into one task.
+1. Разделить работу на атомарные задачи размером обычно не больше 1-4 часов.
+2. Для каждой задачи задать тип, зависимости, затрагиваемые файлы, критерии приёмки и способ проверки.
+3. Сохранить логичный порядок выполнения.
+4. Не смешивать в одной задаче несколько независимых тем.
 
-## Rules
+## Правила
 
-- one task should represent one clear unit of execution
-- dependencies must be explicit
-- tasks must be verifiable independently
-- no multi-day or vague tasks
+- одна задача — одна ясная единица выполнения
+- зависимости должны быть явными
+- задачи должны проверяться независимо
+- многодневные и расплывчатые задачи запрещены
 
-## Quality gate
+## Критерии готовности
 
-Accept the result only if:
+Результат принимается только если:
 
-- the task list is executable in order
-- each task is atomic and testable
-- acceptance criteria are concrete
-- verifier work can happen task by task
+- список задач можно выполнять по порядку
+- каждая задача атомарна и тестируема
+- критерии приёмки конкретны
+- проверка возможна по задаче, а не только по фиче целиком

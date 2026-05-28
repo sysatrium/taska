@@ -1,32 +1,49 @@
 # Bootstrap 0.5 — Create Operational Prompts
 
-## Purpose
+## Назначение
 
-Create the optional prompt-pack for IDE and agent tooling after the repository rules are stable.
+Создайте operational prompts, которые проводят агента через discovery, feature lifecycle и maintenance без потери governance rules, evidence discipline и scope control.
 
-## When to use
+## Когда использовать
 
-Use only after the constitution, agent context, and core SDD structure are already defined.
+Используйте после создания constitution, agent context и project overview.
 
-## Inputs
+## Входы
 
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `AGENTS.md`
-- repository workflow and artifact rules
+- project overview artifacts
+- agreed repository structure and path conventions
 
-## Output files
+## Выходы
 
-```text
-.github/prompts/*.md
-```
+- prompts для discovery
+- prompts для feature lifecycle
+- prompts для maintenance и refinement
 
-## What to do
+## Что делать
 
-1. Generate short tool-facing prompts for constitution, specification, planning, tasks, implementation, and verification.
-2. Keep prompts aligned with the canonical operating model.
-3. Ensure prompts support guided discovery, recommendation discipline, evidence labels, confidence labeling, provisional defaults, and escalation on high-risk ambiguity.
-4. Do not create prompts that encourage scope expansion or hidden assumptions.
+1. Определите обязательные стадии workflow и соответствующие prompts.
+2. Обеспечьте, чтобы каждый prompt наследовал governing rules из constitution и practical operating rules из `AGENTS.md`.
+3. Зафиксируйте evidence labeling, confidence expectations и escalation rules.
+4. Вшивайте в prompts проверки на scope discipline, dependency policy, quality gates и path consistency.
+5. Добавьте обязательный шаг post-implementation / post-verification review: нужно ли обновить constitution, AGENTS, project overview, templates или repository-wide prompts.
+6. Обеспечьте, чтобы prompts ссылались только на актуальные артефакты репозитория.
+
+## Operational requirements
+
+- prompts для implementation должны требовать чтения spec, plan и tasks перед изменениями
+- prompts для verification должны проверять acceptance criteria, regression risk, scope purity и governance compliance
+- prompts не должны молча разрешать broad refactor, dependency additions или speculative design changes
+- prompts для UI work должны напоминать про design tokens, accessibility и consistency rules, если проект включает интерфейс
+- prompts для maintenance должны обновлять спецификации и governance artifacts после инцидентов или drift
+- prompts должны различать approved facts, inferred context и provisional defaults
 
 ## Quality gate
 
-Accept the result only if prompts are concise, operational, deterministic, and anti-hallucination aware.
+Принимайте результат только если:
+
+- operational prompts образуют непрерывный workflow без пропусков между стадиями
+- каждый prompt поддерживает те же governing rules, что и constitution/AGENTS
+- path references консистентны и соответствуют реальной структуре репозитория
+- prompts помогают агенту принимать одинаковые решения в похожих ситуациях

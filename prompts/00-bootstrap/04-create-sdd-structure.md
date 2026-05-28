@@ -1,49 +1,48 @@
-# Bootstrap 0.4 — Create SDD Structure
+# Этап 0.4 — Создание структуры SDD
 
-## Purpose
+## Назначение
 
-Create the repository structure and reusable templates that make the SDD workflow repeatable.
+Создать структуру репозитория и переиспользуемые шаблоны, которые делают SDD-процесс повторяемым, консистентным и совместимым с governance artifacts, создаваемыми на bootstrap.
 
-## When to use
+## Когда использовать
 
-Use after the constitution and project overview exist, before starting the first feature.
+Используйте после создания constitution и project overview, но до активного feature delivery.
 
-## Inputs
+## Входы
 
-- constitution and project overview artifacts
-- desired repository conventions
-- feature numbering convention, if already decided
+- `specs/000-project-overview/constitution.md`
+- `AGENTS.md` и `CLAUDE.md`, если уже созданы
+- project overview artifacts в `specs/000-project-overview/`
+- решение о том, как будут нумероваться и именоваться feature folders
 
-## Output files
+## Выходы
 
-```text
-.specify/
-specs/
-specs/templates/
-src/
-SPEC_PROCESS.md
-README.md
-```
+- согласованная структура каталогов
+- базовые шаблоны для feature lifecycle artifacts
+- repository conventions для новых spec-папок и contract-папок
 
-## What to do
+## Что делать
 
-1. Establish the core folders required by the repository.
-2. Create reusable templates for spec, plan, tasks, verification, and architecture decisions where applicable.
-3. Define a consistent feature numbering and naming convention.
-4. Make sure the structure supports the full lifecycle from spec to verification.
+1. Создайте и/или уточните структуру каталогов так, чтобы bootstrap, discovery, feature lifecycle и maintenance использовали одну и ту же модель путей.
+2. Зафиксируйте naming convention для feature folders, например `NNN-short-feature-name`.
+3. Зафиксируйте обязательный состав артефактов внутри каждой feature folder: `spec.md`, `plan.md`, `tasks.md`, `verify.md`, а при необходимости `contracts/`.
+4. Убедитесь, что шаблоны и prompts не ссылаются на несуществующие legacy directories.
+5. Убедитесь, что структура не конфликтует с governance files, project overview и examples-derived practices.
+6. Если в проекте есть UI, integrations или contracts, предусмотрите для них понятные папки и стабильные conventions.
 
-## Required decisions
+## Обязательные требования
 
-- feature numbering approach
-- template inventory
-- contract folder convention
-- where implementation code lives
-- where process documentation lives
+- все path conventions должны быть актуальны для текущего репозитория
+- examples и templates не должны расходиться по структуре
+- feature lifecycle должен быть трассируемым от overview к spec, от spec к plan, от plan к tasks, от tasks к verify
+- папки `specs/`, `prompts/`, `examples/` и рабочая зона кода должны иметь ясные границы ответственности
+- шаблоны не должны провоцировать агентов создавать артефакты в неправильных местах
 
 ## Quality gate
 
-Accept the result only if:
+Принимайте результат только если:
 
-- the folder layout is consistent and reusable
-- templates support the full lifecycle
-- conventions are explicit enough for a new contributor or agent to follow
+- структура каталогов понятна без устных пояснений
+- path conventions едины во всех bootstrap и operational prompts
+- шаблоны поддерживают практики из constitution и AGENTS.md
+- новые feature artifacts можно создавать без ручного исправления путей

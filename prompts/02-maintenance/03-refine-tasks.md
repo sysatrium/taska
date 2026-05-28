@@ -1,45 +1,45 @@
-# Maintenance 5.3 — Refine Tasks
+# Этап 5.3 — Уточнение задач
 
-## Purpose
+## Назначение
 
-Rebuild `tasks.md` when the current decomposition is too large, too vague, outdated, or no longer verifiable.
+Пересобрать `tasks.md`, если текущая декомпозиция слишком крупная, слишком расплывчатая, устарела или потеряла проверяемость.
 
-## When to use
+## Когда использовать
 
-Use when:
+Используйте, если:
 
-- tasks exceed the intended 1-4 hour size
-- multiple unrelated concerns were bundled together
-- dependencies are unclear or contradictory
-- the spec or plan changed and invalidated the current task list
-- implementers cannot start without replanning the feature
+- задачи превышают целевой размер 1-4 часа
+- в одной задаче смешаны несколько независимых тем
+- зависимости неясны или противоречивы
+- изменения в `spec.md` или `plan.md` сделали текущий список задач невалидным
+- реализатор не может начать работу без перепланирования фичи
 
-## Inputs
+## Входные данные
 
-- current `spec.md`
-- current `plan.md`
-- current `tasks.md`
-- description of what is wrong with the current decomposition
+- актуальный `spec.md`
+- актуальный `plan.md`
+- текущий `tasks.md`
+- описание проблем текущей декомпозиции
 
-## Output file
+## Выходной файл
 
 ```text
 specs/NNN-feature-name/tasks.md
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Re-check the execution order implied by the plan.
-2. Split large tasks into smaller atomic tasks.
-3. Clarify task types, dependencies, affected files, and verification methods.
-4. Remove ambiguity that would force implementers to redesign the feature during coding.
-5. Keep the new task list aligned with the approved plan.
+1. Повторно проверить порядок выполнения, который следует из плана.
+2. Разделить крупные задачи на меньшие атомарные шаги.
+3. Уточнить типы задач, зависимости, затрагиваемые файлы и способы проверки.
+4. Убрать неоднозначность, которая заставила бы реализатора перепридумывать фичу во время кодинга.
+5. Согласовать новый список задач с утверждённым планом.
 
-## Quality gate
+## Критерии готовности
 
-Accept the result only if:
+Результат принимается только если:
 
-- each task is again atomic and verifiable
-- dependencies are explicit and consistent
-- implementers can pick one task without replanning the feature
-- verifier review remains possible task by task
+- каждая задача снова атомарна и проверяема
+- зависимости явны и непротиворечивы
+- реализатор может взять одну задачу без перепланирования фичи
+- проверка остаётся возможной на уровне отдельной задачи

@@ -1,48 +1,55 @@
-# Maintenance 5.4 — Run Pre-Implementation Checklist
+# Этап 5.4 — Запуск контрольного списка перед реализацией
 
-## Purpose
+## Назначение
 
-Decide whether a feature is actually ready for coding.
+Принять явное решение о том, готова ли фича к началу кодинга.
 
-## When to use
+## Когда использовать
 
-Use before the first implementation task of every feature and again after any major spec, contract, or plan change.
+Используйте перед первой задачей реализации по каждой фиче и повторно после любого крупного изменения в спецификации, контрактах или плане.
 
-## Inputs
+## Входные данные
 
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `AGENTS.md`
-- project overview artifacts
+- обзорные артефакты проекта
 - feature `spec.md`
-- feature contracts, if applicable
+- feature-контракты, если применимо
 - `plan.md`
 - `tasks.md`
 
-## Output file
+## Выходной файл
 
 ```text
-Readiness decision in the current working context or task record
+Решение о готовности в текущем рабочем контексте или записи задачи
 ```
 
-## What to do
+## Что нужно сделать
 
-Check each item explicitly:
+Проверить каждый пункт явно:
 
-- constitution exists and is current
-- AGENTS.md exists and is current
-- feature spec exists and is complete
-- out-of-scope boundaries are explicit
-- contracts exist where needed
-- plan exists and is coherent
-- tasks are atomic and ordered
-- acceptance criteria are testable
-- major open questions are resolved or marked as blockers
+- конституция существует и актуальна
+- AGENTS.md существует и актуален
+- feature-спецификация существует и завершена
+- границы вне скоупа заданы явно
+- контракты созданы там, где они нужны
+- план существует и логически согласован
+- задачи атомарны и упорядочены
+- критерии приёмки тестируемы
+- ключевые открытые вопросы закрыты или помечены как блокеры
 
-## Quality gate
+## Критерии готовности
 
-Return only one of these outcomes:
+Возвращайте только один из двух результатов:
 
 - `READY FOR IMPLEMENTATION`
 - `NOT READY FOR IMPLEMENTATION`
 
-A ready decision is valid only if it is based on explicit artifact review, not intuition.
+Положительное решение допустимо только если оно основано на явной проверке артефактов, а не на интуиции.
+
+
+## Alignment checks
+
+- проверяйте consistency с текущими bootstrap rules, `AGENTS.md` и canonical paths
+- не сохраняйте устаревшие references или legacy structure
+- при drift между prompts и governance artifacts сначала обновляйте source-of-truth, потом dependent prompts

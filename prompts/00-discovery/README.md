@@ -1,24 +1,23 @@
 # Discovery phase
 
-Use these prompts before bootstrap and before writing feature specs.
+Используйте эти prompts до bootstrap и до написания feature specs.
 
-## Purpose
+## Назначение
 
-Discovery reduces uncertainty before the SDD delivery flow starts.
+Discovery снижает неопределённость до старта SDD delivery flow и фиксирует исходный продуктовый контекст в одном каноническом артефакте.
 
-## Flow
+## Поток
 
 1. `01-run-prd-interview.md`
-2. `02-summarize-discovery.md`
-3. `03-generate-segments-and-jobs.md`
-4. `04-rank-risky-assumptions.md`
-5. `05-freeze-mvp-boundaries.md`
 
-## Outputs
+## Выходы
 
-Discovery should produce or refresh:
+Discovery должен создавать или обновлять:
 
 - `specs/000-project-overview/discovery.md`
-- `specs/000-project-overview/segments-and-jobs.md`
-- `specs/000-project-overview/risks-and-assumptions.md`
-- `specs/000-project-overview/mvp-boundaries.md`
+
+## Правило консистентности
+
+- `specs/000-project-overview/` — единый source of truth для project-level discovery и overview artifacts.
+- Discovery не создает параллельную структуру в `ru/` или других каталогах.
+- Если discovery-результаты влияют на границы MVP, риски или сегменты, это фиксируется внутри `specs/000-project-overview/discovery.md` до появления отдельных специализированных артефактов.

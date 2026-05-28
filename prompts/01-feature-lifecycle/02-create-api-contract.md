@@ -1,20 +1,23 @@
-# Feature 1.2 — Create API Contract
+# Этап 1.2 — Создание API-контракта
 
-## Purpose
+## Назначение
 
-Define the feature contracts before implementation so interfaces become explicit and testable.
+Определить контракты фичи до реализации, чтобы интерфейсы были явными и проверяемыми.
 
-## When to use
+## Примечание о путях
 
-Use after `spec.md` is approved and before detailed implementation planning or coding.
+Пути вида `specs/NNN-feature-name/...` в этом prompt — это шаблонный placeholder. Перед работой агент должен использовать реальный feature folder, созданный по принятому naming convention.
+## Когда использовать
 
-## Inputs
+Используйте после утверждения `spec.md` и до детального планирования реализации или кодинга.
+
+## Входные данные
 
 - `specs/NNN-feature-name/spec.md`
-- relevant project overview files
-- known integration requirements
+- релевантные обзорные файлы проекта
+- известные требования к интеграциям
 
-## Output files
+## Выходные файлы
 
 ```text
 specs/NNN-feature-name/contracts/api-spec.yaml
@@ -22,18 +25,18 @@ specs/NNN-feature-name/contracts/data-schema.json
 specs/NNN-feature-name/contracts/events.yaml
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Create only the contract files that fit the architecture.
-2. Define request, response, validation, and error behavior explicitly.
-3. Capture event or schema contracts when the feature depends on them.
-4. Keep contracts aligned with the feature spec and out-of-scope boundaries.
+1. Создавать только те контрактные файлы, которые соответствуют архитектуре.
+2. Явно описать запросы, ответы, валидацию и ошибки.
+3. Зафиксировать event- или schema-контракты, если фича зависит от них.
+4. Согласовать контракты со спецификацией фичи и её границами.
 
-## Quality gate
+## Критерии готовности
 
-Accept the result only if:
+Результат принимается только если:
 
-- the contract set matches the actual architecture
-- interfaces are specific enough for implementation and testing
-- field semantics and error behavior are explicit
-- no contract extends beyond approved feature scope
+- набор контрактов соответствует реальной архитектуре
+- интерфейсы достаточно конкретны для реализации и тестирования
+- семантика полей и поведение ошибок описаны явно
+- контракты не выходят за рамки утверждённого скоупа

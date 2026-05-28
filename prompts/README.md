@@ -1,89 +1,85 @@
 # SDD Greenfield Prompts
 
-This folder contains the interactive prompt set for launching a greenfield project with Spec-Driven Development.
+Эта папка содержит интерактивный набор prompts для запуска greenfield-проекта через Spec-Driven Development.
 
-The core idea is simple: do not create an empty structure mechanically. Instead, walk through structured interviews with AI, make explicit project decisions, and generate meaningful operating artifacts.
+Основная идея проста: не создавать пустую структуру механически. Вместо этого нужно пройти через структурированное интервью с AI, зафиксировать явные проектные решения и создать meaningful operating artifacts.
 
-## How to use it
+## Как использовать
 
-Run prompts sequentially.
+Запускайте prompts последовательно.
 
-Do not move to the next step until the previous step produced the expected files and passed its quality gate.
+Не переходите к следующему шагу, пока предыдущий не создал ожидаемые файлы и не прошёл quality gate.
 
-Unknown is acceptable.
+Ответ "не знаю" — нормальный сценарий.
 
-If the human operator does not know the answer yet, the agent must narrow the decision space instead of repeatedly asking the same open question.
+Если оператор пока не знает ответа, агент должен сузить пространство решений, а не повторять тот же вопрос без прогресса.
 
-## Partner-style bootstrap rules
+## Правила партнёрского bootstrap
 
-During bootstrap, the agent must follow this sequence:
+Во время bootstrap агент должен следовать схеме:
 
-`what is already known -> what is missing -> viable options -> recommended default -> what requires user confirmation`
+`что уже известно -> чего не хватает -> какие есть жизнеспособные варианты -> recommended default -> что нужно подтвердить пользователю`
 
-Recommendation rules:
+Правила рекомендаций:
 
-- use known context first
-- use relevant industry good and best practices
-- use proven patterns from similar systems
-- present 2-3 viable options
-- recommend the safest manageable default
-- show short tradeoff-oriented reasoning
-- mark provisional defaults explicitly
+- сначала использовать известный контекст
+- использовать релевантные industry good и best practices
+- использовать проверенные паттерны из похожих систем
+- предлагать 2-3 жизнеспособных варианта
+- рекомендовать самый безопасный управляемый default
+- кратко объяснять tradeoff
+- явно помечать временные default-решения
 
 ## Anti-hallucination rules
 
-- do not invent hidden assumptions
-- convert unsupported uncertainty into open questions
-- label major decisions as Known, Inferred, Recommended, Assumed, Open Question, or Blocked
-- add confidence when recommendations rely on partial context
-- refuse finalization when ambiguity is high-risk
+- не придумывать hidden assumptions
+- переводить неподтверждённую неопределённость в открытые вопросы
+- помечать важные решения как Known, Inferred, Recommended, Assumed, «Открытый вопрос» или «Блокер»
+- добавлять confidence, если рекомендации опираются на неполный контекст
+- блокировать финализацию при high-risk ambiguity
 
-## Phase map
+## Эталонный пример
 
-### Bootstrap phase
+Перед созданием нового feature package просмотрите demo pack в `specs/001-demo-feature/`.
 
-1. `00-bootstrap/01-create-constitution.md`
-2. `00-bootstrap/02-create-agents.md`
-3. `00-bootstrap/03-create-project-overview.md`
-4. `00-bootstrap/04-create-sdd-structure.md`
-5. `00-bootstrap/05-create-operational-prompts.md`
+Считайте его ожидаемым baseline для:
 
-### Feature lifecycle phase
-
-1. `01-feature-lifecycle/01-create-feature-spec.md`
-2. `01-feature-lifecycle/02-create-api-contract.md`
-3. `01-feature-lifecycle/03-create-plan.md`
-4. `01-feature-lifecycle/04-create-tasks.md`
-5. `01-feature-lifecycle/05-implement-task.md`
-6. `01-feature-lifecycle/06-verify-task.md`
-
-### Maintenance phase
-
-Use maintenance prompts when incidents, drift, or new evidence change the rules.
-
-## Reference example
-
-Before writing a new feature package, review the demo pack in `specs/001-demo-feature/`.
-
-Treat it as the expected baseline for:
-
-- evidence map structure
-- spec-to-plan traceability
-- task granularity
+- структуры evidence map
+- traceability между spec и plan
+- granularity задач
 - contract-first artifacts
-- verifier output style
+- стиля verifier output
 
-## Secondary reference example
+## Второй эталонный пример
 
-Use `specs/002-demo-ui-feature/` as the UI-heavy companion example to `specs/001-demo-feature/`.
+Используйте `specs/002-demo-ui-feature/` как UI-heavy companion example к `specs/001-demo-feature/`.
 
-It demonstrates inline interaction modeling, UI state schema design, frontend task decomposition, and verifier expectations for stateful user-facing features.
+Он показывает modeling inline interactions, проектирование UI state schema, frontend task decomposition и ожидания verifier для stateful user-facing features.
 
-## Third reference example
+## Третий эталонный пример
 
-Use `specs/003-demo-integration-feature/` as the integration-heavy reference example.
+Используйте `specs/003-demo-integration-feature/` как integration-heavy reference example.
 
-It demonstrates webhook contracts, async reconciliation, idempotency, stale-event handling, observability, and verifier expectations for external-system integrations.
+Он показывает webhook contracts, async reconciliation, idempotency, stale-event handling, observability и ожидания verifier для интеграций с внешними системами.
 ## Discovery phase
 
-Use discovery prompts before bootstrap or before feature specification when the team still needs to clarify segment, jobs, MVP scope, or risky assumptions.
+Используйте discovery-prompts до bootstrap или до feature specification, когда команде ещё нужно прояснить сегмент, jobs, границы MVP или рискованные предположения.
+
+
+## Canonical paths
+
+Используйте единые canonical paths для всех стадий:
+
+- constitution: `specs/000-project-overview/constitution.md`
+- project overview: `specs/000-project-overview/spec.md`
+- architecture: `specs/000-project-overview/architecture.md`
+- data model: `specs/000-project-overview/data-model.md`
+- discovery: `specs/000-project-overview/discovery.md`
+- feature artifacts: `specs/NNN-feature-name/`
+
+## Roles of artifacts
+
+- `prompts/` — executable workflow и operating instructions.
+- `specs/` — canonical project and feature artifacts.
+- demo feature folders в `specs/001-*`, `002-*`, `003-*` — reference examples, а не source-of-truth для нового проекта.
+- `examples/` — справочные шаблоны и практики, которые нужно адаптировать, а не копировать без нормализации.

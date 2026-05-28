@@ -1,55 +1,68 @@
 # Bootstrap 0.2 — Create Agent Operating Context
 
-## Purpose
+## Назначение
 
-Create stable operating context files so implementation and verification agents work from the same repository rules.
+Создайте стабильные context files, чтобы implementation- и verification-агенты работали из одного набора repository rules и применяли одинаковые практики качества, scope control и review discipline.
 
-## When to use
+## Когда использовать
 
-Use after the constitution is created and before feature work starts.
+Используйте после создания constitution и до старта feature work.
 
-## Inputs
+## Входы
 
-- `.specify/memory/constitution.md`
-- repository workflow and artifact rules
-- bootstrap decisions already approved
+- `specs/000-project-overview/constitution.md`
+- repository workflow и artifact rules
+- уже утверждённые bootstrap decisions
+- актуальная структура `specs/`, `prompts/` и `src/`
 
-## Output files
+## Выходные файлы
 
 ```text
 AGENTS.md
 CLAUDE.md
 ```
 
-## What to do
+## Что делать
 
-1. Create `AGENTS.md` as the persistent repository-wide context for all AI agents.
-2. Create `CLAUDE.md` as the compact tool-facing operating guide.
-3. Define source-of-truth precedence.
-4. Define what agents may recommend by default and what always needs human confirmation.
-5. Define evidence labels and confidence expectations.
-6. Define how agents must escalate blockers and high-risk ambiguity.
-7. Add a mandatory post-feature review rule: after verification, the agent must explicitly decide whether the implemented change requires updates to shared artifacts such as `AGENTS.md`, `.specify/memory/constitution.md`, templates, or repository-wide verification instructions. If no update is needed, the agent must say so explicitly.
+1. Создайте `AGENTS.md` как постоянный repository-wide context для всех AI-агентов.
+2. Создайте `CLAUDE.md` как компактный tool-facing operating guide.
+3. Зафиксируйте source-of-truth precedence.
+4. Опишите, что агент может рекомендовать по умолчанию, а что всегда требует подтверждения человека.
+5. Зафиксируйте evidence labels и ожидания по confidence.
+6. Зафиксируйте, как агент должен эскалировать blockers и high-risk ambiguity.
+7. Добавьте обязательное правило post-feature review: после verification агент должен явно решить, требует ли реализованное изменение обновления общих артефактов, таких как `AGENTS.md`, `specs/000-project-overview/constitution.md`, шаблоны или repository-wide verification instructions. Если обновление не нужно, агент должен явно это указать.
+8. Перенесите в operational form лучшие практики из repository examples, но нормализуйте их под текущую структуру репозитория, не копируя сломанные или устаревшие пути.
 
+## AGENTS.md должен обязательно включать
 
-## Required content for AGENTS.md
+- краткий project overview: name, purpose, stack
+- ссылки на актуальные source-of-truth artifacts в текущей структуре репозитория
+- project commands: install, dev, lint, test, build
+- Definition of Done
+- правила `When Writing Code`
+- правила `When Blocked`
+- правила `When Reviewing Code`
+- architecture rules и project structure expectations
+- UI/design rules, если проект включает интерфейс
+- accessibility rules, если проект включает интерфейс
+- code style и naming rules
+- security expectations
+- changelog discipline для самого `AGENTS.md`
 
-- repository operating model
-- artifact order and phase gates
-- source-of-truth precedence
-- default decision policy
-- evidence labels
-- confidence policy
-- anti-hallucination rules
-- escalation policy
+## Специальные требования
 
-## Required content for CLAUDE.md
-
-- concise operating flow
-- scope rules
-- evidence and confidence rules
-- when to stop and escalate
+- Требуйте явного запрета на broad changes вне scope задачи.
+- Требуйте, чтобы агент сначала читал релевантные spec/plan/tasks артефакты перед implementation.
+- Требуйте, чтобы агент показывал план до кода, если это соответствует режиму работы проекта.
+- Требуйте, чтобы review проверял соответствие acceptance criteria, scope boundaries и governing rules.
+- Не допускайте ссылок на несуществующие файлы или legacy structure.
 
 ## Quality gate
 
-Accept the result only if both files make agent behavior more deterministic, not less.
+Принимайте результат только если:
+
+- `AGENTS.md` и `CLAUDE.md` согласованы с constitution
+- у агента есть practical operating instructions, а не только общие принципы
+- Definition of Done применим к реальным задачам
+- правила для blockers, review и post-feature governance update явно сформулированы
+- все ссылки и references соответствуют текущей структуре репозитория
