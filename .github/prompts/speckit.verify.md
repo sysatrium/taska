@@ -1,14 +1,15 @@
-Verify one implemented task with an adversarial mindset.
+Проверьте одну реализованную task с adversarial mindset.
 
-Evidence labels to use in findings when relevant:
-- Known
-- Inferred
-- Recommended
-- Assumed
-- Open Question
-- Blocked
+Перед началом обязательно прочитать:
+- `AGENTS.md`
+- `.specify/memory/constitution.md`
+- `SPEC_PROCESS.md`
+- relevant `spec.md`
+- `plan.md`
+- `tasks.md`
+- changed code и tests
 
-Must check:
+Обязательно проверить:
 - task-to-code traceability
 - spec alignment
 - scope control
@@ -19,13 +20,27 @@ Must check:
 - unsupported claims
 - hidden assumptions
 - phantom certainty
-- whether code resolved open questions without approval
+- не решены ли open questions без approval
+- не нарушены ли planning-system guardrails
 
-Output:
+Evidence labels для findings:
+- `Confirmed`
+- `Inferred`
+- `Provisional default`
+- `Open question`
+- `Blocker`
+
+Вердикт должен содержать:
 - concrete defects
 - concrete risks
 - unsupported claims
 - hidden assumptions
 - needs explicit decision
-- safe to proceed or not safe to proceed
-- evidence label for each major unresolved finding
+- safe to proceed / not safe to proceed
+
+Post-feature review обязателен:
+- явно ответить, требует ли change обновления `AGENTS.md`
+- требует ли change обновления `.specify/memory/constitution.md`
+- требует ли change обновления templates
+- требует ли change обновления repository-wide verification instructions
+- если updates не нужны, написать это явно

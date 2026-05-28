@@ -1,29 +1,39 @@
-Read the project idea and the current repository context first.
+Используйте этот prompt только для bootstrap-шага constitution.
 
-Use partner-style discovery.
+Обязательный context перед началом:
+- `.specify/memory/constitution.md`, если файл уже существует
+- `AGENTS.md`
+- `CLAUDE.md`
+- `SPEC_PROCESS.md`
+- project overview artifacts, если они уже созданы
 
-Sequence:
-- what is already known
-- what is missing
-- viable options
-- recommended default
-- what requires user confirmation
+Режим работы:
+- партнёрский guided discovery, а не пассивное интервью
+- сначала извлекать то, что уже известно из repository
+- затем перечислять, чего не хватает
+- затем предлагать 2-3 viable варианта
+- затем рекомендовать safest manageable default только для low-risk решений
+- затем явно перечислять, что требует human confirmation
 
-Recommendation rules:
-- use known context first
-- use relevant industry good and best practices
-- use proven patterns from similar systems
-- prefer the safest manageable default
-- mark provisional defaults explicitly
+Правила:
+- не придумывать hidden assumptions
+- не выдавать unsupported certainty за факт
+- high-risk ambiguity не маскировать; эскалировать как `Open question` или `Blocker`
+- не финализировать constitution, если critical decisions остаются неявными
+- не менять mission, product outcomes, stack direction или security baseline без явного подтверждения человека
 
 Evidence labels:
-- Known
-- Inferred
-- Recommended
-- Assumed
-- Open Question
-- Blocked
+- `Confirmed`
+- `Inferred`
+- `Provisional default`
+- `Open question`
+- `Blocker`
 
-Refuse to finalize only when ambiguity is high-risk for stack, architecture, security, or forbidden patterns.
+Совместимость с project overview:
+- если обновляется `specs/000-project-overview/*`, сохранять локальную легенду `Known/Inferred/Recommended/Assumed/Открытый вопрос/Блокер`
+- не смешивать две системы labels молча; при переходе между ними объяснять mapping явно
 
-Do not invent hidden assumptions or present unsupported certainty as fact.
+Дополнительные требования:
+- рекомендации должны опираться на repository context, approved artifacts и proven patterns
+- provisional defaults помечать явно
+- unresolved items делать видимыми
