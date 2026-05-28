@@ -1,20 +1,20 @@
-# Bootstrap 0.4 — Create SDD Structure
+# Этап 0.4 — Создание структуры SDD
 
-## Purpose
+## Назначение
 
-Create the repository structure and reusable templates that make the SDD workflow repeatable.
+Создать структуру репозитория и переиспользуемые шаблоны, которые делают SDD-процесс повторяемым.
 
-## When to use
+## Когда использовать
 
-Use after the constitution and project overview exist, before starting the first feature.
+Используйте после появления конституции и обзорных артефактов, до запуска первой фичи.
 
-## Inputs
+## Входные данные
 
-- constitution and project overview artifacts
-- desired repository conventions
-- feature numbering convention, if already decided
+- конституция и проектный обзор
+- желаемые соглашения по структуре репозитория
+- соглашение по нумерации фич, если оно уже принято
 
-## Output files
+## Выходные файлы
 
 ```text
 .specify/
@@ -25,25 +25,25 @@ SPEC_PROCESS.md
 README.md
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Establish the core folders required by the repository.
-2. Create reusable templates for spec, plan, tasks, verification, and architecture decisions where applicable.
-3. Define a consistent feature numbering and naming convention.
-4. Make sure the structure supports the full lifecycle from spec to verification.
+1. Создать базовые каталоги, необходимые для репозитория.
+2. Подготовить переиспользуемые шаблоны для spec, plan, tasks, verification и архитектурных решений, если это применимо.
+3. Зафиксировать единое соглашение по нумерации и именованию фич.
+4. Проверить, что структура поддерживает весь жизненный цикл от спецификации до проверки.
 
-## Required decisions
+## Обязательные решения
 
-- feature numbering approach
-- template inventory
-- contract folder convention
-- where implementation code lives
-- where process documentation lives
+- схема нумерации фич
+- состав шаблонов
+- соглашение по папке контрактов
+- место размещения кода
+- место размещения процессной документации
 
-## Quality gate
+## Критерии готовности
 
-Accept the result only if:
+Результат принимается только если:
 
-- the folder layout is consistent and reusable
-- templates support the full lifecycle
-- conventions are explicit enough for a new contributor or agent to follow
+- структура каталогов консистентна и переиспользуема
+- шаблоны поддерживают весь жизненный цикл
+- соглашения достаточно явны для нового участника или агента

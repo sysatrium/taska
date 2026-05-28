@@ -1,55 +1,33 @@
 # Bootstrap 0.2 — Create Agent Operating Context
 
-## Purpose
+## Назначение
 
-Create stable operating context files so implementation and verification agents work from the same repository rules.
+Создайте стабильные context files, чтобы implementation- и verification-агенты работали из одного набора repository rules.
 
-## When to use
+## Когда использовать
 
-Use after the constitution is created and before feature work starts.
+Используйте после создания constitution и до старта feature work.
 
-## Inputs
+## Входы
 
 - `.specify/memory/constitution.md`
-- repository workflow and artifact rules
-- bootstrap decisions already approved
+- repository workflow и artifact rules
+- уже утверждённые bootstrap decisions
 
-## Output files
+## Выходные файлы
 
 ```text
 AGENTS.md
 CLAUDE.md
 ```
 
-## What to do
+## Что делать
 
-1. Create `AGENTS.md` as the persistent repository-wide context for all AI agents.
-2. Create `CLAUDE.md` as the compact tool-facing operating guide.
-3. Define source-of-truth precedence.
-4. Define what agents may recommend by default and what always needs human confirmation.
-5. Define evidence labels and confidence expectations.
-6. Define how agents must escalate blockers and high-risk ambiguity.
-7. Add a mandatory post-feature review rule: after verification, the agent must explicitly decide whether the implemented change requires updates to shared artifacts such as `AGENTS.md`, `.specify/memory/constitution.md`, templates, or repository-wide verification instructions. If no update is needed, the agent must say so explicitly.
+1. Создайте `AGENTS.md` как постоянный repository-wide context для всех AI-агентов.
+2. Создайте `CLAUDE.md` как компактный tool-facing operating guide.
+3. Зафиксируйте source-of-truth precedence.
+4. Опишите, что агент может рекомендовать по умолчанию, а что всегда требует подтверждения человека.
+5. Зафиксируйте evidence labels и ожидания по confidence.
+6. Зафиксируйте, как агент должен эскалировать blockers и high-risk ambiguity.
+7. Добавьте обязательное правило post-feature review: после verification агент должен явно решить, требует ли реализованное изменение обновления общих артефактов, таких как `AGENTS.md`, `.specify/memory/constitution.md`, шаблоны или repository-wide verification instructions. Если обновление не нужно, агент должен явно это указать.
 
-
-## Required content for AGENTS.md
-
-- repository operating model
-- artifact order and phase gates
-- source-of-truth precedence
-- default decision policy
-- evidence labels
-- confidence policy
-- anti-hallucination rules
-- escalation policy
-
-## Required content for CLAUDE.md
-
-- concise operating flow
-- scope rules
-- evidence and confidence rules
-- when to stop and escalate
-
-## Quality gate
-
-Accept the result only if both files make agent behavior more deterministic, not less.

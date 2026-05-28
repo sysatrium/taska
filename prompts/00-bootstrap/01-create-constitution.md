@@ -1,70 +1,70 @@
 # Bootstrap 0.1 — Create Constitution
 
-## Purpose
+## Назначение
 
-Create the project's governing constitution so AI agents inherit stable operating rules instead of renegotiating them in every task.
+Создайте governing constitution проекта, чтобы AI-агенты наследовали стабильные operating rules, а не переобсуждали их в каждой задаче.
 
-## When to use
+## Когда использовать
 
-Use once at project start, before any feature specs, plans, or implementation work begin.
+Используйте один раз в начале проекта, до любых feature specs, plans или implementation work.
 
-## Inputs
+## Входы
 
-- project idea and product intent
-- target users and main outcomes
-- preferred stack or platform constraints
-- architecture preferences, if already known
-- testing, security, and delivery expectations
+- идея проекта и product intent
+- target users и основные outcomes
+- предпочтения по стеку или platform constraints
+- архитектурные предпочтения, если уже известны
+- ожидания по testing, security и delivery
 
-## Output file
+## Выходной файл
 
 ```text
 .specify/memory/constitution.md
 ```
 
-## What to do
+## Что делать
 
-1. Interview the human operator before writing anything.
-2. Extract what is already known from the project idea and repository context.
-3. List what is still missing.
-4. When the operator is unsure, propose 2-3 viable options.
-5. Build recommendations from known context, relevant industry good and best practices, and proven patterns from similar systems.
-6. Recommend one safest manageable default when the ambiguity is low-risk.
-7. Mark provisional defaults explicitly.
-8. Mark high-risk unresolved items as blockers or open questions instead of inventing answers.
-9. Create `constitution.md` as a stable rules document for all future agents.
+1. Проведите интервью с оператором до начала записи результата.
+2. Извлеките всё, что уже известно из project idea и repository context.
+3. Перечислите, чего ещё не хватает.
+4. Если оператор не уверен, предложите 2-3 жизнеспособных варианта.
+5. Стройте рекомендации на основе известного контекста, релевантных industry good и best practices и проверенных паттернов из похожих систем.
+6. Рекомендуйте один safest manageable default, если неопределённость low-risk.
+7. Явно помечайте временные default-решения.
+8. Помечайте high-risk unresolved items как blockers или open questions вместо выдумывания ответов.
+9. Создайте `constitution.md` как стабильный rules document для будущих агентов.
 
-## Required sections
+## Обязательные разделы
 
-- project mission
-- product outcomes
+- миссия проекта
+- продуктовые outcomes
 - approved stack
-- architecture principles
+- архитектурные принципы
 - coding conventions
 - testing rules
 - security rules
 - forbidden patterns
-- delivery and release rules
-- default decision policy
-- evidence labeling policy
-- decision log or open questions
+- delivery и release rules
+- политика default decisions
+- политика evidence labeling
+- decision log или open questions
 
 ## Quality gate
 
-Accept the result only if:
+Принимайте результат только если:
 
-- the file contains concrete rules, not generic filler
-- the rules are specific enough to constrain later implementation
-- forbidden patterns are explicit
-- testing and security expectations are actionable
-- unresolved items are visible as open questions or blockers
-- provisional defaults are clearly labeled
-- recommendations are grounded in context and rationale
+- файл содержит конкретные правила, а не generic filler
+- правила действительно ограничивают последующую реализацию
+- forbidden patterns явны
+- ожидания по testing и security применимы на практике
+- unresolved items видимы как open questions или blockers
+- provisional defaults явно помечены
+- рекомендации опираются на контекст и обоснование
 
-## Do not proceed if
+## Не продолжайте если
 
-- the constitution is mostly placeholders
-- critical decisions are silently assumed
-- architecture and quality rules are still ambiguous in high-risk areas
-- recommendations are based on fashion instead of context and rationale
-- unsupported certainty is presented as fact
+- constitution в основном состоит из placeholders
+- критичные решения молча предполагаются
+- архитектурные и quality rules остаются неоднозначными в high-risk областях
+- рекомендации основаны на моде, а не на контексте и обосновании
+- неподтверждённая уверенность подаётся как факт

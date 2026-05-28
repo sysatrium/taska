@@ -1,20 +1,20 @@
 # Bootstrap 0.3 — Create Project Overview
 
-## Purpose
+## Назначение
 
-Create the top-level project artifacts that define what the system is, which domain objects exist, and which architecture boundaries are already known.
+Создайте верхнеуровневые project artifacts, которые определяют, что такое система, какие доменные объекты существуют и какие архитектурные границы уже известны.
 
-## When to use
+## Когда использовать
 
-Use after the constitution is approved and before feature-specific specs are created.
+Используйте после утверждения constitution и до создания feature-specific specs.
 
-## Inputs
+## Входы
 
 - `.specify/memory/constitution.md`
-- product vision and target users
-- known domain concepts and architecture constraints
+- product vision и target users
+- известные domain concepts и architecture constraints
 
-## Output files
+## Выходные файлы
 
 ```text
 specs/000-project-overview/spec.md
@@ -22,21 +22,11 @@ specs/000-project-overview/data-model.md
 specs/000-project-overview/architecture.md
 ```
 
-## What to do
+## Что делать
 
-1. Summarize the system at a project-wide level.
-2. If actors, workflows, or boundaries are unclear, propose candidate versions from the constitution and product intent.
-3. Label major statements as Known, Inferred, Recommended, Assumed, Open Question, or Blocked.
-4. Mark provisional defaults explicitly.
-5. Block only on high-risk ambiguity.
-6. Keep all three files consistent with the constitution.
-
-## Quality gate
-
-Accept the result only if:
-
-- the project overview is specific to this system
-- the data model identifies meaningful entities and constraints
-- architecture boundaries are explicit enough to guide later plans
-- provisional items are clearly marked
-- no file contradicts the constitution
+1. Опишите систему на уровне проекта.
+2. Если акторы, workflows или boundaries неясны, предложите candidate-версии на основе constitution и product intent.
+3. Помечайте важные утверждения как Known, Inferred, Recommended, Assumed, «Открытый вопрос» или «Блокер».
+4. Явно помечайте provisional defaults.
+5. Блокируйте финализацию только при high-risk ambiguity.
+6. Поддерживайте согласованность всех трёх файлов с constitution.

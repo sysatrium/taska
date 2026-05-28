@@ -1,44 +1,44 @@
-# Maintenance 5.2 — Update Constitution
+# Этап 5.2 — Обновление конституции
 
-## Purpose
+## Назначение
 
-Update project-wide operating rules when the repository's baseline assumptions have changed.
+Обновить проектные правила верхнего уровня, если изменились базовые предпосылки всего репозитория.
 
-## When to use
+## Когда использовать
 
-Use when changes affect the whole project, not just one feature.
+Используйте, когда изменения затрагивают весь проект, а не одну отдельную фичу.
 
-## Inputs
+## Входные данные
 
-- current `.specify/memory/constitution.md`
-- the trigger for change
-- evidence that the rule should become project-wide
+- текущий `.specify/memory/constitution.md`
+- причина изменения
+- подтверждение, что правило действительно должно стать общепроектным
 
-## Output file
+## Выходной файл
 
 ```text
 .specify/memory/constitution.md
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Determine whether the change is truly project-wide.
-2. Update constitution rules for stack, architecture, security, testing, or delivery as needed.
-3. Remove outdated rules when they no longer apply.
-4. Keep a visible rationale for important changes.
+1. Определить, относится ли изменение действительно к уровню всего проекта.
+2. Обновить правила конституции по стеку, архитектуре, безопасности, тестированию или поставке.
+3. Удалить устаревшие правила, если они больше не применимы.
+4. Оставить видимое обоснование для важных изменений.
 
-## Trigger examples
+## Примеры триггеров
 
-- stack migration
-- security model change
-- delivery model change
-- architecture boundary change
-- quality standard escalation after incidents
+- миграция стека
+- изменение модели безопасности
+- изменение модели поставки
+- изменение архитектурных границ
+- ужесточение стандартов качества после инцидентов
 
-## Quality gate
+## Критерии готовности
 
-Accept the update only if:
+Результат принимается только если:
 
-- the change belongs at constitution level
-- the new rule is concrete and reusable
-- affected agent behavior would clearly change because of the update
+- изменение действительно относится к уровню конституции
+- новое правило конкретно и переиспользуемо
+- ожидаемое поведение агентов явно меняется из-за обновления

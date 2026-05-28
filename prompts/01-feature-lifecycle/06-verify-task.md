@@ -1,146 +1,75 @@
-# Feature 4.2 — Verify Task
+# Этап 4.2 — Проверка задачи
 
-## Purpose
+## Назначение
 
-Perform adversarial verification of one implemented task by searching for mismatch, omission, and risk.
+Провести adversarial-проверку одной реализованной задачи, целенаправленно ища несоответствия, пропуски и риски.
 
-## When to use
+## Когда использовать
 
-Use immediately after a task is implemented and before the work is considered complete.
+Используйте сразу после реализации задачи и до признания работы завершённой.
 
-## Inputs
+## Входные данные
 
 - `specs/NNN-feature-name/spec.md`
 - `specs/NNN-feature-name/plan.md`
 - `specs/NNN-feature-name/tasks.md`
-- the implemented code changes for one task
-- relevant contracts and constitution rules
+- реализованные изменения по одной задаче
+- релевантные контракты и правила конституции
 
-## Output file
+## Выходной файл
 
 ```text
-Verification feedback in the review channel, pull request, or task record
+Отчёт проверки в review-канале, pull request или записи задачи
 ```
 
-## Verifier stance
+## Что нужно сделать
 
-Act as a skeptical verifier, not as a supportive teammate.
+1. Проверить, соответствует ли реализация выбранной задаче.
+2. Найти изменения вне скоупа.
+3. Поискать пропущенные пограничные сценарии, слабые тесты, пробелы безопасности и нарушения конституции.
+4. Зафиксировать конкретные дефекты, неоднозначности и follow-up работу.
+5. Не жертвовать корректностью ради вежливости.
 
-Your job is to find defects, scope drift, weak reasoning, and missing safeguards.
+## Обязательные проверки
 
-Do not silently fix the code.
+- прослеживаемость от задачи к коду
+- соответствие спецификации
+- контроль скоупа
+- пограничные сценарии
+- безопасность и работа с данными
+- достаточность тестов
 
-First report what is wrong, why it matters, and what evidence supports the finding.
+## Критерии готовности
 
-## What to do
+Результат проверки принимается только если:
 
-1. Identify which task from `tasks.md` is being verified.
-2. Trace the implemented changes back to `spec.md`, `plan.md`, and the selected task.
-3. Search for mismatches, omissions, and out-of-scope work.
-4. Check architecture, UI-layer placement, dependency direction, and token discipline.
-5. Check edge cases, loading, empty, and error states when UI is affected.
-6. Check tests, diagnostics, and operational impact.
-7. Report concrete findings with severity.
+- замечания конкретны и опираются на факты
+- нарушения скоупа названы явно
+- неразрешённые дефекты не скрыты за формальным одобрением
 
-## Required checks
+## Проверка обновления общих артефактов
 
-### Core checks
+Перед закрытием verification явно решите, изменило ли это task-level изменение project-wide правила или переиспользуемые инструкции.
 
-- task-to-code traceability
-- spec alignment
-- plan alignment
-- scope control
-- edge cases
-- security and data handling
-- test sufficiency
-
-### Frontend and architecture checks
-
-Use these checks whenever the task touches UI or frontend modules.
-
-- the code is placed in the correct layer: `shared`, `entities`, `features`, `widgets`, or `pages`
-- dependency direction remains valid: `pages -> widgets -> features -> entities -> shared`
-- `shared` does not depend on feature layers
-- `entities` does not depend on pages
-- one feature does not import private internals from another feature
-- shared UI does not leak domain terminology unless explicitly approved
-- feature UI may use domain context when justified by the spec
-- semantic tokens are used instead of raw hex values in feature UI
-- semantic spacing, radius, shadow, and typography rules are respected instead of ad hoc raw values
-- composition is preferred over a universal god-component or god-hook
-- loading, empty, and error states exist when required by the scenario
-- accessibility has not regressed
-
-## Severity scale
-
-- Critical — breaks core behavior, security, data integrity, or architectural safety
-- High — major mismatch with spec or plan, serious edge-case failure, or strong maintainability risk
-- Medium — important quality or correctness issue that should be fixed before merge
-- Low — improvement or polish item that does not block merge by itself
-
-## Output format
-
-Use this structure:
-
-### Verification target
-
-- Task:
-- Files reviewed:
-- Spec and plan sections used:
-
-### Findings
-
-For each finding, use:
-
-- Severity:
-- Title:
-- Evidence:
-- Why this is a problem:
-- Recommended action:
-
-### Final verdict
-
-- Pass
-- Pass with issues
-- Fail
-
-### Follow-up work
-
-- Required before merge:
-- Safe to defer:
-
-
-## Shared artifact update check
-
-Before closing verification, explicitly decide whether this task changed project-wide rules or reusable guidance.
-
-Check whether the result requires updates to any shared artifacts such as:
+Проверьте, требует ли результат обновления общих артефактов, например:
 
 - `AGENTS.md`
 - `.specify/memory/constitution.md`
 - `specs/templates/spec-template.md`
 - `specs/templates/plan-template.md`
-- repository-wide verification instructions or related bootstrap artifacts
+- repository-wide verification instructions или связанных bootstrap artifacts
 
-If no shared update is needed, say explicitly:
+Если обновление общих артефактов не нужно, явно напишите:
 
 - Shared artifact update required: No
 - Reason:
 
-If a shared update is needed, say explicitly:
+Если обновление общих артефактов нужно, явно напишите:
 
 - Shared artifact update required: Yes
 - Files to update:
 - Why this became a project-wide rule:
 - Whether the update is required before merge or can be handled in a follow-up change:
 
-Add this decision to the final verification output.
+Добавьте это решение в итоговый verification output.
 
-## Quality gate
-
-Accept the verification only if:
-
-- feedback is specific and evidence-based
-- scope violations are called out explicitly
-- unresolved defects are not hidden behind a generic approval
-- architecture and UI rule violations are explicitly checked when relevant

@@ -1,32 +1,28 @@
 # Bootstrap 0.5 — Create Operational Prompts
 
-## Purpose
+## Назначение
 
-Create the optional prompt-pack for IDE and agent tooling after the repository rules are stable.
+Создайте optional prompt-pack для IDE и agent tooling после стабилизации repository rules.
 
-## When to use
+## Когда использовать
 
-Use only after the constitution, agent context, and core SDD structure are already defined.
+Используйте только после определения constitution, agent context и core SDD structure.
 
-## Inputs
+## Входы
 
 - `.specify/memory/constitution.md`
 - `AGENTS.md`
-- repository workflow and artifact rules
+- repository workflow и artifact rules
 
-## Output files
+## Выходные файлы
 
 ```text
 .github/prompts/*.md
 ```
 
-## What to do
+## Что делать
 
-1. Generate short tool-facing prompts for constitution, specification, planning, tasks, implementation, and verification.
-2. Keep prompts aligned with the canonical operating model.
-3. Ensure prompts support guided discovery, recommendation discipline, evidence labels, confidence labeling, provisional defaults, and escalation on high-risk ambiguity.
-4. Do not create prompts that encourage scope expansion or hidden assumptions.
-
-## Quality gate
-
-Accept the result only if prompts are concise, operational, deterministic, and anti-hallucination aware.
+1. Сгенерируйте короткие tool-facing prompts для constitution, specification, planning, tasks, implementation и verification.
+2. Держите prompts согласованными с canonical operating model.
+3. Убедитесь, что prompts поддерживают guided discovery, discipline рекомендаций, evidence labels, confidence labeling и escalation при high-risk ambiguity.
+4. Не создавайте prompts, которые поощряют расширение scope или hidden assumptions.

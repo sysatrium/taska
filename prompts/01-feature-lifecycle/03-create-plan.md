@@ -1,48 +1,48 @@
-# Feature 2.1 — Create Implementation Plan
+# Этап 2.1 — Создание плана реализации
 
-## Purpose
+## Назначение
 
-Translate the approved feature spec into an implementation plan that describes how the system will change.
+Преобразовать утверждённую feature-спецификацию в план реализации, описывающий, как именно изменится система.
 
-## When to use
+## Когда использовать
 
-Use after the feature spec and required contracts are ready.
+Используйте после готовности feature-спецификации и необходимых контрактов.
 
-## Inputs
+## Входные данные
 
 - `specs/NNN-feature-name/spec.md`
-- contract files, if applicable
-- relevant project overview and constitution artifacts
+- контрактные файлы, если они применимы
+- релевантные обзорные артефакты и конституция
 
-## Output file
+## Выходной файл
 
 ```text
 specs/NNN-feature-name/plan.md
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Define the components or modules that will change.
-2. Describe data flow, sequencing, and integration touchpoints.
-3. Record database or schema changes where relevant.
-4. Identify risks, tradeoffs, and non-functional requirements.
-5. Keep the plan traceable to the feature spec.
+1. Определить компоненты и модули, которые будут изменяться.
+2. Описать поток данных, последовательность и точки интеграции.
+3. Зафиксировать изменения базы данных или схемы там, где это нужно.
+4. Выявить риски, компромиссы и нефункциональные требования.
+5. Сохранить прослеживаемость плана до feature-спецификации.
 
-## Required sections
+## Обязательные разделы
 
-- implementation approach
-- affected components
-- data flow
-- persistence or schema changes
-- integrations
-- risks and tradeoffs
-- non-functional requirements
+- подход к реализации
+- затрагиваемые компоненты
+- поток данных
+- изменения хранения или схемы
+- интеграции
+- риски и компромиссы
+- нефункциональные требования
 
-## Quality gate
+## Критерии готовности
 
-Accept the result only if:
+Результат принимается только если:
 
-- the plan is implementable and traceable to the spec
-- architecture choices are explicit
-- major risks and constraints are visible
-- the plan does not silently expand feature scope
+- план реалистичен и прослеживается к спецификации
+- архитектурные решения выражены явно
+- ключевые риски и ограничения видны
+- план не расширяет молча границы фичи

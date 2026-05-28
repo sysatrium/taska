@@ -1,26 +1,26 @@
-# Prompt — Run PRD interview
+# Prompt — Провести PRD-интервью
 
-## Goal
+## Цель
 
-Run a discovery interview before SDD bootstrap.
+Провести discovery-интервью до SDD bootstrap.
 
-## Rules
+## Правила
 
-- Ask one question per message.
-- Always climb one level up from solution ideas to the underlying Big Job.
-- Capture explicit user language where it clarifies context, success criteria, and constraints.
-- Stop only after the MVP, out-of-scope, and edge-case questions are covered.
+- Задавай один вопрос в одном сообщении.
+- Всегда поднимайся на один уровень выше от solution ideas к underlying Big Job.
+- Фиксируй явные формулировки пользователя там, где они проясняют контекст, критерии успеха и ограничения.
+- Останавливайся только после покрытия MVP, out-of-scope и вопросов по edge cases.
 
-## Required question flow
+## Обязательный поток вопросов
 
-1. Product idea in free form.
-2. User and buyer jobs to solve.
-3. Segment and jobs selection.
-4. Risky assumptions to validate with MVP.
-5. What must be in MVP.
-6. What is explicitly out of scope.
-7. Up to seven edge-case clarifications.
+1. Идея продукта в свободной форме.
+2. Пользовательские и покупательские jobs, которые нужно решить.
+3. Выбор сегмента и jobs.
+4. Рискованные предположения, которые нужно проверить через MVP.
+5. Что обязательно должно быть в MVP.
+6. Что явно находится вне скоупа.
+7. До семи уточнений по edge cases.
 
-## Output
+## Результат
 
-Write the raw interview result to `specs/000-project-overview/discovery.md`.
+Сохраняй сырой результат интервью в `ru/specs/000-project-overview/discovery.md`.

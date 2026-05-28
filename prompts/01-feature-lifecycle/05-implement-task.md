@@ -1,47 +1,47 @@
-# Feature 4.1 — Implement Task
+# Этап 4.1 — Реализация задачи
 
-## Purpose
+## Назначение
 
-Implement exactly one approved task from `tasks.md` without expanding scope.
+Реализовать ровно одну утверждённую задачу из `tasks.md`, не расширяя скоуп.
 
-## When to use
+## Когда использовать
 
-Use only after `spec.md`, `plan.md`, `tasks.md`, and the pre-implementation readiness checks are complete.
+Используйте только после готовности `spec.md`, `plan.md`, `tasks.md` и прохождения проверки готовности перед реализацией.
 
-## Inputs
+## Входные данные
 
 - `specs/NNN-feature-name/spec.md`
 - `specs/NNN-feature-name/plan.md`
 - `specs/NNN-feature-name/tasks.md`
-- the single task being implemented
-- relevant contracts and repository rules
+- одна выбранная задача для реализации
+- релевантные контракты и правила репозитория
 
-## Output files
+## Выходные файлы
 
 ```text
-Changed source files only for the selected task
+Изменённые исходные файлы только для выбранной задачи
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Re-read the selected task and confirm its dependencies are satisfied.
-2. Implement only the files required for that task.
-3. Keep changes traceable to the feature spec and plan.
-4. Stop and escalate if the task cannot be completed without scope expansion.
-5. Record any follow-up issue instead of silently implementing extra work.
+1. Повторно прочитать выбранную задачу и убедиться, что её зависимости закрыты.
+2. Реализовать только те файлы, которые нужны для этой задачи.
+3. Сохранить прослеживаемость изменений к спецификации и плану.
+4. Остановиться и эскалировать, если задачу нельзя завершить без расширения скоупа.
+5. Фиксировать follow-up отдельно, а не реализовывать лишнее молча.
 
-## Rules
+## Правила
 
-- one run equals one task
-- do not modify adjacent scope unless the task explicitly requires it
-- do not rewrite the plan during implementation
-- do not self-approve incomplete work
+- один запуск равен одной задаче
+- нельзя менять соседний скоуп без явного требования задачи
+- нельзя переписывать план во время реализации
+- нельзя самостоятельно считать неполную работу завершённой
 
-## Quality gate
+## Критерии готовности
 
-Accept the result only if:
+Результат принимается только если:
 
-- the selected task is fully implemented
-- no extra scope was added
-- changes remain consistent with spec, plan, and contracts
-- the result is ready for separate verification
+- выбранная задача полностью реализована
+- лишний скоуп не добавлен
+- изменения согласованы со спецификацией, планом и контрактами
+- результат готов к отдельной проверке

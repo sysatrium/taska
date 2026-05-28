@@ -1,51 +1,51 @@
-# Feature 1.1 — Create Feature Specification
+# Этап 1.1 — Создание feature-спецификации
 
-## Purpose
+## Назначение
 
-Create the feature-level specification that defines intent, scope, constraints, and verification expectations before design or coding starts.
+Создать feature-спецификацию, которая фиксирует замысел, границы, ограничения и ожидания по проверке до начала дизайна и кодинга.
 
-## When to use
+## Когда использовать
 
-Use at the beginning of every new feature, epic, or substantial change request.
+Используйте в начале каждой новой фичи, эпика или существенного change request.
 
-## Inputs
+## Входные данные
 
-- project overview artifacts
-- relevant constitution rules
-- business goal, user need, or problem statement
-- constraints, dependencies, and known decisions
+- обзорные артефакты проекта
+- релевантные правила конституции
+- бизнес-цель, пользовательская потребность или problem statement
+- ограничения, зависимости и уже принятые решения
 
-## Output file
+## Выходной файл
 
 ```text
 specs/NNN-feature-name/spec.md
 ```
 
-## What to do
+## Что нужно сделать
 
-1. Clarify the feature outcome before describing implementation.
-2. Define what is in scope and out of scope.
-3. Record constraints, assumptions, dependencies, and decisions already made.
-4. Capture open questions instead of hiding uncertainty.
-5. Add verification criteria that later agents can test against.
+1. Сначала прояснить результат фичи, а не детали реализации.
+2. Определить, что входит в скоуп и что остаётся вне его.
+3. Зафиксировать ограничения, допущения, зависимости и уже принятые решения.
+4. Открытые вопросы не скрывать, а записывать явно.
+5. Добавить критерии проверки, по которым смогут работать следующие агенты.
 
-## Required sections
+## Обязательные разделы
 
-- objective
-- expected outcomes
-- in-scope
-- out-of-scope
-- constraints
-- dependencies
-- decisions already made
-- open questions
-- verification criteria
+- цель
+- ожидаемые результаты
+- в скоупе
+- вне скоупа
+- ограничения
+- зависимости
+- уже принятые решения
+- открытые вопросы
+- критерии проверки
 
-## Quality gate
+## Критерии готовности
 
-Accept the result only if:
+Результат принимается только если:
 
-- the feature outcome is explicit
-- scope boundaries are concrete
-- implementation details do not replace specification intent
-- verification criteria are testable
+- результат фичи сформулирован явно
+- границы скоупа конкретны
+- спецификация не подменена преждевременными деталями реализации
+- критерии проверки можно реально проверить
