@@ -23,4 +23,4 @@
 
 ## Результат
 
-Сохраняй сырой результат интервью в `ru/specs/000-project-overview/discovery.md`.
+Сохраняй сырой результат интервью в `specs/000-project-overview/discovery.md` как единый discovery artifact проекта.

@@ -4,6 +4,9 @@
 
 Провести adversarial-проверку одной реализованной задачи, целенаправленно ища несоответствия, пропуски и риски.
 
+## Примечание о путях
+
+Пути вида `specs/NNN-feature-name/...` в этом prompt — это шаблонный placeholder. Перед работой агент должен использовать реальный feature folder, созданный по принятому naming convention.
 ## Когда использовать
 
 Используйте сразу после реализации задачи и до признания работы завершённой.
@@ -54,7 +57,7 @@
 Проверьте, требует ли результат обновления общих артефактов, например:
 
 - `AGENTS.md`
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `specs/templates/spec-template.md`
 - `specs/templates/plan-template.md`
 - repository-wide verification instructions или связанных bootstrap artifacts

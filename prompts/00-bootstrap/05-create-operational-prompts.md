@@ -2,27 +2,48 @@
 
 ## Назначение
 
-Создайте optional prompt-pack для IDE и agent tooling после стабилизации repository rules.
+Создайте operational prompts, которые проводят агента через discovery, feature lifecycle и maintenance без потери governance rules, evidence discipline и scope control.
 
 ## Когда использовать
 
-Используйте только после определения constitution, agent context и core SDD structure.
+Используйте после создания constitution, agent context и project overview.
 
 ## Входы
 
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `AGENTS.md`
-- repository workflow и artifact rules
+- project overview artifacts
+- agreed repository structure and path conventions
 
-## Выходные файлы
+## Выходы
 
-```text
-.github/prompts/*.md
-```
+- prompts для discovery
+- prompts для feature lifecycle
+- prompts для maintenance и refinement
 
 ## Что делать
 
-1. Сгенерируйте короткие tool-facing prompts для constitution, specification, planning, tasks, implementation и verification.
-2. Держите prompts согласованными с canonical operating model.
-3. Убедитесь, что prompts поддерживают guided discovery, discipline рекомендаций, evidence labels, confidence labeling и escalation при high-risk ambiguity.
-4. Не создавайте prompts, которые поощряют расширение scope или hidden assumptions.
+1. Определите обязательные стадии workflow и соответствующие prompts.
+2. Обеспечьте, чтобы каждый prompt наследовал governing rules из constitution и practical operating rules из `AGENTS.md`.
+3. Зафиксируйте evidence labeling, confidence expectations и escalation rules.
+4. Вшивайте в prompts проверки на scope discipline, dependency policy, quality gates и path consistency.
+5. Добавьте обязательный шаг post-implementation / post-verification review: нужно ли обновить constitution, AGENTS, project overview, templates или repository-wide prompts.
+6. Обеспечьте, чтобы prompts ссылались только на актуальные артефакты репозитория.
+
+## Operational requirements
+
+- prompts для implementation должны требовать чтения spec, plan и tasks перед изменениями
+- prompts для verification должны проверять acceptance criteria, regression risk, scope purity и governance compliance
+- prompts не должны молча разрешать broad refactor, dependency additions или speculative design changes
+- prompts для UI work должны напоминать про design tokens, accessibility и consistency rules, если проект включает интерфейс
+- prompts для maintenance должны обновлять спецификации и governance artifacts после инцидентов или drift
+- prompts должны различать approved facts, inferred context и provisional defaults
+
+## Quality gate
+
+Принимайте результат только если:
+
+- operational prompts образуют непрерывный workflow без пропусков между стадиями
+- каждый prompt поддерживает те же governing rules, что и constitution/AGENTS
+- path references консистентны и соответствуют реальной структуре репозитория
+- prompts помогают агенту принимать одинаковые решения в похожих ситуациях

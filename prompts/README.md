@@ -64,3 +64,22 @@
 ## Discovery phase
 
 Используйте discovery-prompts до bootstrap или до feature specification, когда команде ещё нужно прояснить сегмент, jobs, границы MVP или рискованные предположения.
+
+
+## Canonical paths
+
+Используйте единые canonical paths для всех стадий:
+
+- constitution: `specs/000-project-overview/constitution.md`
+- project overview: `specs/000-project-overview/spec.md`
+- architecture: `specs/000-project-overview/architecture.md`
+- data model: `specs/000-project-overview/data-model.md`
+- discovery: `specs/000-project-overview/discovery.md`
+- feature artifacts: `specs/NNN-feature-name/`
+
+## Roles of artifacts
+
+- `prompts/` — executable workflow и operating instructions.
+- `specs/` — canonical project and feature artifacts.
+- demo feature folders в `specs/001-*`, `002-*`, `003-*` — reference examples, а не source-of-truth для нового проекта.
+- `examples/` — справочные шаблоны и практики, которые нужно адаптировать, а не копировать без нормализации.

@@ -10,14 +10,14 @@
 
 ## Входные данные
 
-- текущий `.specify/memory/constitution.md`
+- текущий `specs/000-project-overview/constitution.md`
 - причина изменения
 - подтверждение, что правило действительно должно стать общепроектным
 
 ## Выходной файл
 
 ```text
-.specify/memory/constitution.md
+specs/000-project-overview/constitution.md
 ```
 
 ## Что нужно сделать
@@ -42,3 +42,10 @@
 - изменение действительно относится к уровню конституции
 - новое правило конкретно и переиспользуемо
 - ожидаемое поведение агентов явно меняется из-за обновления
+
+
+## Alignment checks
+
+- проверяйте consistency с текущими bootstrap rules, `AGENTS.md` и canonical paths
+- не сохраняйте устаревшие references или legacy structure
+- при drift между prompts и governance artifacts сначала обновляйте source-of-truth, потом dependent prompts

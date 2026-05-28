@@ -10,7 +10,7 @@
 
 ## Входные данные
 
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `AGENTS.md`
 - обзорные артефакты проекта
 - feature `spec.md`
@@ -46,3 +46,10 @@
 - `NOT READY FOR IMPLEMENTATION`
 
 Положительное решение допустимо только если оно основано на явной проверке артефактов, а не на интуиции.
+
+
+## Alignment checks
+
+- проверяйте consistency с текущими bootstrap rules, `AGENTS.md` и canonical paths
+- не сохраняйте устаревшие references или legacy structure
+- при drift между prompts и governance artifacts сначала обновляйте source-of-truth, потом dependent prompts
