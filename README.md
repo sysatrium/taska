@@ -108,6 +108,8 @@ specs/
     spec-template.md
     plan-template.md
     tasks-template.md
+    verify-template.md
+    adr-template.md
     api-spec-template.yaml
     data-schema-template.json
 
@@ -132,6 +134,17 @@ ru/
   .github/prompts/
   specs/
 ```
+
+## SDD structure conventions
+
+- Canonical feature numbering: `specs/NNN-feature-slug/` with a three-digit numeric prefix.
+- Canonical code location: `src/`.
+- Canonical process documentation: `README.md`, `SPEC_PROCESS.md`, `AGENTS.md`, `CLAUDE.md` in the repository root.
+- Canonical project-level artifacts: `specs/000-project-overview/`.
+- Canonical feature contracts location: `specs/NNN-feature-slug/contracts/`.
+- Canonical reusable templates: `specs/templates/`.
+
+See `SPEC_PROCESS.md` for detailed lifecycle rules and feature artifact expectations.
 
 ## Bootstrap flow
 

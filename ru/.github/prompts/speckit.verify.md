@@ -1,22 +1,46 @@
-Проведите adversarial-проверку одной реализованной задачи.
+Проверьте одну реализованную task с adversarial mindset.
 
-Нужно проверить:
-- прослеживаемость от задачи к коду
-- соответствие спецификации
-- контроль скоупа
-- пропущенные пограничные сценарии
-- пробелы безопасности
-- слабые тесты
-- нарушения конституции
+Перед началом обязательно прочитать:
+- `AGENTS.md`
+- `.specify/memory/constitution.md`
+- `SPEC_PROCESS.md`
+- relevant `spec.md`
+- `plan.md`
+- `tasks.md`
+- changed code и tests
+
+Обязательно проверить:
+- task-to-code traceability
+- spec alignment
+- scope control
+- missed edge cases
+- security gaps
+- weak tests
+- constitution violations
 - unsupported claims
 - hidden assumptions
 - phantom certainty
-- не решил ли код open questions без approval
+- не решены ли open questions без approval
+- не нарушены ли planning-system guardrails
 
-Выход:
-- конкретные дефекты
-- конкретные риски
+Evidence labels для findings:
+- `Confirmed`
+- `Inferred`
+- `Provisional default`
+- `Open question`
+- `Blocker`
+
+Вердикт должен содержать:
+- concrete defects
+- concrete risks
 - unsupported claims
 - hidden assumptions
-- requires explicit decision
-- safe to proceed или not safe to proceed
+- needs explicit decision
+- safe to proceed / not safe to proceed
+
+Post-feature review обязателен:
+- явно ответить, требует ли change обновления `AGENTS.md`
+- требует ли change обновления `.specify/memory/constitution.md`
+- требует ли change обновления templates
+- требует ли change обновления repository-wide verification instructions
+- если updates не нужны, написать это явно

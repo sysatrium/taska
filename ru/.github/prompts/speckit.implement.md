@@ -1,21 +1,33 @@
-Реализуйте только одну задачу.
+Реализуйте только одну выбранную task.
 
-Входы:
-- AGENTS.md
-- конституция
-- спецификация
-- план
-- задачи
-- выбранная задача
+Обязательные входы:
+- `AGENTS.md`
+- `.specify/memory/constitution.md`
+- `SPEC_PROCESS.md`
+- `spec.md`
+- `plan.md`
+- `tasks.md`
+- selected task
 
-Правила:
-- один запуск = одна задача
-- нельзя расширять скоуп
-- нельзя переписывать план во время кодинга
-- нельзя решать open questions прямо в коде
-- нельзя превращать provisional assumptions в архитектурные факты
-- нужно остановиться и эскалировать, если требуются скрытые решения
+Режим выполнения:
+- one run = one task
+- менять только то, что нужно для selected task
+- не переписывать plan во время coding
+- не закрывать open questions прямо кодом
+- не превращать provisional assumptions в architecture facts
+- остановиться и эскалировать, если clean completion требует hidden decision
 
-Выход:
-- изменения исходников только для выбранной задачи
-- явная blocker note, если неразрешённые решения мешают чистому завершению
+Implementation guardrails:
+- planning logic должна оставаться на backend
+- controllers должны оставаться thin
+- business rules не размещать внутри React components
+- не вводить microservices
+- не прятать critical rules только в SQL или только во frontend
+- не создавать hidden magic defaults
+- для каждого non-trivial rule нужен automated test
+- bug fix для planning logic требует regression test
+
+В выходе должно быть:
+- source changes только для selected task
+- test changes, если они необходимы
+- явный blocker note, если task нельзя безопасно завершить
