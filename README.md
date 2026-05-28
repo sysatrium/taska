@@ -16,9 +16,7 @@ The repository root is the canonical source for structure and operating rules.
 
 Use the root documentation and prompt set for source-of-truth rules.
 
-Use `ru/` for Russian onboarding and synchronized local-team documentation.
-
-When the root and `ru/` diverge, update the root first, then synchronize `ru/`.
+Keep onboarding, prompts, specs, and operating documentation directly in the repository root.
 
 ## Operating model
 
@@ -127,12 +125,8 @@ prompts/
   01-feature-lifecycle/
   02-maintenance/
 
-ru/
-  README.md
-  GLOSSARY.md
-  prompts/
-  .github/prompts/
-  specs/
+GETTING-STARTED.md
+GLOSSARY.md
 ```
 
 ## SDD structure conventions

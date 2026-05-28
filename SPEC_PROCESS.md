@@ -7,8 +7,7 @@
 ## Source of truth
 
 - Canonical process и structure фиксируются в repository root.
-- Папка `ru/` содержит синхронизированную русскоязычную документацию.
-- При расхождении сначала обновляется root artifact, затем синхронизируется `ru/`, если для него существует соответствующий документ.
+- Все canonical process artifacts поддерживаются напрямую в repository root и в его основных рабочих каталогах.
 
 ## Feature numbering and naming
 
@@ -68,7 +67,6 @@ Canonical reusable templates находятся в `specs/templates/`.
 - `api-spec-template.yaml`
 - `data-schema-template.json`
 
-Шаблоны в `ru/specs/templates/` поддерживаются как синхронизированные русскоязычные копии там, где это уместно.
 
 ## Code placement
 
@@ -82,7 +80,7 @@ Canonical reusable templates находятся в `specs/templates/`.
 - Repository-wide process documentation хранится в root (`README.md`, `SPEC_PROCESS.md`, `AGENTS.md`, `CLAUDE.md`).
 - Project constitution хранится в `.specify/memory/constitution.md`.
 - Project overview хранится в `specs/000-project-overview/`.
-- Русскоязычные onboarding и синхронизированные документы могут жить в `ru/`.
+- Onboarding и process documentation хранятся в root-структуре репозитория.
 
 ## Lifecycle expectations
 

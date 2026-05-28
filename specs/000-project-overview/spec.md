@@ -83,7 +83,7 @@ Bootstrap 0.3 baseline.
 
 ### Recommended
 
-- Канонический baseline артефактов хранить в `specs/000-project-overview/*`, а `ru/specs/000-project-overview/*` поддерживать синхронной копией на русском.
+- Канонический baseline артефактов хранить в `specs/000-project-overview/*`.
 - Считать planning period главным контейнером business context для backlog, capacity, allocations, dependencies и overflow.
 
 ### Assumed
