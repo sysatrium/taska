@@ -1,16 +1,16 @@
-Generate a feature `spec.md` from approved project context.
+Сгенерируйте feature `spec.md` из approved project context.
 
-Evidence labels to use for major decisions:
-- Known
-- Inferred
-- Recommended
-- Assumed
-- Open Question
-- Blocked
+Перед началом обязательно прочитать:
+- `.specify/memory/constitution.md`
+- `AGENTS.md`
+- `SPEC_PROCESS.md`
+- `specs/000-project-overview/spec.md`
+- `specs/000-project-overview/data-model.md`
+- `specs/000-project-overview/architecture.md`
 
-Must include:
+Что должно быть в `spec.md`:
 - objective
-- outcomes
+- user outcomes
 - in-scope
 - out-of-scope
 - constraints
@@ -18,11 +18,27 @@ Must include:
 - edge cases
 - verification criteria
 - open questions
-- evidence status for major decisions
-- confidence for provisional recommendations
+- evidence status для major decisions
+- confidence для provisional recommendations
 
-Rules:
-- do not convert assumptions into facts
-- propose boundary options before refusing on vague scope
-- label unresolved high-impact items explicitly
-- use the evidence labels consistently across the document
+Правила:
+- не превращать assumptions в facts
+- сначала предлагать boundary options, если scope расплывчат
+- не расширять scope скрытым образом
+- не придумывать integrations, approval workflow или production decisions без подтверждения
+- явно указывать, что feature не должна решать
+- при high-risk ambiguity останавливаться и эскалировать
+
+Domain guardrails:
+- сохранять фокус на planning system, а не generic task management
+- не переносить planning logic во frontend
+- помнить про explainability, auditability, overload visibility и overflow visibility
+
+Evidence labels по умолчанию:
+- `Confirmed`
+- `Inferred`
+- `Provisional default`
+- `Open question`
+- `Blocker`
+
+Если используется template или artifact с другой legend, сохранить его локальный формат и явно указать mapping.
