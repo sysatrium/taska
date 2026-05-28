@@ -1,7 +1,7 @@
 Сгенерируйте feature `spec.md` из approved project context.
 
 Перед началом обязательно прочитать:
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `AGENTS.md`
 - `SPEC_PROCESS.md`
 - `specs/000-project-overview/spec.md`

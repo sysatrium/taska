@@ -1,7 +1,7 @@
 Используйте этот prompt только для bootstrap-шага constitution.
 
 Обязательный context перед началом:
-- `.specify/memory/constitution.md`, если файл уже существует
+- `specs/000-project-overview/constitution.md`, если файл уже существует
 - `AGENTS.md`
 - `CLAUDE.md`
 - `SPEC_PROCESS.md`

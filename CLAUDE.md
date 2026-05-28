@@ -4,14 +4,14 @@
 
 Краткий tool-facing operating guide для работы в этом repository.
 
-Всегда использовать вместе с `.specify/memory/constitution.md` и `AGENTS.md`.
+Всегда использовать вместе с `specs/000-project-overview/constitution.md` и `AGENTS.md`.
 
 ## Source of truth
 
 Порядок precedence:
 
 1. Явное указание человека в текущей задаче.
-2. `.specify/memory/constitution.md`.
+2. `specs/000-project-overview/constitution.md`.
 3. Принятые bootstrap artifacts и feature-specific specs/plans.
 4. `AGENTS.md`.
 5. `CLAUDE.md`.
@@ -82,7 +82,7 @@
 После verification всегда явно отвечать:
 
 - требует ли change обновления `AGENTS.md`;
-- требует ли change обновления `.specify/memory/constitution.md`;
+- требует ли change обновления `specs/000-project-overview/constitution.md`;
 - требует ли change обновления templates;
 - требует ли change обновления repository-wide instructions.
 

@@ -52,7 +52,7 @@ Draft
 ## Shared artifact review
 
 - Does this change require updates to `AGENTS.md`?
-- Does this change require updates to `.specify/memory/constitution.md`?
+- Does this change require updates to `specs/000-project-overview/constitution.md`?
 - Does this change require updates to templates?
 - Does this change require updates to repository-wide verification instructions?
 - If no updates are required, state that explicitly.

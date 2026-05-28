@@ -4,14 +4,14 @@
 
 Этот файл задаёт repository-wide operating context для всех AI agents, работающих в этом repository.
 
-Он дополняет `.specify/memory/constitution.md`, но не может ему противоречить.
+Он дополняет `specs/000-project-overview/constitution.md`, но не может ему противоречить.
 
 ## Source of truth precedence
 
 При конфликте источников агент обязан применять precedence в таком порядке:
 
 1. Явное подтверждённое указание человека в текущей задаче.
-2. `.specify/memory/constitution.md`.
+2. `specs/000-project-overview/constitution.md`.
 3. Утверждённые bootstrap artifacts и feature-specific specs/plans, если они уже приняты в repository.
 4. Этот `AGENTS.md`.
 5. `CLAUDE.md` как компактный tool-facing guide.
@@ -153,7 +153,7 @@
 Проверяются как минимум:
 
 - `AGENTS.md`
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - templates
 - repository-wide verification instructions
 - другие устойчивые shared instructions
@@ -187,7 +187,7 @@
 - Реализуй только то, что явно описано в spec — не добавляй "полезные" вещи самостоятельно
 - Один коммит = один AC или один логический шаг
 - Перед кодом — покажи план и жди подтверждения
-- Используй Design Tokens из `specs/constitution.md` для всех стилей
+- Используй Design Tokens из `specs/000-project-overview/constitution.md` для всех стилей
 
 ## When Blocked
 
@@ -230,7 +230,7 @@ project/
 
 ### Design Tokens (обязательны, не хардкодить значения)
 ```css
-/* Эти переменные определены в specs/constitution.md */
+/* Эти переменные определены в specs/000-project-overview/constitution.md */
 /* Используй ТОЛЬКО их — никаких #fff, 16px, 8px напрямую */
 var(--color-bg)
 var(--color-primary)

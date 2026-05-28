@@ -78,7 +78,7 @@ Canonical reusable templates находятся в `specs/templates/`.
 ## Process documentation placement
 
 - Repository-wide process documentation хранится в root (`README.md`, `SPEC_PROCESS.md`, `AGENTS.md`, `CLAUDE.md`).
-- Project constitution хранится в `.specify/memory/constitution.md`.
+- Project constitution хранится в `specs/000-project-overview/constitution.md`.
 - Project overview хранится в `specs/000-project-overview/`.
 - Onboarding и process documentation хранятся в root-структуре репозитория.
 

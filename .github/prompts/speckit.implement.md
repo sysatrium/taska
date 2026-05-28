@@ -2,7 +2,7 @@
 
 Обязательные входы:
 - `AGENTS.md`
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `SPEC_PROCESS.md`
 - `spec.md`
 - `plan.md`

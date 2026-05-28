@@ -2,7 +2,7 @@
 
 Перед началом обязательно прочитать:
 - `AGENTS.md`
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `SPEC_PROCESS.md`
 - relevant `spec.md`
 - `plan.md`
@@ -40,7 +40,7 @@ Evidence labels для findings:
 
 Post-feature review обязателен:
 - явно ответить, требует ли change обновления `AGENTS.md`
-- требует ли change обновления `.specify/memory/constitution.md`
+- требует ли change обновления `specs/000-project-overview/constitution.md`
 - требует ли change обновления templates
 - требует ли change обновления repository-wide verification instructions
 - если updates не нужны, написать это явно

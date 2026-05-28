@@ -1,7 +1,7 @@
 Сгенерируйте `tasks.md` из approved `spec.md` и `plan.md`.
 
 Перед началом обязательно прочитать:
-- `.specify/memory/constitution.md`
+- `specs/000-project-overview/constitution.md`
 - `AGENTS.md`
 - `SPEC_PROCESS.md`
 - approved `spec.md`
