@@ -1,4 +1,4 @@
-# Этап 4.1 — Отметка feature как released
+# Этап 4.3 — Отметка feature как released
 
 ## Назначение
 
