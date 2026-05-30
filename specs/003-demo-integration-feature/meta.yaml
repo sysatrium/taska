@@ -1,0 +1,40 @@
+# Feature metadata
+# Хранится в: specs/NNN-feature-name/meta.yaml
+
+id: "003"
+name: demo-integration-feature
+
+# Возможные значения status:
+#
+# specified
+#   Feature folder уже создан.
+#   Feature-spec создаётся или уже создан.
+#   Это нормальное стартовое состояние для новой подтверждённой feature.
+#
+# in_progress
+#   Реализация feature начата.
+#   Команда или агент уже выполняет задачи по feature.
+#
+# done
+#   Реализация и проверка завершены.
+#   Но feature ещё не отмечена как вошедшая в релиз.
+#
+# released
+#   Feature явно вошла в релиз.
+#   Это означает, что её можно считать доступной пользователям или включённой в поставку.
+#
+# unknown
+#   Используется только как fallback в анализе, если meta.yaml отсутствует или статус не распознан.
+#   Обычно это значение не нужно записывать в сам файл вручную.
+status: done
+
+# true
+#   Feature включена в релиз.
+#
+# false
+#   Feature ещё не включена в релиз.
+included_in_release: false
+
+# Идентификатор релиза, если feature выпущена.
+# Для unreleased feature использовать null.
+release: null
