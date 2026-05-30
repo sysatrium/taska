@@ -1,0 +1,324 @@
+openapi: 3.1.0
+info:
+  title: Team Profile and Capacity API
+  version: 0.1.0
+  description: |
+    Minimal API contract for feature 004: global team profile creation and editing.
+    Scope is intentionally limited to global team profile and centralized competency catalog.
+servers:
+  - url: https://api.example.com
+paths:
+  /api/teams:
+    post:
+      summary: Create a global team profile
+      operationId: createTeam
+      tags: [Teams]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamCreateRequest'
+      responses:
+        '201':
+          description: Team profile created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Malformed request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: User role is not allowed to create a team profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Obvious duplicate team detected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: List global team profiles
+      operationId: listTeams
+      tags: [Teams]
+      responses:
+        '200':
+          description: List of team profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamListResponse'
+
+  /api/teams/{teamId}:
+    get:
+      summary: Get one global team profile
+      operationId: getTeam
+      tags: [Teams]
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: Team not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Update a global team profile
+      operationId: patchTeam
+      tags: [Teams]
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamPatchRequest'
+      responses:
+        '200':
+          description: Team profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Malformed request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Team not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict during update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/competencies:
+    get:
+      summary: List selectable competencies from the centralized catalog
+      operationId: listCompetencies
+      tags: [Competencies]
+      responses:
+        '200':
+          description: Centralized competency catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetencyListResponse'
+
+components:
+  parameters:
+    TeamId:
+      name: teamId
+      in: path
+      required: true
+      description: Stable team identifier
+      schema:
+        type: string
+        minLength: 1
+
+  schemas:
+    Team:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+        - ownerRole
+        - competencyIds
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          description: Stable global team identifier
+          examples: [team_123]
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+          description: Display name of the team
+          examples: [Payments Platform]
+        ownerRole:
+          type: string
+          minLength: 1
+          maxLength: 80
+          description: Responsible role for the team profile
+          examples: [team-lead, head-of-product]
+        competencyIds:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+          description: References to selectable competencies from the centralized catalog
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    TeamCreateRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - name
+        - ownerRole
+        - competencyIds
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        ownerRole:
+          type: string
+          minLength: 1
+          maxLength: 80
+        competencyIds:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+      examples:
+        - name: Payments Platform
+          ownerRole: team-lead
+          competencyIds:
+            - backend-development
+            - qa-testing
+
+    TeamPatchRequest:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        ownerRole:
+          type: string
+          minLength: 1
+          maxLength: 80
+        competencyIds:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+      examples:
+        - name: Payments Core Team
+          competencyIds:
+            - backend-development
+            - devops-infrastructure
+
+    Competency:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+        - isSelectable
+        - source
+      properties:
+        id:
+          type: string
+          minLength: 1
+          examples: [backend-development]
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+          examples: [Backend Development]
+        isSelectable:
+          type: boolean
+          const: true
+        source:
+          type: string
+          enum: [seeded]
+
+    TeamListResponse:
+      type: object
+      additionalProperties: false
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+
+    CompetencyListResponse:
+      type: object
+      additionalProperties: false
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Competency'
+
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          examples:
+            - validation_error
+            - forbidden
+            - duplicate_team
+            - team_not_found
+            - unknown_competency
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [field, issue]
+            properties:
+              field:
+                type: string
+              issue:
+                type: string
