@@ -59,6 +59,16 @@ Use `follow-up` for improvements that do not prevent the approved user outcome f
 
 Missing runnable toolchain is a Blocker for releasing user-facing features when it prevents runtime smoke.
 
+## Git safety rule
+
+Lifecycle execution does not require automatic local git commits.
+
+- Implementation prompts may modify the working tree for the approved task without creating a commit.
+- Agents must not create commits, amend commits, rebase, reset, checkout, revert, stash, or otherwise change repository history unless a human explicitly asks for that exact git action.
+- Rollback strategy is a human decision, not an automatic side effect of task execution.
+- A task or feature does not become more complete merely because an automatic checkpoint commit was created.
+
 ## Changelog
 
+- 2026-05-31: Added Git safety rule; automatic local commits are not part of lifecycle execution.
 - 2026-05-31: Initial lifecycle definition with Runtime Smoke between Verify and Release Marking.

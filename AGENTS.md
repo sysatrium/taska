@@ -60,6 +60,15 @@ Before implementation of a user-facing feature, identify the primary Golden Path
 
 If task decomposition produces screens, routes, or APIs but no usable workflow, the agent must challenge the decomposition and propose a navigation/app-shell task before calling the work done.
 
+## Git and rollback safety
+
+- Do not create local git commits, amend commits, rebase, reset, checkout, revert, stash, or otherwise rewrite repository history unless the human explicitly asks for that exact git action.
+- `05-implement-task` and other lifecycle prompts must not create automatic checkpoint commits by default.
+- The default implementation mode is working-tree only: modify files needed for the approved task without creating a commit.
+- If rollback safety is needed, the agent should propose options and ask the human to choose, for example: create a local commit, create a patch file, or rely on the existing VCS state.
+- If the human asks for a commit, create exactly one clearly scoped commit for the approved change and do not perform extra history operations.
+- Never treat automatic local commits as a required part of task completion or release readiness.
+
 ## When writing code
 
 - Read the relevant feature artifacts before editing.
@@ -106,4 +115,5 @@ If no update is needed, state that explicitly in the verification result.
 
 ## Changelog
 
+- 2026-05-31: Added Git and rollback safety rules; automatic local commits require explicit human approval.
 - 2026-05-31: Initial version with Runtime Usability Gate and Golden Path release rules.
