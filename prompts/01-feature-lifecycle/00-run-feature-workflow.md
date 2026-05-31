@@ -9,7 +9,8 @@
 Когда нужно отработать конкретную feature из `specs/` целиком: реализовать, проверить задачи и assembled slice, подготовить отчёты для owner и остановиться перед release.
 
 ## Входные данные
-
+- `specs/000-project-overview/constitution.md`
+- `AGENTS.md`
 - `SPEC_PROCESS.md`
 - `specs/NNN-feature-name/spec.md`
 - `specs/NNN-feature-name/plan.md`
@@ -29,6 +30,8 @@
 Работай строго по шагам:
 
 1) Прочитай:
+- constitution.md
+- AGENTS.md
 - SPEC_PROCESS.md
 - specs/NNN-feature-name/spec.md
 - specs/NNN-feature-name/plan.md
