@@ -30,8 +30,10 @@ CLAUDE.md
 4. Опишите, что агент может рекомендовать по умолчанию, а что всегда требует подтверждения человека.
 5. Зафиксируйте evidence labels и ожидания по confidence.
 6. Зафиксируйте, как агент должен эскалировать blockers и high-risk ambiguity.
-7. Добавьте обязательное правило post-feature review: после verification агент должен явно решить, требует ли реализованное изменение обновления общих артефактов, таких как `AGENTS.md`, `specs/000-project-overview/constitution.md`, шаблоны или repository-wide verification instructions. Если обновление не нужно, агент должен явно это указать.
-8. Перенесите в operational form лучшие практики из repository examples, но нормализуйте их под текущую структуру репозитория, не копируя сломанные или устаревшие пути.
+7. Добавьте обязательное правило Runtime Usability Gate: после UI/user-facing задачи агент обязан проверить Golden Path в браузере/API или зафиксировать Blocker, если runtime smoke невозможен.
+8. Добавьте правило, что агент обязан спорить с task decomposition, если задачи дают код, но не дают reachable usable workflow из основного UI.
+9. Добавьте обязательное правило post-feature review: после verification агент должен явно решить, требует ли реализованное изменение обновления общих артефактов, таких как `AGENTS.md`, `specs/000-project-overview/constitution.md`, шаблоны или repository-wide verification instructions. Если обновление не нужно, агент должен явно это указать.
+10. Перенесите в operational form лучшие практики из repository examples, но нормализуйте их под текущую структуру репозитория, не копируя сломанные или устаревшие пути.
 
 ## AGENTS.md должен обязательно включать
 
@@ -39,6 +41,7 @@ CLAUDE.md
 - ссылки на актуальные source-of-truth artifacts в текущей структуре репозитория
 - project commands: install, dev, lint, test, build
 - Definition of Done
+- Runtime Usability Gate и Golden Path rules для user-facing features
 - правила `When Writing Code`
 - правила `When Blocked`
 - правила `When Reviewing Code`
@@ -54,7 +57,8 @@ CLAUDE.md
 - Требуйте явного запрета на broad changes вне scope задачи.
 - Требуйте, чтобы агент сначала читал релевантные spec/plan/tasks артефакты перед implementation.
 - Требуйте, чтобы агент показывал план до кода, если это соответствует режиму работы проекта.
-- Требуйте, чтобы review проверял соответствие acceptance criteria, scope boundaries и governing rules.
+- Требуйте, чтобы review проверял соответствие acceptance criteria, scope boundaries, Golden Path reachability и governing rules.
+- Требуйте, чтобы отсутствие runnable toolchain считалось Blocker для release user-facing feature, а не follow-up.
 - Не допускайте ссылок на несуществующие файлы или legacy structure.
 
 ## Quality gate
@@ -64,5 +68,6 @@ CLAUDE.md
 - `AGENTS.md` и `CLAUDE.md` согласованы с constitution
 - у агента есть practical operating instructions, а не только общие принципы
 - Definition of Done применим к реальным задачам
+- Runtime Usability Gate защищает пользователя от формально выполненных, но недостижимых UI-фич
 - правила для blockers, review и post-feature governance update явно сформулированы
 - все ссылки и references соответствуют текущей структуре репозитория

@@ -26,9 +26,10 @@
 1. Создайте и/или уточните структуру каталогов так, чтобы bootstrap, discovery, feature lifecycle и maintenance использовали одну и ту же модель путей.
 2. Зафиксируйте naming convention для feature folders, например `NNN-short-feature-name`.
 3. Зафиксируйте обязательный состав артефактов внутри каждой feature folder: `spec.md`, `plan.md`, `tasks.md`, `verify.md`, а при необходимости `contracts/`.
-4. Убедитесь, что шаблоны и prompts не ссылаются на несуществующие legacy directories.
-5. Убедитесь, что структура не конфликтует с governance files, project overview и examples-derived practices.
-6. Если в проекте есть UI, integrations или contracts, предусмотрите для них понятные папки и стабильные conventions.
+4. Для шаблонов feature artifacts добавьте обязательные поля Golden Path, expected entry point, runtime smoke evidence и release blockers для user-facing features.
+5. Убедитесь, что шаблоны и prompts не ссылаются на несуществующие legacy directories.
+6. Убедитесь, что структура не конфликтует с governance files, project overview и examples-derived practices.
+7. Если в проекте есть UI, integrations или contracts, предусмотрите для них понятные папки и стабильные conventions.
 
 ## Обязательные требования
 
@@ -37,6 +38,7 @@
 - feature lifecycle должен быть трассируемым от overview к spec, от spec к plan, от plan к tasks, от tasks к verify
 - папки `specs/`, `prompts/`, `examples/` и рабочая зона кода должны иметь ясные границы ответственности
 - шаблоны не должны провоцировать агентов создавать артефакты в неправильных местах
+- шаблоны для user-facing features должны требовать достижимости Golden Path из ожидаемого UI/API entry point
 
 ## Quality gate
 
@@ -45,4 +47,5 @@
 - структура каталогов понятна без устных пояснений
 - path conventions едины во всех bootstrap и operational prompts
 - шаблоны поддерживают практики из constitution и AGENTS.md
+- шаблоны включают Runtime Usability Gate для user-facing features
 - новые feature artifacts можно создавать без ручного исправления путей

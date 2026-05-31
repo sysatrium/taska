@@ -11,19 +11,23 @@
 ## Входные данные
 
 - `specs/NNN-feature-name/meta.yaml`
+- `SPEC_PROCESS.md`, если он есть в репозитории
 - результаты verify-этапа
+- результаты Runtime Usability Gate / Golden Path smoke для user-facing feature
 - идентификатор релиза, если он используется в проекте
 
 ## Что нужно сделать
 
 1. Прочитать текущий `meta.yaml`.
 2. Убедиться, что feature завершена и подтверждена к включению в релиз.
-3. Обновить поля статуса:
+3. Для user-facing feature убедиться, что Runtime Usability Gate пройден: приложение запускается, feature достижима из ожидаемого UI entry point, Golden Path завершается без знания скрытых URL, а необходимые API/backend smoke checks выполнены.
+4. Если runtime smoke отсутствует или невозможен из-за toolchain/environment gap, остановиться и зафиксировать Blocker вместо установки `released`.
+5. Обновить поля статуса:
    - `status: released`
    - `included_in_release: true`
    - `release: <release-id>`
-4. Если release identifier неизвестен, явно запросить его у человека или использовать согласованный проектный формат.
-5. Не ставить `released` автоматически только на основании того, что код написан или verify завершён.
+6. Если release identifier неизвестен, явно запросить его у человека или использовать согласованный проектный формат.
+7. Не ставить `released` автоматически только на основании того, что код написан или verify завершён.
 
 ## Критерии готовности
 
@@ -33,3 +37,4 @@
 - feature помечена как включённая в релиз
 - release identifier заполнен или явно согласован
 - статус `released` установлен только после подтверждения человека
+- для user-facing feature есть явное свидетельство пройденного Runtime Usability Gate или release остановлен как Blocker

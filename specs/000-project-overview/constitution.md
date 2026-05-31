@@ -92,19 +92,32 @@ Use this section when the project includes UI.
 - Keep non-essential cleanup out of feature work unless explicitly requested.
 - Escalate ambiguity when it changes architecture, data model, security, or delivery risk.
 
-## 12. Delivery and release rules
+## 12. Runtime Usability Gate
+
+Use this section for every user-facing feature, including UI, API-backed UI flows, and any feature whose value is validated through an application runtime.
+
+- Every user-facing feature must define a Golden Path: the primary user opens the expected entry point and completes the main scenario without knowing hidden or internal URLs.
+- A user-facing feature is not eligible for `released` status unless the app can be started locally or in the agreed target environment.
+- The primary user must be able to reach the feature from an expected UI entry point such as the home page, list page, navigation, or documented product entry.
+- Empty, loading, and error states must not silently block the main path; they must guide the user to the next recoverable action when recovery is possible.
+- API or backend behavior required by the UI must be smoke-tested through the runtime path, not only by static inspection.
+- If the project has no runnable toolchain or the target runtime cannot be started, missing runtime verification is a Blocker for release, not a follow-up.
+- Task completion is subordinate to product usability: code that exists but is not reachable through the Golden Path is not done for user-facing scope.
+
+## 13. Delivery and release rules
 
 - Definition of Done must be satisfied before marking work complete.
 - Verification must check acceptance criteria, regressions, and governance compliance.
 - Post-feature review must decide whether shared artifacts need updates.
+- User-facing features must pass Runtime Usability Gate before release marking.
 
-## 13. Default decision policy
+## 14. Default decision policy
 
 - Use safe, reversible defaults only for low-risk uncertainty.
 - Label provisional defaults explicitly.
 - Do not convert assumptions into facts without confirmation.
 
-## 14. Evidence labeling policy
+## 15. Evidence labeling policy
 
 Use consistent labels in planning and review artifacts:
 
@@ -115,13 +128,13 @@ Use consistent labels in planning and review artifacts:
 - Open question
 - Blocker
 
-## 15. Project-wide out of scope
+## 16. Project-wide out of scope
 
 - [Explicit non-goal 1]
 - [Explicit non-goal 2]
 - [Explicit non-goal 3]
 
-## 16. Decision log and open questions
+## 17. Decision log and open questions
 
 ### Approved decisions
 
@@ -135,6 +148,7 @@ Use consistent labels in planning and review artifacts:
 
 - [Question]
 
-## 17. Changelog
+## 18. Changelog
 
 - YYYY-MM-DD: Initial version
+- 2026-05-31: Added Runtime Usability Gate for Golden Path, runtime smoke, and release blocking rules.
