@@ -1,68 +1,45 @@
-# Tasks Template
+# Tasks: [feature name]
 
-## Decomposition rules
+## Task list
 
-- One task = one atomic unit of work.
-- Typical implementation window = 1-4 hours.
-- Every task must have acceptance criteria.
-- Every task must have a verification method.
-- Dependencies must be explicit.
-- Tasks must be sequenced so an implementer can execute one task without replanning the feature.
-- Tasks must not silently decide unresolved product or architecture questions.
+### T1 — [task name]
 
-## Task list metadata
+- Type: [implementation / test / integration / UI / enablement]
+- User-facing: [yes / no]
+- Affects Golden Path: [yes / no]
+- Expected entry point affected: [yes / no]
+- Depends on: [none / task ids]
+- Traceability: [spec/plan section]
+- Files likely touched: [paths]
+- Acceptance criteria:
+  - [Concrete criterion]
+- Verification:
+  - [Automated/manual check]
+- Evidence expected:
+  - [What the agent must show: runtime smoke result / screenshot note / route reached / API response / test result]
 
-- Feature ID:
-- Feature name:
-- Based on spec:
-- Based on plan:
-- Last updated:
+### Classification rule
 
-## Recommended execution order
+A task is `User-facing: yes` if it changes what the user can see, click, enter, navigate to, submit, or understand during the main scenario.
 
-1. Setup / scaffolding
-2. Schema / persistence
-3. Domain logic
-4. API / integration layer
-5. UI or interface layer
-6. Tests
-7. Documentation / cleanup
+A task is `Affects Golden Path: yes` if it can block, enable, or change the user's ability to complete the primary scenario, even when the task itself is backend, API, validation, or integration work.
 
-## Task N: [Title]
+A task is `Expected entry point affected: yes` if it changes where the user starts, how they enter the flow, or whether they can reach the feature from the expected UI entry point.
 
-**Type:** Setup | Schema | Backend | Frontend | Test | Docs | Infra
+## Required user-facing task coverage
 
-**Depends on:**
+For user-facing features, tasks must include explicit coverage for:
 
-**Upstream decision dependency:**
+- App shell/navigation wiring: CTA, menu item, route, link, or documented entry point.
+- Golden Path completion from the expected entry point.
+- Post-submit or post-action destination: return to list, detail, dashboard, or next natural step.
+- Empty/loading/error state behavior on the main path.
+- Runtime smoke method and toolchain/environment requirement.
 
-**Files affected:**
+If a task has `User-facing: yes` or `Affects Golden Path: yes`, its verification may not rely on static code inspection alone; it must define observable runtime evidence or a clear blocker.
 
-**Traceability:** Spec section(s) / Plan section(s)
+If the current decomposition creates only hidden routes or isolated components, add a task to make the workflow reachable before calling the feature done.
 
-### Description
+## Blockers
 
-Describe the exact change.
-
-### Acceptance criteria
-
-- [ ]
-- [ ]
-- [ ]
-
-### Verification
-
-Describe how to verify the task and confirm that it did not introduce unsupported decisions.
-
-### This task must not decide
-
-- Describe the first excluded item for this task.
-- Describe the second excluded item for this task.
-
-### Blocked if
-
-- Describe the condition that should stop execution instead of improvisation.
-
-### Notes
-
-Optional implementation notes, risks, or constraints.
+- [Use Blocker for missing runnable toolchain, unreachable UI, unverifiable API behavior, or anything that prevents runtime smoke.]

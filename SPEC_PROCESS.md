@@ -1,123 +1,162 @@
-# SPEC_PROCESS.md
+# SPEC_PROCESS
 
-## Назначение
+## AI Spec Driven Development (vertical slice)
 
-Этот документ описывает canonical SDD process в repository и связывает структуру каталогов с жизненным циклом feature.
+Этот раздел описывает, как мы ведём фичи как vertical slice в `specs/` при участии AI‑агентов, сохраняя контроль у человеческого owner.
 
-## Source of truth
+### Что такое feature в specs/
 
-- Canonical process и structure фиксируются в repository root.
-- Все canonical process artifacts поддерживаются напрямую в repository root и в его основных рабочих каталогах.
+Feature рассматривается как один vertical slice в каталоге `specs/NNN-feature-name/`.
 
-## Feature numbering and naming
+Для каждой feature используются артефакты:
 
-### Схема нумерации
+- `spec.md` — формулировка vertical slice, цели, контекст, Golden Path (для user‑facing).
+- `plan.md` — план реализации на уровне шагов/подсистем.
+- `tasks.md` — техническая декомпозиция на задачи. Для каждой задачи задаются:
+  - `User-facing`
+  - `Affects Golden Path`
+  - `Expected entry point affected`
+  - `Evidence expected`
+- `meta.yaml` — статус feature, связь с релизом и другие метаданные.
 
-- Каждая feature хранится в каталоге `specs/NNN-feature-slug/`.
-- `NNN` — трёхзначный числовой префикс с ведущими нулями: `001`, `002`, `003`.
-- `feature-slug` — короткое, стабильное, lowercase-hyphenated имя.
-- `000-project-overview/` зарезервирован только для project-level artifacts и не используется для feature delivery.
+Feature считается определённой, когда spec/plan/tasks согласованы и описывают один связный сценарий.
 
-### Правила именования
+### Этап: Design the slice
 
-- Использовать бизнес-ориентированные имена, а не технические клички.
-- Не переименовывать feature directory после того, как на неё ссылаются другие artifacts, кроме случаев явной миграции.
-- Один каталог feature соответствует одному управляемому increment of value.
+На этапе дизайна feature формируется как vertical slice:
 
-## Standard feature structure
+- Предложение фичи и вертикального среза.
+- Подготовка `spec.md` с описанием сценариев и Golden Path.
+- Подготовка `plan.md` с основными шагами и зонами изменений.
+- Подготовка `tasks.md` по шаблону с обязательными markers и expected evidence.
 
-Каждая feature directory должна поддерживать полный lifecycle:
+На этом этапе фиксируются:
 
-```text
-specs/NNN-feature-slug/
-  spec.md
-  plan.md
-  tasks.md
-  verify.md
-  contracts/
-    ... feature-specific contracts ...
-```
+- Основные сценарии и entry points (UI / API / integration / background).
+- Что именно считается достаточным evidence, чтобы признать сценарий реально работоспособным.
 
-### Обязательные artifacts
+### Этап: Build the slice (реализация)
 
-- `spec.md` — что и зачем делаем.
-- `plan.md` — как именно будем реализовывать.
-- `tasks.md` — атомарные шаги реализации и проверки.
-- `verify.md` — результат verification и выводы по качеству.
-- `contracts/` — API, schema, UI interaction или integration contracts, когда это применимо.
+Основной режим реализации — batch‑режим по всей feature на основе `tasks.md`.
 
-## Contracts folder policy
+Ключевые правила:
 
-- Canonical место контрактов — `specs/NNN-feature-slug/contracts/`.
-- Контракты описываются рядом с feature, а не в общей свалке на уровне repository.
-- Допустимые типы: API contracts, data schemas, UI state contracts, integration/webhook contracts и аналогичные interface artifacts.
-- Если feature не имеет контрактов, в `spec.md` или `plan.md` нужно явно указать, почему contracts folder не требуется.
+- Агент читает `spec.md`, `plan.md`, `tasks.md`, `meta.yaml` и правила репозитория.
+- Реализует задачи батчем, но:
+  - сохраняет границы задач и traceability к `tasks.md`;
+  - не расширяет scope feature;
+  - не затрагивает другие feature и не меняет уже released поведение без явного решения.
+- Не выполняет git commit и не меняет историю репозитория:
+  - все изменения вносятся только в working tree;
+  - любые git‑операции делает человек.
+- Уважает поля `User-facing`, `Affects Golden Path`, `Expected entry point affected`, `Evidence expected`.
+- Если Golden Path / main path невозможно честно проверить по техническим причинам (toolchain, wiring и т.п.), это фиксируется как Blocker для release, а не как безобидный follow‑up.
 
-## Templates
+Результат этого этапа — реализованная feature в working tree + статусы и evidence по задачам, но не release.
 
-Canonical reusable templates находятся в `specs/templates/`.
+### Этап: Verify each task
 
-Ожидаемый набор:
+Каждая задача проверяется отдельно в adversarial‑режиме.
 
-- `spec-template.md`
-- `plan-template.md`
-- `tasks-template.md`
-- `verify-template.md`
-- `adr-template.md`
-- `api-spec-template.yaml`
-- `data-schema-template.json`
+Основные моменты:
 
+- Проверка идёт против `spec.md`, `plan.md`, `tasks.md`, контрактов и фактических изменений.
+- Проверяются task markers и согласованность `Evidence expected` с фактическим evidence.
+- Для задач с `User-facing: yes` или `Affects Golden Path: yes` требуется runnable Golden Path check:
+  - запуск приложения/API в согласованной среде;
+  - вход через ожидаемый entry point;
+  - прохождение основного сценария;
+  - отсутствие требований знать скрытые URL.
+- Если `Expected entry point affected: yes`, дополнительно проверяется достижимость фичи из ожидаемого UI entry point, а не только по прямым/internal URL.
+- Если runtime/browser/API‑smoke невозможен, это считается Blocker для release.
+- По каждой задаче формируются:
+  - verdict: `passed` / `passed with follow-ups` / `failed`;
+  - короткий acceptance report человеческим языком;
+  - owner‑checklist:
+    - 1–2 предложения «что сделано» в терминах сценария;
+    - 1–3 вопроса к owner, помогающие принять решение.
 
-## Code placement
+Этот этап не имеет права менять статус `released` и не запускает автоматически следующие этапы — переход выполняется только по решению человека.
 
-- Application code размещается в `src/`.
-- Feature specs не должны смешиваться с runtime code.
-- Shared scripts, config и tooling могут жить вне `src/`, если это соответствует назначению файла.
-- До появления реальной implementation структуры запрещено заполнять `src/` фиктивным кодом ради видимости прогресса.
+### Этап: Verify the assembled slice
 
-## Process documentation placement
+После per‑task verify feature проверяется как собранный vertical slice.
 
-- Repository-wide process documentation хранится в root (`README.md`, `SPEC_PROCESS.md`, `AGENTS.md`, `CLAUDE.md`).
-- Project constitution хранится в `specs/000-project-overview/constitution.md`.
-- Project overview хранится в `specs/000-project-overview/`.
-- Onboarding и process documentation хранятся в root-структуре репозитория.
+Ключевые шаги:
 
-## Lifecycle expectations
+- Агрегируются результаты по всем задачам, ищутся gaps на стыках.
+- Проверяется, что реализована ровно одна approved feature, без скрытого расширения scope.
+- Для user‑facing feature:
+  - сверка поведения с Golden Path из `spec.md`;
+  - feature‑level runnable smoke:
+    - вход через ожидаемый UI entry point;
+    - прохождение основного пользовательского сценария;
+    - проверка observable result и natural next step;
+    - отсутствие зависимости от hidden/internal URL.
+- Для non‑UI feature:
+  - проверка согласованного main path (API entry, integration trigger, background flow, observable side effects и т.п.).
+- Если feature‑level runtime/API/integration проверка невозможна, это классифицируется как release Blocker.
+- Объединяется evidence по задачам, оценивается, достаточно ли его для assembled slice.
 
-Feature work проходит через последовательность:
+Выход:
 
-`Specify -> Contract -> Plan -> Tasks -> Implement -> Verify -> Review shared artifacts`
+- verdict по feature: `passed`, `passed with follow-ups` или `failed`;
+- feature‑level acceptance report;
+- owner‑checklist для feature:
+  - 2–5 пунктов, описывающих путь от entry point до результата;
+  - 2–4 вопроса к owner по Golden Path, обходным шагам и достаточности evidence;
+- рекомендация: `ready for owner approval` или `not ready for owner approval`.
 
-Обязательные правила:
+Этот этап также не меняет статус `released` и не вызывает release‑prompt. Любое продолжение — только по решению owner.
 
-1. Нельзя начинать implementation без `spec.md`, если только это не repository maintenance без feature scope.
-2. `plan.md` не должен противоречить `spec.md` и project-level artifacts.
-3. `tasks.md` должен разбивать работу на проверяемые шаги.
-4. `verify.md` обязателен для завершения feature.
-5. После verification нужно явно решить, требует ли change обновления shared artifacts.
+### Этап: Human approval
 
-## ADR policy
+После feature‑verify non‑technical owner получает:
 
-Использовать ADR, когда решение:
+- task‑уровневые отчёты и checklists;
+- feature‑level acceptance report и owner‑checklist.
 
-- меняет architecture baseline;
-- вводит новое устойчивое ограничение для нескольких feature;
-- влияет на contracts, data model или verification rules beyond one feature.
+На этой основе принимается решение:
 
-По умолчанию ADR можно хранить:
+- одобрить feature для релиза;
+- вернуть на доработку отдельные задачи/части;
+- не включать feature в ближайший релиз.
 
-- либо внутри feature directory, если решение локально для feature;
-- либо в отдельной repository-wide ADR зоне после её явного введения.
+Факт решения фиксируется в удобном артефакте:
 
-До явного решения canonical reusable template для ADR находится в `specs/templates/adr-template.md`.
+- комментарий в issue/PR;
+- запись в `meta.yaml`;
+- отдельный acceptance log и т.п.
 
-## Minimal readiness check for a new feature
+### Этап: Mark released
 
-Перед началом новой feature должно быть понятно:
+Release‑этап используется только вручную, никогда не вызывается агентом автоматически.
 
-- какой следующий номер feature;
-- как называется feature slug;
-- какие artifacts обязательны;
-- нужны ли contracts;
-- нужен ли ADR;
-- как будет выполнен verification.
+Условия запуска:
+
+- реализация и все verify‑этапы завершены;
+- нет незакрытых release‑blocking gaps по task markers и expected evidence;
+- есть feature‑level acceptance report и owner‑checklist;
+- owner явно подтвердил включение feature в релиз;
+- release‑prompt запущен по явному запросу человека.
+
+Проверяется:
+
+- статус и содержимое `meta.yaml`;
+- результаты verify‑этапов и Runtime Usability Gate для user‑facing feature;
+- соответствие acceptance report ожидаемому пользовательскому сценарию.
+
+Только после этого:
+
+- в `meta.yaml` ставится `status: released`;
+- `included_in_release: true`;
+- заполняется `release: <release-id>` (или другой согласованный идентификатор).
+
+Без явного решения owner и явного запуска этого этапа feature не считается released, даже если код реализован и все проверки пройдены.
+
+### Инварианты
+
+- AI‑агент никогда сам не делает git commit и не меняет историю — только рабочие файлы.
+- Ни один verify‑этап не переводит feature в `released` и не вызывает release‑этап автоматически.
+- Для user‑facing feature release невозможен без Golden Path runtime/browser smoke и достижимости из основного UI.
+- Любой blocker, мешающий реальному runtime‑проверочному запуску, считается release‑blocking, а не скрывается как follow‑up.

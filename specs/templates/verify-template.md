@@ -1,58 +1,63 @@
-# Verification Report
+# Verification: [feature name]
 
-## Status
+## Verification summary
 
-Draft
+- Result: [passed / passed with follow-ups / failed]
+- Verified by: [agent/person]
+- Date: [YYYY-MM-DD]
 
-## Feature
+## Artifact checks
 
-- Feature ID:
-- Feature name:
+- Spec alignment: [pass/fail/details]
+- Plan alignment: [pass/fail/details]
+- Task completion: [pass/fail/details]
+- Scope control: [pass/fail/details]
+- Task marker alignment: [pass/fail/details for User-facing / Affects Golden Path / Expected entry point affected]
+- Evidence expected satisfied: [pass/fail/details]
 
-## Verification scope
+## Automated checks
 
-- What was reviewed:
-- What was executed:
-- What evidence was used:
+- Install: [command/result or not available]
+- Lint: [command/result or not available]
+- Tests: [command/result or not available]
+- Build: [command/result or not available]
 
-## Checks performed
+## Runtime Usability Gate
 
-- Spec conformance:
-- Plan conformance:
-- Task completion:
-- Functional behavior:
-- Edge cases:
-- Test coverage:
-- Security/privacy checks:
-- Regression risk:
+Required for features or tasks where `User-facing: yes` or `Affects Golden Path: yes`.
+
+- App/runtime started: [yes/no; command/environment]
+- Expected entry point opened: [path/screen]
+- Golden Path completed: [yes/no/details]
+- Hidden URL knowledge required: [yes/no]
+- Entry point reachability verified: [yes/no/details]
+- Empty/loading/error states checked: [yes/no/details]
+- Required API/backend smoke checked: [yes/no/details]
+- Evidence observed: [browser smoke / runtime smoke / route reached / API response / test result]
+
+If any required runtime check cannot be executed, mark it as Blocker for release rather than follow-up.
+
+## Acceptance report
+
+Use a short non-technical summary:
+
+- Entry point checked: [where the user starts]
+- User steps checked: [2-5 steps]
+- Observable result: [what the user sees when the scenario succeeds]
+- Decision: [passed / passed with follow-ups / failed]
+- Blockers or follow-ups: [specific list]
 
 ## Findings
 
-### Critical
+### Blockers
 
-- None / itemize here.
+- [Blocker or none]
 
-### Major
+### Follow-ups
 
-- None / itemize here.
+- [Follow-up or none]
 
-### Minor
+## Release recommendation
 
-- None / itemize here.
-
-## Verdict
-
-- Accepted / Accepted with follow-ups / Rejected
-
-## Required follow-ups
-
-- Follow-up 1
-- Follow-up 2
-
-## Shared artifact review
-
-- Does this change require updates to `AGENTS.md`?
-- Does this change require updates to `specs/000-project-overview/constitution.md`?
-- Does this change require updates to templates?
-- Does this change require updates to repository-wide verification instructions?
-- If no updates are required, state that explicitly.
+- Eligible for release marking: [yes/no]
+- Rationale: [Short explanation]

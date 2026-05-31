@@ -1,0 +1,75 @@
+### Implementation
+##### Short
+Отработай feature `004-team-profile-and-capacity` целиком по моему AI Spec Driven Development workflow.
+
+Работай строго по шагам:
+
+1. Прочитай artifacts feature:
+- specs/004-team-profile-and-capacity/spec.md
+- specs/004-team-profile-and-capacity/plan.md
+- specs/004-team-profile-and-capacity/tasks.md
+
+2. Реализуй feature батчем по prompts/01-feature-lifecycle/05-implement-feature-batch.md.
+Не пропускай task boundaries, task markers, evidence expectations и golden path requirements.
+
+3. После реализации выполни verify по задачам через prompts/01-feature-lifecycle/06-verify-task.md для всех tasks, где это требуется.
+
+4. Затем выполни feature-level verify через prompts/01-feature-lifecycle/06b-verify-feature.md как assembled vertical slice.
+
+5. Release не отмечай автоматически.
+Если feature verified, подготовь owner-facing acceptance report и остановись, ожидая моего approve.
+
+Учитывай scope feature:
+- использовать prefilled standard glossary set
+- glossary administration out of scope
+
+#### Long
+Отработай feature `004-team-profile-and-capacity` целиком по моему AI Spec Driven Development workflow.
+
+Контекст:
+- feature = один vertical slice в specs/NNN-feature-name/
+- артефакты feature: spec.md, plan.md, tasks.md
+- tasks.md = техническая декомпозиция реализации feature
+- не все feature имеют UI
+- released можно ставить только после моего явного approve
+- glossary administration для этой feature out of scope
+- использовать prefilled standard glossary set
+
+Работай строго по шагам:
+
+1. Прочитай и синхронизируй понимание feature по файлам:
+- specs/004-team-profile-and-capacity/spec.md
+- specs/004-team-profile-and-capacity/plan.md
+- specs/004-team-profile-and-capacity/tasks.md
+
+2. Выполни реализацию feature батчем по логике prompts/01-feature-lifecycle/05-implement-feature-batch.md.
+Реализуй все задачи из tasks.md, но не теряй task boundaries.
+Для каждой задачи соблюдай её scope, dependencies, markers, expected evidence и expected entry point affected, если они указаны.
+
+3. Не подменяй verify утверждением “реализовано”.
+После реализации подготовь результат так, чтобы каждая задача могла быть отдельно проверена через prompts/01-feature-lifecycle/06-verify-task.md.
+
+4. Затем выполни verify для нужных tasks через prompts/01-feature-lifecycle/06-verify-task.md.
+
+5. После этого выполни feature-level verify как assembled vertical slice через prompts/01-feature-lifecycle/06b-verify-feature.md.
+Проверь, что feature реально работает по main path / Golden Path, а не только локально по отдельным задачам.
+
+6. Если feature verified, подготовь owner-facing acceptance report:
+- какой expected entry point был проверен
+- какие шаги проходит пользователь
+- какой наблюдаемый результат подтверждён
+- какие evidence это подтверждают
+- есть ли gaps / blockers / follow-ups
+
+7. Не запускай prompts/01-feature-lifecycle/07-mark-feature-release.md и не отмечай feature released без моего явного approve.
+
+Правила выполнения:
+- не скрывай blockers как follow-up, если они мешают runtime verification
+- для user-facing / Golden Path affected задач требуй реальное runtime evidence
+- не считай feature готовой, если пользовательский путь недостижим из основного UI или не подтверждён runnable smoke / observable evidence
+- если что-то не хватает для честного verify, явно зафиксируй gap
+
+
+
+### Release
+
