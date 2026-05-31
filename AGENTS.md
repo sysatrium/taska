@@ -1,22 +1,28 @@
 # AGENTS.md
 
-## Purpose
+## Назначение
 
-This file defines repository-wide operating rules for AI agents and contributors. It turns the project constitution into practical delivery behavior for specification, implementation, verification, and release marking.
+Этот файл определяет общие правила работы AI-агентов и участников репозитория.
 
-## Source-of-truth precedence
+Он переводит конституцию проекта и process-правила в практические инструкции для specification, implementation, verification и release marking.
 
-1. Direct human instruction in the current task.
+## Приоритет source of truth
+
+При конфликте источников используйте следующий порядок приоритета:
+
+1. Прямая инструкция человека в текущей задаче.
 2. `specs/000-project-overview/constitution.md`.
-3. Current feature artifacts: `spec.md`, `plan.md`, `tasks.md`, `verify.md`, and `meta.yaml`.
-4. Repository prompts in `prompts/`.
-5. Existing code and local conventions.
+3. Актуальные артефакты feature: `spec.md`, `plan.md`, `tasks.md`, `verify.md`, `meta.yaml`.
+4. Репозиторные prompts в `prompts/`.
+5. Существующий код и локальные соглашения.
 
-If these sources conflict, stop and escalate instead of silently choosing the convenient interpretation.
+Если источники противоречат друг другу, нельзя молча выбирать удобную интерпретацию. Нужно остановиться и вынести конфликт на решение человека.
 
-## Project commands
+## Команды проекта
 
-The runnable toolchain must be documented here when it exists. Until commands are confirmed, do not pretend the project is runtime-verified.
+Если в проекте есть runnable toolchain, он должен быть явно задокументирован в этом файле.
+
+Пока команды не подтверждены, нельзя делать вид, что проект runtime-verified.
 
 - Install: TBD
 - Dev server: TBD
@@ -24,96 +30,107 @@ The runnable toolchain must be documented here when it exists. Until commands ar
 - Test: TBD
 - Build: TBD
 
-For user-facing features, missing install/dev/test/build commands are a release Blocker when they prevent runtime smoke. They may not be hidden as ordinary follow-up items.
+Для user-facing feature отсутствие подтверждённых install/dev/test/build команд считается release Blocker, если из-за этого нельзя выполнить runtime smoke. Такой gap нельзя маскировать как обычный follow-up.
 
 ## Definition of Done
 
-A task or feature is done only when all applicable conditions are true:
+Задача или feature считается done только если выполнены все применимые условия:
 
-- It satisfies the approved `spec.md`, `plan.md`, and `tasks.md`.
-- Scope did not silently expand beyond the approved artifact set.
-- Relevant automated checks were run when available, or the reason they could not run is documented.
-- User-facing scope passes the Runtime Usability Gate below.
-- Follow-ups are clearly separated from release blockers.
-- Governance-impacting learnings are reflected in shared artifacts or explicitly marked as not needed.
+- Она соответствует утверждённым `spec.md`, `plan.md` и `tasks.md`.
+- Scope не был молча расширен за пределы утверждённого набора артефактов.
+- Релевантные automated checks были выполнены, если они доступны, либо явно задокументирована причина, почему их нельзя было выполнить.
+- User-facing scope проходит Runtime Usability Gate.
+- Follow-ups явно отделены от release blockers.
+- Learnings, влияющие на governance или process, отражены в общих артефактах либо явно отмечены как не требующие обновления.
 
 ## Runtime Usability Gate
 
-For every user-facing feature, verification must include a runnable Golden Path check. A feature is not eligible for `released` status unless:
+Для каждой user-facing feature verification должна включать runnable Golden Path check.
 
-- The app can be started locally or in the agreed target environment.
-- The primary user can reach the feature from an expected UI entry point.
-- The user can complete the main scenario without knowing hidden or internal URLs.
-- Empty, loading, and error states do not silently block the main path.
-- API/backend behavior required by the UI has been smoke-tested through the runtime path.
+Feature не может получить статус `released`, если не выполнены все условия:
 
-If the project has no runnable toolchain or the target environment cannot be started, missing runtime verification is a Blocker for release, not a follow-up.
+- Приложение можно запустить локально или в согласованной целевой среде.
+- Основной пользователь может дойти до feature из ожидаемого UI entry point.
+- Пользователь может пройти основной сценарий без знания скрытых или внутренних URL.
+- Empty, loading и error states не блокируют основной сценарий молча.
+- API/backend поведение, от которого зависит UI, прошло smoke-проверку через реальный runtime path.
 
-## Golden Path discipline
+Если у проекта нет runnable toolchain или целевая среда не может быть поднята, отсутствие runtime verification считается Blocker для release, а не follow-up.
 
-Before implementation of a user-facing feature, identify the primary Golden Path in plain language:
+## Дисциплина Golden Path
 
-1. Where the user enters the product.
-2. What they click or submit.
-3. What successful completion looks like.
-4. How they return to the list, detail page, dashboard, or next natural step.
+Перед реализацией user-facing feature нужно сформулировать основной Golden Path простым человеческим языком:
 
-If task decomposition produces screens, routes, or APIs but no usable workflow, the agent must challenge the decomposition and propose a navigation/app-shell task before calling the work done.
+1. Откуда пользователь входит в продукт.
+2. Что он нажимает, заполняет или отправляет.
+3. Как выглядит успешное завершение сценария.
+4. Куда пользователь естественно попадает дальше: обратно в список, в detail page, в dashboard или в следующий ожидаемый шаг.
 
-## Git and rollback safety
+Если task decomposition даёт набор экранов, роутов или API, но не даёт usable workflow, агент обязан оспорить такую декомпозицию и предложить navigation/app-shell task до того, как работа будет признана done.
 
-- Do not create local git commits, amend commits, rebase, reset, checkout, revert, stash, or otherwise rewrite repository history unless the human explicitly asks for that exact git action.
-- `05-implement-task` and other lifecycle prompts must not create automatic checkpoint commits by default.
-- The default implementation mode is working-tree only: modify files needed for the approved task without creating a commit.
-- If rollback safety is needed, the agent should propose options and ask the human to choose, for example: create a local commit, create a patch file, or rely on the existing VCS state.
-- If the human asks for a commit, create exactly one clearly scoped commit for the approved change and do not perform extra history operations.
-- Never treat automatic local commits as a required part of task completion or release readiness.
+## Git и rollback safety
 
-## When writing code
+- Нельзя создавать локальные git commits, amend, rebase, reset, checkout, revert, stash или иным образом переписывать историю репозитория без прямой и явной инструкции человека на это конкретное git-действие.
+- `05-implement-task` и другие lifecycle-prompts не должны по умолчанию создавать автоматические checkpoint commits.
+- Режим реализации по умолчанию — только working tree: изменяются нужные файлы в рамках approved task без создания commit.
+- Если нужна rollback safety, агент должен предложить варианты и попросить человека выбрать, например: локальный commit, patch file или опора на текущее состояние VCS.
+- Если человек явно просит commit, нужно создать ровно один чётко ограниченный commit для утверждённого изменения и не выполнять лишние history-операции.
+- Автоматические локальные commits никогда не считаются обязательной частью task completion или release readiness.
 
-- Read the relevant feature artifacts before editing.
-- Implement one approved task at a time.
-- Prefer minimal local changes over broad refactors.
-- Do not add dependencies without explicit human approval.
-- Do not treat hidden URLs as sufficient UI integration for user-facing scope.
-- For UI changes, wire reachable actions: CTA, navigation, routes, list/detail/edit links, and post-submit return paths as required by the task.
+## Когда агент пишет код
 
-## When blocked
+- Сначала прочитать релевантные артефакты feature.
+- Реализовывать только одну approved task за раз, если человек не запросил batch-режим для всей feature.
+- Предпочитать минимальные локальные изменения широким рефакторам.
+- Не добавлять новые зависимости без явного одобрения человека.
+- Не считать hidden URL достаточной интеграцией UI для user-facing scope.
+- Для UI-изменений обязательно wiring reachable actions: CTA, navigation, routes, list/detail/edit links и post-submit return paths, если это требуется задачей.
 
-Classify a problem as a Blocker when it prevents correct verification, release eligibility, security, data integrity, or the primary user flow. Do not downgrade blockers into follow-ups to keep the task moving.
+## Когда агент заблокирован
 
-Examples of blockers:
+Проблема должна классифицироваться как Blocker, если она мешает корректной verification, eligibility for release, security, data integrity или основному пользовательскому сценарию.
 
-- No runnable toolchain for a user-facing feature that requires runtime smoke.
-- Feature exists only at a hidden route and is not reachable from the expected entry point.
-- Required backend/API behavior cannot be exercised by the UI.
-- Acceptance criteria cannot be verified from available artifacts.
+Нельзя понижать blocker до follow-up только для того, чтобы формально продвинуть задачу дальше.
 
-## When reviewing code
+Примеры blocker:
 
-Review must check:
+- Нет runnable toolchain для user-facing feature, которой нужен runtime smoke.
+- Feature существует только на hidden route и недостижима из ожидаемого entry point.
+- Обязательное backend/API поведение не может быть реально использовано из UI.
+- Acceptance criteria невозможно проверить по доступным артефактам.
 
-- Acceptance criteria and traceability to `spec.md` / `tasks.md`.
-- Scope boundaries and absence of broad unrelated changes.
-- Runtime reachability for user-facing features.
-- Empty/loading/error state behavior on the main path.
-- Governance compliance with constitution and this file.
+## Когда агент ревьюит код
 
-A technically correct implementation that cannot be reached by the primary user is not complete for user-facing scope.
+Review должен проверять:
 
-## Post-feature governance review
+- Acceptance criteria и traceability к `spec.md` / `tasks.md`.
+- Границы scope и отсутствие широких нерелевантных изменений.
+- Runtime reachability для user-facing feature.
+- Empty / loading / error state поведение на основном пути.
+- Соответствие ожидаемому entry point.
+- Наличие честного evidence, а не только code-level аргументации.
+- Отсутствие скрытых release blockers, замаскированных как follow-ups.
 
-After verification, explicitly decide whether the change requires updates to shared artifacts such as:
+## Release discipline
 
-- `AGENTS.md`
-- `SPEC_PROCESS.md`
-- `specs/000-project-overview/constitution.md`
-- `specs/templates/*`
-- lifecycle prompts in `prompts/`
+Статус `released` нельзя ставить только потому, что код написан или локальные проверки зелёные.
 
-If no update is needed, state that explicitly in the verification result.
+Feature может быть помечена как released только если:
 
-## Changelog
+- Verify завершён по согласованному process.
+- Для user-facing feature пройден Runtime Usability Gate.
+- Есть acceptance evidence человеческим языком, а не только technical proof.
+- Нет незакрытых release-blocking gaps.
+- Человек явно подтвердил, что feature действительно можно включать в релиз.
 
-- 2026-05-31: Added Git and rollback safety rules; automatic local commits require explicit human approval.
-- 2026-05-31: Initial version with Runtime Usability Gate and Golden Path release rules.
+## Поведение по умолчанию
+
+По умолчанию агент должен действовать консервативно:
+
+- не расширять scope;
+- не делать git history actions;
+- не скрывать blockers;
+- не подменять runtime verification рассуждениями по коду;
+- не ставить `released` без явного human approval.
+
+Если есть сомнение, нужно остановиться и запросить решение человека.
