@@ -51,6 +51,11 @@
 14. Подготовить owner-friendly acceptance report, чтобы non-technical owner мог понять, работает ли feature как единый vertical slice без чтения кода.
 15. Если найдены gaps, явно разделить их на task rework, feature-level follow-up или release Blocker.
 16. Передать в следующий шаг только feature, которая действительно готова к owner approval; сам prompt не должен менять статус на `released`.
+17. На основе acceptance report сформировать короткий owner-checklist для feature:
+    - 2–5 пунктов, описывающих основную пользовательскую историю от entry point до observable result простым языком;
+    - 2–4 вопроса к owner, которые помогают принять решение об одобрении feature (например: «Этот путь соответствует ожидаемому Golden Path?», «Допустим ли такой обходной шаг?», «Достаточно ли текущего уровня evidence для release?»).
+    Checklist должен быть достаточно коротким, чтобы owner мог принять решение «approve / reject / доработать» за один просмотр.
+18. Явно зафиксировать, что данный шаг не меняет статус feature на `released` и не запускает `07-mark-feature-release.md`. Любое дальнейшее действие (release marking, дополнительная реализация, повторный verify) должно выполняться только по явному запросу человека.
 
 ## Acceptance report format
 

@@ -1,74 +1,162 @@
-# SPEC_PROCESS.md
+# SPEC_PROCESS
 
-## Purpose
+## AI Spec Driven Development (vertical slice)
 
-This document defines the feature lifecycle used by the repository. It complements the constitution and `AGENTS.md` by making the delivery gates explicit.
+Этот раздел описывает, как мы ведём фичи как vertical slice в `specs/` при участии AI‑агентов, сохраняя контроль у человеческого owner.
 
-## Lifecycle
+### Что такое feature в specs/
 
-```text
-Discovery / Proposal
-  -> Feature Spec
-  -> Plan
-  -> Tasks
-  -> Implement
-  -> Verify
-  -> Runtime Smoke
-  -> Release Marking
-```
+Feature рассматривается как один vertical slice в каталоге `specs/NNN-feature-name/`.
 
-`Runtime Smoke` is mandatory for every user-facing feature. It is not optional cleanup and it does not happen after release marking.
+Для каждой feature используются артефакты:
 
-## Golden Path requirement
+- `spec.md` — формулировка vertical slice, цели, контекст, Golden Path (для user‑facing).
+- `plan.md` — план реализации на уровне шагов/подсистем.
+- `tasks.md` — техническая декомпозиция на задачи. Для каждой задачи задаются:
+  - `User-facing`
+  - `Affects Golden Path`
+  - `Expected entry point affected`
+  - `Evidence expected`
+- `meta.yaml` — статус feature, связь с релизом и другие метаданные.
 
-Every user-facing feature must define one Golden Path before implementation:
+Feature считается определённой, когда spec/plan/tasks согласованы и описывают один связный сценарий.
 
-- Expected entry point: where the user starts.
-- Main action: what the user does.
-- Success result: what confirms the scenario worked.
-- Natural next step: where the user lands or what they can do next.
+### Этап: Design the slice
 
-The Golden Path must be executable without hidden/internal URLs. Hidden routes may exist, but they do not count as product usability unless the user can reach them through the expected UI or documented product entry.
+На этапе дизайна feature формируется как vertical slice:
 
-## Runtime Smoke gate
+- Предложение фичи и вертикального среза.
+- Подготовка `spec.md` с описанием сценариев и Golden Path.
+- Подготовка `plan.md` с основными шагами и зонами изменений.
+- Подготовка `tasks.md` по шаблону с обязательными markers и expected evidence.
 
-Before `07-mark-feature-release.md` may be used, verification must show that:
+На этом этапе фиксируются:
 
-- The app can be started locally or in the agreed target environment.
-- The primary user can reach the feature from the expected entry point.
-- The main scenario can be completed end to end.
-- Empty, loading, and error states do not silently trap the user.
-- Required API/backend behavior has been smoke-tested through the UI or runtime path.
+- Основные сценарии и entry points (UI / API / integration / background).
+- Что именно считается достаточным evidence, чтобы признать сценарий реально работоспособным.
 
-If any of these cannot be checked, the release must stop and the issue must be recorded as a Blocker.
+### Этап: Build the slice (реализация)
 
-## Release marking rule
+Основной режим реализации — batch‑режим по всей feature на основе `tasks.md`.
 
-`status: released` may be set only after:
+Ключевые правила:
 
-1. Implementation is complete.
-2. Verification has passed or all non-blocking follow-ups are explicitly accepted.
-3. Runtime Smoke has passed for user-facing scope.
-4. A human has confirmed inclusion in release or the project has an explicit automated release policy.
+- Агент читает `spec.md`, `plan.md`, `tasks.md`, `meta.yaml` и правила репозитория.
+- Реализует задачи батчем, но:
+  - сохраняет границы задач и traceability к `tasks.md`;
+  - не расширяет scope feature;
+  - не затрагивает другие feature и не меняет уже released поведение без явного решения.
+- Не выполняет git commit и не меняет историю репозитория:
+  - все изменения вносятся только в working tree;
+  - любые git‑операции делает человек.
+- Уважает поля `User-facing`, `Affects Golden Path`, `Expected entry point affected`, `Evidence expected`.
+- Если Golden Path / main path невозможно честно проверить по техническим причинам (toolchain, wiring и т.п.), это фиксируется как Blocker для release, а не как безобидный follow‑up.
 
-Successful static verification alone is not enough for release.
+Результат этого этапа — реализованная feature в working tree + статусы и evidence по задачам, но не release.
 
-## Follow-up vs Blocker
+### Этап: Verify each task
 
-Use `follow-up` for improvements that do not prevent the approved user outcome from working. Use `Blocker` for anything that prevents verification, runtime execution, Golden Path completion, security, or data integrity.
+Каждая задача проверяется отдельно в adversarial‑режиме.
 
-Missing runnable toolchain is a Blocker for releasing user-facing features when it prevents runtime smoke.
+Основные моменты:
 
-## Git safety rule
+- Проверка идёт против `spec.md`, `plan.md`, `tasks.md`, контрактов и фактических изменений.
+- Проверяются task markers и согласованность `Evidence expected` с фактическим evidence.
+- Для задач с `User-facing: yes` или `Affects Golden Path: yes` требуется runnable Golden Path check:
+  - запуск приложения/API в согласованной среде;
+  - вход через ожидаемый entry point;
+  - прохождение основного сценария;
+  - отсутствие требований знать скрытые URL.
+- Если `Expected entry point affected: yes`, дополнительно проверяется достижимость фичи из ожидаемого UI entry point, а не только по прямым/internal URL.
+- Если runtime/browser/API‑smoke невозможен, это считается Blocker для release.
+- По каждой задаче формируются:
+  - verdict: `passed` / `passed with follow-ups` / `failed`;
+  - короткий acceptance report человеческим языком;
+  - owner‑checklist:
+    - 1–2 предложения «что сделано» в терминах сценария;
+    - 1–3 вопроса к owner, помогающие принять решение.
 
-Lifecycle execution does not require automatic local git commits.
+Этот этап не имеет права менять статус `released` и не запускает автоматически следующие этапы — переход выполняется только по решению человека.
 
-- Implementation prompts may modify the working tree for the approved task without creating a commit.
-- Agents must not create commits, amend commits, rebase, reset, checkout, revert, stash, or otherwise change repository history unless a human explicitly asks for that exact git action.
-- Rollback strategy is a human decision, not an automatic side effect of task execution.
-- A task or feature does not become more complete merely because an automatic checkpoint commit was created.
+### Этап: Verify the assembled slice
 
-## Changelog
+После per‑task verify feature проверяется как собранный vertical slice.
 
-- 2026-05-31: Added Git safety rule; automatic local commits are not part of lifecycle execution.
-- 2026-05-31: Initial lifecycle definition with Runtime Smoke between Verify and Release Marking.
+Ключевые шаги:
+
+- Агрегируются результаты по всем задачам, ищутся gaps на стыках.
+- Проверяется, что реализована ровно одна approved feature, без скрытого расширения scope.
+- Для user‑facing feature:
+  - сверка поведения с Golden Path из `spec.md`;
+  - feature‑level runnable smoke:
+    - вход через ожидаемый UI entry point;
+    - прохождение основного пользовательского сценария;
+    - проверка observable result и natural next step;
+    - отсутствие зависимости от hidden/internal URL.
+- Для non‑UI feature:
+  - проверка согласованного main path (API entry, integration trigger, background flow, observable side effects и т.п.).
+- Если feature‑level runtime/API/integration проверка невозможна, это классифицируется как release Blocker.
+- Объединяется evidence по задачам, оценивается, достаточно ли его для assembled slice.
+
+Выход:
+
+- verdict по feature: `passed`, `passed with follow-ups` или `failed`;
+- feature‑level acceptance report;
+- owner‑checklist для feature:
+  - 2–5 пунктов, описывающих путь от entry point до результата;
+  - 2–4 вопроса к owner по Golden Path, обходным шагам и достаточности evidence;
+- рекомендация: `ready for owner approval` или `not ready for owner approval`.
+
+Этот этап также не меняет статус `released` и не вызывает release‑prompt. Любое продолжение — только по решению owner.
+
+### Этап: Human approval
+
+После feature‑verify non‑technical owner получает:
+
+- task‑уровневые отчёты и checklists;
+- feature‑level acceptance report и owner‑checklist.
+
+На этой основе принимается решение:
+
+- одобрить feature для релиза;
+- вернуть на доработку отдельные задачи/части;
+- не включать feature в ближайший релиз.
+
+Факт решения фиксируется в удобном артефакте:
+
+- комментарий в issue/PR;
+- запись в `meta.yaml`;
+- отдельный acceptance log и т.п.
+
+### Этап: Mark released
+
+Release‑этап используется только вручную, никогда не вызывается агентом автоматически.
+
+Условия запуска:
+
+- реализация и все verify‑этапы завершены;
+- нет незакрытых release‑blocking gaps по task markers и expected evidence;
+- есть feature‑level acceptance report и owner‑checklist;
+- owner явно подтвердил включение feature в релиз;
+- release‑prompt запущен по явному запросу человека.
+
+Проверяется:
+
+- статус и содержимое `meta.yaml`;
+- результаты verify‑этапов и Runtime Usability Gate для user‑facing feature;
+- соответствие acceptance report ожидаемому пользовательскому сценарию.
+
+Только после этого:
+
+- в `meta.yaml` ставится `status: released`;
+- `included_in_release: true`;
+- заполняется `release: <release-id>` (или другой согласованный идентификатор).
+
+Без явного решения owner и явного запуска этого этапа feature не считается released, даже если код реализован и все проверки пройдены.
+
+### Инварианты
+
+- AI‑агент никогда сам не делает git commit и не меняет историю — только рабочие файлы.
+- Ни один verify‑этап не переводит feature в `released` и не вызывает release‑этап автоматически.
+- Для user‑facing feature release невозможен без Golden Path runtime/browser smoke и достижимости из основного UI.
+- Любой blocker, мешающий реальному runtime‑проверочному запуску, считается release‑blocking, а не скрывается как follow‑up.
