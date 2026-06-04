@@ -1,0 +1,381 @@
+# Спецификация фичи: Planning Period Lifecycle and Goals
+
+## Цель
+
+Дать Head of Product возможность создать planning period как самостоятельный управленческий контейнер, задать его базовый контекст, управлять lifecycle периода и вести goals периода как отдельный planning artifact до начала более глубоких planning scenarios.
+
+## Пользовательский сценарий
+
+Head of Product открывает список planning periods из основного UI продукта, создаёт новый период, задаёт его название, даты и goals, сохраняет период как `draft`, затем подготавливает его к запуску и переводит по lifecycle-статусам.
+
+В ходе работы Head of Product может:
+- просматривать details screen периода;
+- редактировать допустимые поля в зависимости от статуса;
+- возвращать период из `review` обратно в `open`;
+- завершать период по окончании цикла.
+
+## Golden Path
+
+Сценарий: Head of Product создаёт planning period и переводит его в open из списка периодов
+  Дано Head of Product находится на экране списка planning periods
+  И Head of Product перешёл на этот экран без использования скрытого URL
+  Когда Head of Product начинает создание нового planning period
+  И вводит название периода
+  И вводит корректную дату начала и дату окончания
+  И сохраняет период как draft
+  И открывает details screen созданного периода из списка planning periods
+  И вводит goals с форматированием
+  И видит, что период проходит readiness hints для перехода в open
+  И выполняет действие Open
+  Тогда planning period сохраняется и отображается в списке planning periods
+  И статус planning period в списке равен open
+  И details screen показывает период в статусе open
+  И форматирование goals сохраняется после сохранения и повторного открытия details screen
+  И Head of Product может продолжить управление периодом с details screen
+
+## Ожидаемые результаты
+
+- В системе существует список planning periods с видимыми lifecycle status.
+- Head of Product может создать planning period и открыть его details screen из основного UI.
+- В `draft` можно редактировать название, даты и goals периода.
+- По окончании основной сценария planning period переходит в статус `open` и доступен для дальнейших планировочных операций.
+
+## Что проверяем / гипотезы
+
+- Head of Product получает самостоятельную управленческую ценность уже на этапе создания и ведения planning period, даже без product items и team planning inputs.
+- Goals периода работают как meaningful planning artifact уже в первой версии, даже без отдельной history feature.
+- Компактный lifecycle с одним rollback `review → open` достаточно хорошо покрывает реальный рабочий процесс без premature governance complexity.
+- Минимальных readiness hints по goals и датам достаточно для MVP-уровня перехода в `open`.
+
+## В скоупе
+
+- Список planning periods.
+- Создание planning period.
+- Details screen planning period.
+- Отображение и редактирование metadata planning period в рамках разрешённых lifecycle правил.
+- Поддержка goals как форматируемого содержательного артефакта planning period.
+- Сохранение форматирования goals после сохранения и повторного открытия периода.
+- Lifecycle transitions planning period в рамках подтверждённой state model.
+- Минимальные readiness hints перед переходом в `open`.
+- Отображение системных metadata полей: текущий статус, created at, updated at, created by.
+
+## Вне скоупа
+
+- Product items внутри planning period.
+- Period-specific team participation management beyond the existing rule that participation is indicated by presence of product items.
+- Period-specific capacity, estimates, allocations и team-level planning inputs.
+- Делегирование управления planning period другим ролям.
+- Полноценная feature ролей, авторизации и delegation model.
+- История изменений goals.
+- Отдельный lifecycle целей периода.
+- Богатая governance-model для остановки уже начатого периода.
+- Полноценная readiness-assessment логика, завязанная на команды, capacity, items или completeness planning inputs.
+
+## Ограничения
+
+- Feature должна оставаться пользовательским вертикальным срезом, а не превращаться в roles/auth, governance или planning-items feature.
+- Спецификация не должна уходить в преждевременные детали реализации UI, API, storage или editor technology.
+- Primary actor в текущем scope — Head of Product.
+
+## Зависимости
+
+- Planning period рассматривается как главный business context container для последующих planning features.
+- Goals должны рассматриваться как отдельный planning artifact, а не как обычное текстовое поле.
+- После `open` goals не должны концептуально восприниматься как бесследно перезаписываемый текст, даже если отдельная history feature пока вне scope.
+
+## Уже принятые решения
+
+- Planning period создаёт и переводит по статусам только Head of Product.
+- Возможность делегирования этих действий вынесена за scope 005 и зарезервирована как future capability.
+- `Cancelled` доступен только из `draft`.
+- Для сценария остановки периода после `open`, `review` или `in_progress` зарезервирован будущий lifecycle-state, отличный от `cancelled`.
+
+## Модель периода и ограничения
+
+- Период планирования считается валидным, только если дата окончания строго позже даты начала (`end_date > start_date`). Диапазон с одинаковой датой начала и окончания невалиден.
+- Период не может быть создан, если его дата окончания меньше текущей даты (`end_date < today`). Полностью прошедшие периоды считаются невалидными.
+- Два периода одного уровня не могут иметь пересекающиеся диапазоны дат. Пересечения допускаются только между периодами разных уровней (например, квартал и спринт).
+- При проверке наличия целей перед переводом периода в `open` значение goals нормализуется обрезкой ведущих и завершающих пробельных символов. Если после нормализации строка пуста, цели считаются отсутствующими, и переход в `open` отклоняется.
+- В данной фиче не задаётся отдельного бизнес‑ограничения на длину goals. Единственные ограничения длины определяются техническими возможностями хранения и редактора.
+
+## Lifecycle периода
+
+- Допустимые статусы: `draft`, `open`, `review`, `in_progress`, `closed`, `cancelled`.
+- Допустимы только следующие переходы: `draft → open`, `open → review`, `review → in_progress`, `in_progress → closed`, `draft → cancelled`, `review → open` (rollback).
+- Любые другие переходы статусов считаются невалидными и недоступны в UI и API.
+- `cancelled` — терминальный статус. После перевода периода в `cancelled` дальнейшие переходы невозможны.
+- `closed` — терминальный статус. После перевода периода в `closed` дальнейшие переходы невозможны; период используется как зафиксированный исторический объект.
+- Для перехода `draft → open` проверяются: валидный диапазон дат и непустой по смыслу goals (после нормализации пробелов).
+- Для переходов `open → review`, `review → in_progress`, `in_progress → closed` в рамках данной фичи дополнительных обязательных условий не вводится.
+
+## Права доступа
+
+- В рамках данной фичи управлять периодами планирования (создавать, изменять статусы, редактировать goals) может только пользователь с ролью Head of Product.
+- Механизм определения ролей и проверки прав (RBAC, орг‑структура, внешняя IDM и т.п.) не входит в объём спецификации 005 и описывается отдельно.
+
+## Поведение интерфейса
+
+- В статусах `open`, `review` и `in_progress` Head of Product может свободно редактировать goals. В рамках данной фичи система не хранит историю изменений goals и не помечает отдельно изменения, сделанные в `in_progress`.
+- Если в системе ещё нет ни одного периода планирования, экран списка отображает явный empty state, который сообщает об отсутствии периодов и предоставляет видимое действие для создания первого периода (например, кнопку "Создать период планирования").
+
+## Out of scope и известные ограничения
+
+- В данной фиче изменения goals не аудируются, история не хранится. Это осознанное ограничение, которое планируется покрыть отдельной governance‑фичей (audit trail, approvals, метрики изменений).
+- Операции удаления и/или архивирования периодов не входят в объём данной фичи. Соответственно, поведение системы при попытке открыть недоступный или удалённый период будет описано в отдельной спецификации, посвящённой delete/archive.
+- Обработка конкурентных изменений (две вкладки/клиента редактируют один период) решается на уровне платформы и API (стандартный для продукта механизм optimistic concurrency). Конкретный протокол не является частью данной спецификации.
+
+## Критерии проверки
+
+AC10 — Невалидный период с одинаковой датой начала и окончания
+  Дано Head of Product находится на форме создания периода планирования
+  И он указывает дату начала D
+  И он указывает дату окончания, равную той же дате D
+  Когда Head of Product пытается сохранить период или перевести его в статус open
+  Тогда система отклоняет операцию
+  И система сообщает пользователю, что дата окончания должна быть позже даты начала
+
+AC11 — Невалидный период, полностью лежащий в прошлом
+  Дано текущая дата — T
+  И Head of Product заполняет форму создания периода планирования
+  И он указывает дату окончания E, которая раньше текущей даты (E < T)
+  Когда Head of Product пытается сохранить период или перевести его в статус open
+  Тогда система отклоняет операцию
+  И система сообщает, что период не может полностью находиться в прошлом
+
+AC12 — Невозможность создать пересекающийся период того же уровня
+  Дано в системе уже существует период уровня L с диапазоном дат от S1 до E1
+  И Head of Product заполняет форму создания нового периода того же уровня L
+  И он указывает диапазон дат S2–E2, который пересекается с S1–E1 хотя бы по одному дню
+  Когда Head of Product пытается сохранить новый период или перевести его в статус open
+  Тогда система отклоняет операцию
+  И система сообщает, что для данного уровня периода уже существует период с пересекающимся диапазоном дат
+
+AC13 — Goals, состоящие только из пробелов, не позволяют открыть период
+  Дано существует период в статусе draft с валидным диапазоном дат
+  И поле goals заполнено строкой, содержащей только пробелы и/или переводы строки
+  Когда Head of Product пытается перевести период из draft в open
+  Тогда система рассматривает goals как пустые
+  И система отклоняет переход в open
+  И система сообщает, что для открытия периода необходимо задать содержательные цели
+
+AC14 — Shortcut‑переходы статуса периода недоступны
+  Дано существует период планирования в любом статусе
+  И Head of Product пытается изменить статус периода на такой, который не входит в список допустимых переходов (например, draft → review или open → in_progress)
+  Когда выполняется попытка изменения статуса через UI или API
+  Тогда система отклоняет операцию
+  И система не меняет статус периода
+  И система возвращает сообщение о том, что такой переход статуса недопустим
+
+AC15 — Период в статусе cancelled нельзя вернуть в работу
+  Дано существует период планирования в статусе cancelled
+  Когда Head of Product пытается поменять статус этого периода на любой другой (draft, open, review, in_progress или closed)
+  Тогда система отклоняет попытку изменения статуса
+  И статус периода остаётся cancelled
+  И система даёт понять, что отменённый период нельзя вернуть в работу
+
+AC16 — Период в статусе closed нельзя переоткрыть
+  Дано существует период планирования в статусе closed
+  Когда Head of Product пытается поменять статус этого периода на любой другой (например, in_progress или review)
+  Тогда система отклоняет попытку изменения статуса
+  И статус периода остаётся closed
+  И система даёт понять, что закрытый период является зафиксированным историческим объектом
+
+AC17 — Пустой список периодов показывает empty state с CTA
+  Дано в системе ещё нет ни одного периода планирования
+  Когда Head of Product открывает экран списка периодов планирования
+  Тогда вместо обычного списка система отображает явный empty state
+  И empty state сообщает пользователю, что периодов пока нет
+  И empty state содержит доступное действие для создания первого периода (например, кнопку "Создать период планирования")
+
+AC18 - Head of Product может открыть список planning periods из основного UI
+  Дано Head of Product использует основной UI продукта
+  Когда Head of Product переходит в раздел planning periods
+  Тогда открывается экран списка planning periods без использования скрытого или внутреннего URL
+
+AC19 - Список planning periods показывает статусы периодов
+  Дано в системе существует хотя бы один planning period
+  Когда Head of Product открывает список planning periods
+  Тогда для каждого отображаемого planning period виден его текущий lifecycle status
+
+AC20 - Head of Product может создать planning period в статусе draft
+  Дано Head of Product находится на экране списка planning periods
+  Когда Head of Product начинает создание planning period
+  И вводит название периода
+  И вводит корректную дату начала и дату окончания
+  И оставляет goals пустыми
+  И сохраняет период
+  Тогда planning period создаётся в статусе draft
+  И planning period отображается в списке planning periods
+
+AC21 - Head of Product может открыть details screen planning period из списка
+  Дано в списке planning periods отображается planning period
+  Когда Head of Product выбирает этот planning period в списке
+  Тогда открывается details screen planning period без использования скрытого URL
+
+AC22 - Head of Product может редактировать metadata и goals в draft
+  Дано существует planning period в статусе draft
+  Когда Head of Product открывает details screen planning period
+  И изменяет название периода
+  И изменяет дату начала или дату окончания
+  И вводит goals с форматированием
+  И сохраняет изменения
+  Тогда обновлённые metadata отображаются на details screen
+  И форматирование goals сохраняется после сохранения и повторного открытия details screen
+
+AC23 - Head of Product не может перевести period в open без goals
+  Дано существует planning period в статусе draft
+  И у planning period отсутствуют goals
+  Когда Head of Product пытается выполнить действие Open
+  Тогда переход в статус open блокируется
+  И UI показывает, что goals обязательны перед открытием периода
+
+AC24 - Head of Product видит readiness hints перед переходом в open
+  Дано существует планировочный период в статусе draft
+  Когда Head of Product открывает details screen planning period
+  Тогда UI показывает, заполнены ли goals
+  И UI показывает, заданы ли дата начала и дата окончания
+  И UI показывает, корректен ли диапазон дат
+
+AC25 - Head of Product может перевести period из draft в open
+  Дано существует planning period в статусе draft
+  И у planning period заполнены goals
+  И у planning period задан корректный диапазон дат
+  Когда Head of Product выполняет действие Open
+  Тогда статус planning period становится open
+  И details screen показывает новый статус
+
+AC26 - Head of Product может отменить только period в статусе draft
+  Дано существует planning period в статусе draft
+  Когда Head of Product выполняет действие Cancel
+  Тогда статус planning period становится cancelled
+
+AC27 - Действие Cancel недоступно вне draft
+  Дано существует planning period в статусе open
+  Когда Head of Product открывает details screen planning period
+  Тогда действие Cancel недоступно
+
+AC28 - Действие Cancel недоступно в review
+  Дано существует planning period в статусе review
+  Когда Head of Product открывает details screen planning period
+  Тогда действие Cancel недоступно
+
+AC29 - Действие Cancel недоступно в in_progress
+  Дано существует planning period в статусе in_progress
+  Когда Head of Product открывает details screen planning period
+  Тогда действие Cancel недоступно
+
+AC30 - Действие Cancel недоступно в closed
+  Дано существует planning period в статусе closed
+  Когда Head of Product открывает details screen planning period
+  Тогда действие Cancel недоступно
+
+AC31 - Действие Cancel недоступно в cancelled
+  Дано существует planning period в статусе cancelled
+  Когда Head of Product открывает details screen planning period
+  Тогда действие Cancel недоступно
+
+AC32 - Даты периода больше не редактируются после выхода из draft
+  Дано существует planning period в статусе open
+  Когда Head of Product открывает details screen planning period
+  Тогда редактирование даты начала и даты окончания недоступно в рамках 005
+
+AC33 - Даты периода больше не редактируются в review
+  Дано существует planning period в статусе review
+  Когда Head of Product открывает details screen planning period
+  Тогда редактирование даты начала и даты окончания недоступно в рамках 005
+
+AC34 - Даты периода больше не редактируются в in_progress
+  Дано существует planning period в статусе in_progress
+  Когда Head of Product открывает details screen planning period
+  Тогда редактирование даты начала и даты окончания недоступно в рамках 005
+
+AC35 - Даты периода больше не редактируются в closed
+  Дано существует planning period в статусе closed
+  Когда Head of Product открывает details screen planning period
+  Тогда редактирование даты начала и даты окончания недоступно в рамках 005
+
+AC36 - Даты периода больше не редактируются в cancelled
+  Дано существует planning period в статусе cancelled
+  Когда Head of Product открывает details screen planning period
+  Тогда редактирование даты начала и даты окончания недоступно в рамках 005
+
+AC37 - Head of Product может перевести period из open в review
+  Дано существует planning period в статусе open
+  Когда Head of Product выполняет действие Move to Review
+  Тогда статус planning period становится review
+
+AC38 - Head of Product может редактировать goals в open
+  Дано существует planning period в статусе open
+  Когда Head of Product изменяет goals
+  И сохраняет изменения
+  Тогда обновлённые goals отображаются на details screen
+  И форматирование goals сохраняется после сохранения и повторного открытия details screen
+
+AC39 - Head of Product может вернуть period из review в open
+  Дано существует planning period в статусе review
+  Когда Head of Product выполняет действие Back to Open
+  Тогда статус planning period становится open
+
+AC40 - Переход review в open не требует обязательной причины
+  Дано существует planning period в статусе review
+  Когда Head of Product выполняет действие Back to Open
+  Тогда система не требует обязательного ввода причины для этого перехода в рамках 005
+
+AC41 - Head of Product может редактировать goals в review
+  Дано существует planning period в статусе review
+  Когда Head of Product изменяет goals
+  И сохраняет изменения
+  Тогда обновлённые goals отображаются на details screen
+  И форматирование goals сохраняется после сохранения и повторного открытия details screen
+
+AC42 - Head of Product может перевести period из review в in_progress
+  Дано существует planning period в статусе review
+  Когда Head of Product выполняет действие Start In Progress
+  Тогда статус planning period становится in_progress
+
+AC43 - Head of Product может редактировать goals в in_progress
+  Дано существует planning period в статусе in_progress
+  Когда Head of Product изменяет goals
+  И сохраняет изменения
+  Тогда обновлённые goals отображаются на details screen
+  И форматирование goals сохраняется после сохранения и повторного открытия details screen
+
+AC44 - Head of Product может перевести period из in_progress в closed
+  Дано существует planning period в статусе in_progress
+  Когда Head of Product выполняет действие Close
+  Тогда статус planning period становится closed
+
+AC45 - Для closed lifecycle actions недоступны
+  Дано существует planning period в статусе closed
+  Когда Head of Product открывает details screen planning period
+  Тогда lifecycle actions недоступны
+
+AC46 - Для cancelled lifecycle actions недоступны
+  Дано существует planning period в статусе cancelled
+  Когда Head of Product открывает details screen planning period
+  Тогда lifecycle actions недоступны
+
+AC47 - Details screen показывает status-aware actions
+  Дано существует planning period
+  Когда Head of Product открывает details screen planning period
+  Тогда экран показывает metadata planning period
+  И экран показывает goals периода
+  И экран показывает только те lifecycle actions, которые разрешены для текущего статуса
+
+AC48 - Empty state не блокирует основной путь без обратной связи
+  Дано Head of Product использует экран списка planning periods
+  Когда UI находится в empty state
+  Тогда пользователь видит это состояние явно
+  И основной путь не блокируется молча без обратной связи
+
+AC49 - Loading state не блокирует основной путь без обратной связи
+  Дано Head of Product использует экран списка planning periods или details screen planning period
+  Когда UI находится в loading state
+  Тогда пользователь видит это состояние явно
+  И основной путь не блокируется молча без обратной связи
+
+AC50 - Error state не блокирует основной путь без обратной связи
+  Дано Head of Product использует экран списка planning periods или details screen planning period
+  Когда UI находится в error state
+  Тогда пользователь видит это состояние явно
+  И основной путь не блокируется молча без обратной связи
