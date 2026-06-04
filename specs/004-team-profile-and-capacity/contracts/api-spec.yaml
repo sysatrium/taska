@@ -88,6 +88,7 @@ paths:
       tags: [Teams]
       parameters:
         - $ref: '#/components/parameters/TeamId'
+        - $ref: '#/components/parameters/IfMatch'
       requestBody:
         required: true
         content:
@@ -149,6 +150,18 @@ components:
       schema:
         type: string
         minLength: 1
+
+    IfMatch:
+      name: If-Match
+      in: header
+      required: false
+      description: |
+        Optional optimistic concurrency token.
+        Clients should send the `updatedAt` value from the last loaded Team response.
+        If the stored team has changed since that value, the API returns `409`.
+      schema:
+        type: string
+        format: date-time
 
   schemas:
     Team:

@@ -1,0 +1,50 @@
+{
+  "name": "taska",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "dev:api": "tsx src/backend/main.ts",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "e2e:setup": "DATABASE_URL=\"file:./e2e.db\" npm run prisma:migrate && DATABASE_URL=\"file:./e2e.db\" npm run prisma:seed",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "node scripts/ensure-sqlite-db.mjs && prisma migrate deploy",
+    "prisma:seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.24",
+    "@nestjs/core": "^11.1.24",
+    "@nestjs/platform-express": "^11.1.24",
+    "@prisma/client": "^6.19.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "vite": "^8.0.14"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.57.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "eslint": "^9.16.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "jsdom": "^25.0.1",
+    "prisma": "^6.19.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^4.1.7"
+  }
+}

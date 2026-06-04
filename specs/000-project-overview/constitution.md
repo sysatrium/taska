@@ -31,6 +31,7 @@
 - Backend: NestJS + TypeScript.
 - Database: SQLite.
 - Repository mode: application code и specs могут жить в одном repository.
+- Runtime: Node.js 24 LTS.
 
 **Правило:** Никаких новых зависимостей без явного согласования с владельцем проекта.
 
@@ -43,6 +44,7 @@
 - Validation: shared schema validation на API boundaries; DTO validation обязательна на всех write paths.
 - Package manager: npm, если repository уже не стандартизирован на другом manager.
 - Testing stack: Vitest для frontend и unit tests, Jest или standard Nest test runner для backend integration tests, Playwright для end-to-end tests.
+- Migration workflow: Prisma Migrate является стандартным migration path; для SQLite допускается preflight, который создаёт пустой database file до запуска native `prisma migrate deploy`.
 
 ### SQLite policy
 
@@ -56,6 +58,9 @@ SQLite одобрен как осознанный simplicity-first choice для
 - требования к auditability или access control выходят за comfortable limits SQLite,
 - background jobs, reporting load или размер dataset создают operational pain,
 - требования enterprise hosting или compliance требуют server database.
+
+Для SQLite migration workflow repository использует native Prisma migrations.
+Если SQLite database file ещё не существует, project script может создать пустой файл перед запуском Prisma, но не должен подменять Prisma migration history или выполнять альтернативный migration engine без отдельного repository decision.
 
 ## Architecture Principles
 
@@ -277,3 +282,8 @@ SQLite одобрен как осознанный simplicity-first choice для
 - 2026-05-28 v1.0: Initial version
 - [дата] v1.1: [что изменилось и почему]
 ```
+
+## Changelog
+
+- 2026-05-28 v1.0: Initial version
+- 2026-05-31 v1.1: Зафиксирован Node.js 24 LTS как runtime baseline и Prisma Migrate как стандартный migration workflow для SQLite с preflight-созданием пустого database file.

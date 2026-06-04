@@ -3,6 +3,6 @@
 
 id: "004"
 name: team-profile-and-capacity
-status: specified
-included_in_release: false
-release: null
+status: released
+included_in_release: true
+release: mvp-0.1
