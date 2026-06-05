@@ -1,0 +1,23 @@
+version: 0.1.0
+events:
+  - name: planning-period-created
+    description: Emitted when a planning period is created in draft status.
+    payload:
+      planningPeriodId: uuid
+      productId: string
+      periodType: sprint|month|quarter|year
+      status: draft
+  - name: planning-period-opened
+    description: Emitted when a planning period transitions from draft to open.
+    payload:
+      planningPeriodId: uuid
+      productId: string
+      periodType: sprint|month|quarter|year
+      status: open
+  - name: planning-period-closed
+    description: Emitted when a planning period transitions from open to closed.
+    payload:
+      planningPeriodId: uuid
+      productId: string
+      periodType: sprint|month|quarter|year
+      status: closed

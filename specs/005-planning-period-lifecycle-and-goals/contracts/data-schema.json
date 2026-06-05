@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taska.local/specs/005/contracts/data-schema.json",
+  "title": "PlanningPeriod",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "productId",
+    "periodType",
+    "name",
+    "startDate",
+    "endDate",
+    "status",
+    "goals",
+    "createdBy",
+    "createdAt",
+    "updatedAt"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "productId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "periodType": {
+      "type": "string",
+      "enum": ["sprint", "month", "quarter", "year"]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "open", "closed"]
+    },
+    "goals": {
+      "type": "object",
+      "description": "Structured formatted content for period goals.",
+      "additionalProperties": true
+    },
+    "createdBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "open" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "goals": {
+            "type": "object",
+            "minProperties": 1
+          }
+        }
+      }
+    }
+  ],
+  "$comment": "Cross-record constraints such as date overlap checks for the same productId and periodType are enforced by domain/application logic, not by JSON Schema. Name editability in open status is also enforced at API/service layer."
+}

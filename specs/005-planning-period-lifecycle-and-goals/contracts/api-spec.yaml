@@ -1,0 +1,351 @@
+openapi: 3.1.0
+info:
+  title: Planning Period Lifecycle and Goals API
+  version: 0.1.0
+  description: >-
+    Minimal API contract for feature 005 vertical slice. Covers planning period listing,
+    details, creation, editing, and lifecycle transitions draft -> open -> closed.
+servers:
+  - url: /api
+paths:
+  /planning-periods:
+    get:
+      summary: List planning periods
+      operationId: listPlanningPeriods
+      parameters:
+        - in: query
+          name: productId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: periodType
+          required: false
+          schema:
+            $ref: '#/components/schemas/PeriodType'
+        - in: query
+          name: status
+          required: false
+          schema:
+            $ref: '#/components/schemas/PlanningPeriodStatus'
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Planning periods list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningPeriodListResponse'
+    post:
+      summary: Create planning period
+      operationId: createPlanningPeriod
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlanningPeriodRequest'
+      responses:
+        '201':
+          description: Planning period created in draft status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningPeriodDetailResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /planning-periods/{planningPeriodId}:
+    get:
+      summary: Get planning period details
+      operationId: getPlanningPeriod
+      parameters:
+        - $ref: '#/components/parameters/PlanningPeriodId'
+      responses:
+        '200':
+          description: Planning period details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningPeriodDetailResponse'
+        '404':
+          description: Planning period not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Update planning period fields allowed by current status
+      operationId: updatePlanningPeriod
+      parameters:
+        - $ref: '#/components/parameters/PlanningPeriodId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePlanningPeriodRequest'
+      responses:
+        '200':
+          description: Planning period updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningPeriodDetailResponse'
+        '400':
+          description: Validation error or forbidden field update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Planning period not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Status does not allow requested operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /planning-periods/{planningPeriodId}/open:
+    post:
+      summary: Open planning period
+      operationId: openPlanningPeriod
+      parameters:
+        - $ref: '#/components/parameters/PlanningPeriodId'
+      responses:
+        '200':
+          description: Planning period opened
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningPeriodDetailResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Planning period not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Status conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /planning-periods/{planningPeriodId}/close:
+    post:
+      summary: Close planning period
+      operationId: closePlanningPeriod
+      parameters:
+        - $ref: '#/components/parameters/PlanningPeriodId'
+      responses:
+        '200':
+          description: Planning period closed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningPeriodDetailResponse'
+        '404':
+          description: Planning period not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Status conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    PlanningPeriodId:
+      in: path
+      name: planningPeriodId
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    PlanningPeriodStatus:
+      type: string
+      enum: [draft, open, closed]
+    PeriodType:
+      type: string
+      enum: [sprint, month, quarter, year]
+    RichTextDocument:
+      type: object
+      additionalProperties: true
+      description: >-
+        Formatted goals content. Exact editor representation is implementation-specific,
+        but the API preserves formatting as a structured document.
+    PlanningPeriodSummary:
+      type: object
+      required:
+        - id
+        - productId
+        - periodType
+        - name
+        - startDate
+        - endDate
+        - status
+        - createdBy
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        productId:
+          type: string
+        periodType:
+          $ref: '#/components/schemas/PeriodType'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        status:
+          $ref: '#/components/schemas/PlanningPeriodStatus'
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PlanningPeriodDetail:
+      allOf:
+        - $ref: '#/components/schemas/PlanningPeriodSummary'
+        - type: object
+          required:
+            - goals
+          properties:
+            goals:
+              $ref: '#/components/schemas/RichTextDocument'
+    PlanningPeriodListResponse:
+      type: object
+      required:
+        - items
+        - page
+        - pageSize
+        - total
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanningPeriodSummary'
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+    PlanningPeriodDetailResponse:
+      type: object
+      required:
+        - planningPeriod
+      properties:
+        planningPeriod:
+          $ref: '#/components/schemas/PlanningPeriodDetail'
+    CreatePlanningPeriodRequest:
+      type: object
+      required:
+        - productId
+        - periodType
+        - name
+        - startDate
+        - endDate
+        - goals
+      properties:
+        productId:
+          type: string
+        periodType:
+          $ref: '#/components/schemas/PeriodType'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        goals:
+          $ref: '#/components/schemas/RichTextDocument'
+    UpdatePlanningPeriodRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Allowed only while status is draft.
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        goals:
+          $ref: '#/components/schemas/RichTextDocument'
+      minProperties: 1
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+              enum:
+                - INVALID_DATE_RANGE
+                - DATE_CONFLICT_WITH_EXISTING_PERIOD
+                - MISSING_GOALS_FOR_OPEN
+                - NAME_NOT_EDITABLE_IN_OPEN
+                - STATUS_NOT_COMPATIBLE_WITH_OPERATION
+                - PLANNING_PERIOD_NOT_FOUND
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
