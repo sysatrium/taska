@@ -67,7 +67,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/PlanningPeriodDetailResponse'
         '400':
-          description: Validation error
+          description: >-
+            Validation error. Returned when business rules fail, including missing or
+            semantically empty goals, invalid date range, or a period that is fully in
+            the past.
           content:
             application/json:
               schema:
@@ -130,6 +133,11 @@ paths:
   /planning-periods/{planningPeriodId}/open:
     post:
       summary: Open planning period
+      description: >-
+        Transitions a planning period from draft to open. The operation is allowed only
+        when the period has a valid date range, is not fully in the past, does not
+        overlap another period of the same type for the same product, and contains at
+        least one meaningful goal after normalization of leading and trailing whitespace.
       operationId: openPlanningPeriod
       parameters:
         - $ref: '#/components/parameters/PlanningPeriodId'
@@ -183,6 +191,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /planning-periods/{planningPeriodId}/cancel:
+    post:
+      summary: Cancel planning period
+      operationId: cancelPlanningPeriod
+      parameters:
+        - $ref: '#/components/parameters/PlanningPeriodId'
+      responses:
+        '200':
+          description: Planning period cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningPeriodDetailResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Planning period not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Status conflict (only draft can be cancelled)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   parameters:
     PlanningPeriodId:
@@ -195,7 +234,7 @@ components:
   schemas:
     PlanningPeriodStatus:
       type: string
-      enum: [draft, open, closed]
+      enum: [draft, open, closed, cancelled]
     PeriodType:
       type: string
       enum: [sprint, month, quarter, year]

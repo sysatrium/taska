@@ -21,3 +21,10 @@ events:
       productId: string
       periodType: sprint|month|quarter|year
       status: closed
+  - name: planning-period-cancelled
+    description: Emitted when a planning period transitions from draft to cancelled.
+    payload:
+      planningPeriodId: uuid
+      productId: string
+      periodType: sprint|month|quarter|year
+      status: cancelled

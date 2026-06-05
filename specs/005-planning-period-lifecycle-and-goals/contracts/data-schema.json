@@ -41,11 +41,12 @@
     },
     "endDate": {
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "description": "Business rules require endDate to be strictly later than startDate and disallow periods that are fully in the past."
     },
     "status": {
       "type": "string",
-      "enum": ["draft", "open", "closed"]
+      "enum": ["draft", "open", "closed", "cancelled"]
     },
     "goals": {
       "type": "object",
@@ -83,5 +84,5 @@
       }
     }
   ],
-  "$comment": "Cross-record constraints such as date overlap checks for the same productId and periodType are enforced by domain/application logic, not by JSON Schema. Name editability in open status is also enforced at API/service layer."
+  "$comment": "Cross-record constraints such as date overlap checks for the same productId and periodType are enforced by domain/application logic, not by JSON Schema. Name editability in open status is also enforced at API/service layer. The same domain layer also enforces meaningful goals for open status, trim-based normalization before open, and terminal lifecycle behavior for closed and cancelled periods."
 }
