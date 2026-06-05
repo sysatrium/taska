@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { PlanningPeriodsApp } from "../planning-periods/PlanningPeriodsApp";
 import { createTeam, listCompetencies, listTeams, patchTeam } from "./teamApi";
 import { TeamForm } from "./teamForm";
 import { TeamList } from "./teamList";
 import type { ApiError, Competency, Team, TeamPayload } from "./types";
 
 export function App() {
+  const [section, setSection] = useState<"teams" | "periods">("teams");
   const [competencies, setCompetencies] = useState<Competency[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
   const [selected, setSelected] = useState<Team | null>(null);
@@ -35,8 +37,8 @@ export function App() {
     <main className="app-shell">
       <header className="top-bar">
         <div>
-          <h1>Глобальные команды</h1>
-          <p>Профиль команды хранится отдельно от period-specific capacity и planning items.</p>
+          <h1>Подготовка планирования</h1>
+          <p>Глобальные planning entities для периода: команды и периоды планирования.</p>
         </div>
         <label>
           Роль пользователя
@@ -47,12 +49,21 @@ export function App() {
           </select>
         </label>
       </header>
-      {loading ? <p className="status-line">Загрузка команд и справочника компетенций...</p> : null}
-      {error && !saving ? <p className="error-message">{error.message}</p> : null}
-      <section className="workspace">
-        <TeamList teams={teams} competencies={competencies} selectedId={selected?.id ?? null} onSelect={setSelected} />
-        <TeamForm competencies={competencies} selected={selected} saving={saving} error={error} onCancel={() => setSelected(null)} onSubmit={save} />
-      </section>
+      <nav className="section-tabs" aria-label="Разделы подготовки планирования">
+        <button className={section === "teams" ? "selected" : ""} type="button" onClick={() => setSection("teams")}>Команды</button>
+        <button className={section === "periods" ? "selected" : ""} type="button" onClick={() => setSection("periods")}>Периоды планирования</button>
+      </nav>
+      {section === "teams" ? (
+        <>
+          <h2>Глобальные команды</h2>
+          {loading ? <p className="status-line">Загрузка команд и справочника компетенций...</p> : null}
+          {error && !saving ? <p className="error-message">{error.message}</p> : null}
+          <section className="workspace">
+            <TeamList teams={teams} competencies={competencies} selectedId={selected?.id ?? null} onSelect={setSelected} />
+            <TeamForm competencies={competencies} selected={selected} saving={saving} error={error} onCancel={() => setSelected(null)} onSubmit={save} />
+          </section>
+        </>
+      ) : <PlanningPeriodsApp />}
     </main>
   );
 }

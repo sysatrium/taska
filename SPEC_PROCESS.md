@@ -54,6 +54,29 @@ Feature считается определённой, когда spec/plan/tasks 
 
 Результат этого этапа — реализованная feature в working tree + статусы и evidence по задачам, но не release.
 
+### Этап: Pre-verify hardening
+
+Перед adversarial verification feature проходит короткий readiness gate.
+
+Назначение gate — поймать очевидные gaps до verify:
+
+- отсутствующий или некорректный `meta.yaml`;
+- неработающие lint/build/unit checks;
+- отсутствие API contract evidence для новых или изменённых endpoints;
+- отсутствие runnable browser/e2e smoke для user-facing или Golden Path feature;
+- расхождение между `Evidence expected` в `tasks.md` и фактически подготовленным evidence;
+- отсутствие persistent verification artifact.
+
+Ожидаемый результат:
+
+- quality gates выполнены или невозможность запуска явно классифицирована;
+- API/UI smoke evidence подготовлен;
+- `specs/NNN-feature-name/verification.md` создан или обновлён;
+- `risk_register` в `meta.yaml` обновлён, если появились или были сняты риски;
+- feature получает рекомендацию `ready for per-task verify` или `not ready for per-task verify`.
+
+Этот этап не имеет права менять статус feature на `released` и не заменяет `06-verify-task.md` / `06b-verify-feature.md`.
+
 ### Этап: Verify each task
 
 Каждая задача проверяется отдельно в adversarial‑режиме.
@@ -75,6 +98,7 @@ Feature считается определённой, когда spec/plan/tasks 
   - owner‑checklist:
     - 1–2 предложения «что сделано» в терминах сценария;
     - 1–3 вопроса к owner, помогающие принять решение.
+- Results должны быть сохранены в `specs/NNN-feature-name/verification.md` или другом явно названном persistent artifact, а не только в чате.
 
 Этот этап не имеет права менять статус `released` и не запускает автоматически следующие этапы — переход выполняется только по решению человека.
 
@@ -97,6 +121,7 @@ Feature считается определённой, когда spec/plan/tasks 
   - проверка согласованного main path (API entry, integration trigger, background flow, observable side effects и т.п.).
 - Если feature‑level runtime/API/integration проверка невозможна, это классифицируется как release Blocker.
 - Объединяется evidence по задачам, оценивается, достаточно ли его для assembled slice.
+- Feature-level verdict, acceptance report, owner-checklist и результаты команд сохраняются в `specs/NNN-feature-name/verification.md` или другом явно названном persistent artifact.
 
 Выход:
 
@@ -160,3 +185,4 @@ Release‑этап используется только вручную, ник�
 - Ни один verify‑этап не переводит feature в `released` и не вызывает release‑этап автоматически.
 - Для user‑facing feature release невозможен без Golden Path runtime/browser smoke и достижимости из основного UI.
 - Любой blocker, мешающий реальному runtime‑проверочному запуску, считается release‑blocking, а не скрывается как follow‑up.
+- Verification results должны быть воспроизводимо зафиксированы в feature artifact, чтобы owner/release decision не зависели только от истории чата.

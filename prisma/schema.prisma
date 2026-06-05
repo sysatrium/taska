@@ -22,3 +22,20 @@ model Competency {
   isSelectable Boolean @default(true)
   source       String @default("seeded")
 }
+
+model PlanningPeriod {
+  id         String   @id
+  productId  String
+  periodType String
+  name       String
+  startDate  DateTime
+  endDate    DateTime
+  status     String
+  goals      String
+  createdBy  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([productId, periodType, status])
+  @@index([productId, periodType, startDate, endDate])
+}

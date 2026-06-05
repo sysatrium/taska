@@ -177,9 +177,7 @@
 2. Тесты проходят (если есть)
 3. Acceptance Criteria из spec-файла выполнены
 4. Изменения применены только к файлам в scope текущей задачи
-5. Commit сделан в формате: `type(scope): описание`
-   - Типы: `feat` / `fix` / `refactor` / `docs` / `style`
-   - Пример: `feat(tasks): add task creation form (AC-01)`
+
 
 ## When Writing Code
 

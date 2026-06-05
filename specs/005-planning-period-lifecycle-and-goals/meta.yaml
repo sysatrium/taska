@@ -1,0 +1,39 @@
+# Feature metadata
+# Хранится в: specs/NNN-feature-name/meta.yaml
+
+id: "005"
+name: planning-period-lifecycle-and-goals
+status: released
+included_in_release: true
+release: mvp-0.1
+
+owner_approval:
+  status: approved
+  approved_for_release: mvp-0.1
+  note: "Owner manually checked the UI checklist and confirmed: Все работает."
+
+risk_register:
+  - id: release-governance
+    status: mitigated
+    decision: "meta.yaml создан; feature остаётся in_progress до per-task и feature verification."
+    release_blocking: false
+  - id: contract-confidence
+    status: mitigated
+    decision: "Добавлены focused API integration tests на HTTP routes, response shape и error envelope; unit tests + runtime e2e + API integration считаются достаточным implementation evidence."
+    release_blocking: false
+  - id: events-durability
+    status: follow_up
+    decision: "In-memory publisher достаточен для MVP-контракта 005; durable event log/external bus относится к будущей governance/audit feature."
+    release_blocking: false
+  - id: goals-editor-depth
+    status: accepted_for_mvp
+    decision: "Structured markdown-like goals document принимается как базовое форматирование MVP; richer editor оформлять отдельным future slice."
+    release_blocking: false
+  - id: runtime-port-conflict
+    status: mitigated
+    decision: "Backend и Playwright/Vite получили env-driven ports/proxy без изменения default behavior."
+    release_blocking: false
+  - id: verification-readiness
+    status: completed
+    decision: "Per-task verification T01–T10 passed; feature-level verification passed with non-blocking follow-ups; owner UI checklist passed."
+    release_blocking: false

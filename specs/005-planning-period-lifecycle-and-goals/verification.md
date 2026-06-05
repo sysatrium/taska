@@ -1,0 +1,75 @@
+# Verification — 005 Planning Period Lifecycle and Goals
+
+## Status
+
+- Feature: `005 planning-period-lifecycle-and-goals`
+- Current meta status: `released`
+- Release: `mvp-0.1`
+- Owner approval: approved after manual UI checklist
+
+## Pre-verify Hardening
+
+### Commands
+
+- `npm run lint` — passed
+- `npm run build` — passed
+- `npm test` — passed, 6 files / 23 tests
+- `npm run e2e:setup` — passed
+- `E2E_API_PORT=3005 npm run test:e2e` — passed, 2 tests
+
+### Evidence
+
+- Focused API integration tests cover list/create/error envelope/close/cancel.
+- Backend unit tests cover lifecycle transitions, date rules, overlap, goals readiness and lifecycle events.
+- Browser e2e covers main UI entry point, create draft, details, formatted goals, readiness hints and transition to `open`.
+- Existing feature 004 team-profile e2e smoke passed after app-shell changes.
+
+## Per-task Verification
+
+| Task | Verdict | Evidence |
+| --- | --- | --- |
+| T01 Backend domain lifecycle | passed | Unit tests cover statuses, allowed transitions and terminal behavior. |
+| T02 Date and overlap rules | passed | Unit tests cover invalid date range, past period, overlap rejection and different-type overlap allowance. |
+| T03 Goals/readiness backend | passed | Unit tests cover structured goals, semantic empty goals rejection and goals editable in open. |
+| T04 API endpoints | passed | Focused API tests cover response shape, error envelope, close/cancel; e2e covers list/create/details/patch/open. |
+| T05 Events | passed | Unit tests cover created/opened/closed/cancelled event publication. |
+| T06 List, entry point and states | passed | Browser e2e reaches periods through main UI; empty/loading/error+retry implemented. |
+| T07 Create draft | passed | Browser e2e creates period from list flow and sees `draft` in list. |
+| T08 Details/editing | passed | Browser e2e opens details from list, edits formatted goals, verifies preview and save/open flow. |
+| T09 Lifecycle actions/readiness hints | passed | Browser e2e verifies readiness hints, executes `Open`, sees `open`; unit tests cover lifecycle policy. |
+| T10 Golden Path e2e | passed | Playwright Golden Path passes without hidden URL. |
+
+## Feature-level Verification
+
+- Decision: `passed with follow-ups`
+- Recommendation: `ready for owner approval`
+- Entry path checked: main UI → `Подготовка планирования` → `Периоды планирования`
+- Main steps checked:
+  - create planning period with future dates;
+  - observe `draft` in list;
+  - open details from list;
+  - enter formatted goals and save;
+  - observe readiness hints;
+  - execute `Open`;
+  - observe `open` in list/details and preserved goals preview.
+
+## Follow-ups
+
+- `events-durability`: in-memory publisher accepted for MVP; durable event log/audit belongs to future governance/audit feature.
+- `goals-editor-depth`: markdown-like structured goals accepted for MVP; richer editor belongs to future slice.
+- Screenshot/video artifacts were not saved separately; browser e2e transcript is accepted as runtime evidence for this slice.
+
+## Owner Checklist Result
+
+Owner manually opened the UI, followed the checklist and confirmed: "Все работает".
+
+## Release Decision
+
+Owner approved release into `mvp-0.1`.
+`meta.yaml` was updated to:
+
+```yaml
+status: released
+included_in_release: true
+release: mvp-0.1
+```

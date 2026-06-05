@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const apiPort = process.env.E2E_API_PORT ?? "3000";
+const reuseExistingServer = process.env.PLAYWRIGHT_REUSE_SERVER === "1";
+
 export default defineConfig({
   testDir: "tests/e2e",
   timeout: 30_000,
@@ -18,15 +21,15 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'DATABASE_URL="file:./e2e.db" npm run dev:api',
-      url: "http://127.0.0.1:3000/api/competencies",
-      reuseExistingServer: false,
+      command: `PORT=${apiPort} DATABASE_URL="file:./e2e.db" npm run dev:api`,
+      url: `http://127.0.0.1:${apiPort}/api/competencies`,
+      reuseExistingServer,
       timeout: 120_000
     },
     {
-      command: "npm run dev -- --host 127.0.0.1",
+      command: `API_PROXY_TARGET="http://127.0.0.1:${apiPort}" npm run dev -- --host 127.0.0.1`,
       url: "http://127.0.0.1:5173",
-      reuseExistingServer: false,
+      reuseExistingServer,
       timeout: 120_000
     }
   ]

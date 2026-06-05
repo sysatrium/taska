@@ -46,11 +46,20 @@
 - уважай поля User-facing, Affects Golden Path, Expected entry point affected, Evidence expected;
 - явно фиксируй Blocker, если Golden Path/main path нельзя честно проверить.
 
-3) Выполни per-task verify по 06-verify-task для всех релевантных задач:
+3) Выполни pre-verify hardening gate по 05b-pre-verify-hardening:
+- проверь наличие meta.yaml и что feature не released;
+- прогони lint/build/unit tests, если toolchain доступен;
+- подготовь focused API contract evidence для изменённых endpoints;
+- для user-facing feature подготовь runnable browser/e2e smoke;
+- проверь, что expected evidence из tasks.md соответствует фактическому evidence;
+- создай или обнови specs/NNN-feature-name/verification.md;
+- не меняй статус feature на released.
+
+4) Выполни per-task verify по 06-verify-task для всех релевантных задач:
 - для каждой задачи сделай verdict (passed / passed with follow-ups / failed), acceptance report и owner-checklist (1–2 предложения «что сделано» + 1–3 вопроса ко мне);
 - не меняй статус feature на released и не запускай следующие этапы автоматически.
 
-4) Выполни feature-level verify по 06b-verify-feature:
+5) Выполни feature-level verify по 06b-verify-feature:
 - агрегируй результаты задач;
 - проверь assembled slice как единый сценарий;
 - для user-facing feature выполни feature-level Golden Path smoke (UI entry point, сценарий, observable result, natural next step, без hidden URL);
@@ -58,7 +67,7 @@
 - выдай verdict (passed / passed with follow-ups / failed), acceptance report и owner-checklist по feature;
 - не запускай release и не меняй статус на released.
 
-5) Остановись и жди моего решения:
+6) Остановись и жди моего решения:
 - явно НЕ запускать 07-mark-feature-release;
 - в выводе сделай понятное резюме: что реализовано, какие есть Blockers/follow-ups, что рекомендовано для release/нерелиза.
 
@@ -69,5 +78,6 @@
 - агент явно опирается на SPEC_PROCESS.md и актуальные feature‑артефакты;
 - реализована ровно одна feature в рамках её scope, без скрытого расширения;
 - все релевантные задачи прошли per-task verify с отчётами и owner‑checklists;
+- pre-verify hardening gate выполнен, а results сохранены в feature verification artifact или явно объяснено, почему это невозможно;
 - feature прошла feature-level verify с acceptance report и owner‑checklist;
 - статус `released` не меняется и release‑prompt не вызывается автоматически — дальнейшие действия остаются за человеком.

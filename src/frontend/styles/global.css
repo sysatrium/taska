@@ -12,7 +12,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -45,7 +46,9 @@ button {
 }
 
 .top-bar h1,
+.app-shell > h2,
 .team-form h2,
+.period-details h2,
 .empty-state h2 {
   margin: 0 0 var(--space-2);
   font-family: var(--font-display);
@@ -53,9 +56,35 @@ button {
 
 .top-bar p,
 .empty-state p,
+.muted-text,
 small {
   margin: 0;
   color: var(--color-text-muted);
+}
+
+.section-tabs,
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.section-tabs {
+  margin-bottom: var(--space-6);
+}
+
+.section-tabs button,
+.action-row button {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.section-tabs button.selected,
+.action-row button:hover {
+  border-color: var(--color-primary);
 }
 
 .workspace {
@@ -65,6 +94,8 @@ small {
 
 .team-list,
 .team-form,
+.period-list,
+.period-details,
 .empty-state {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-base);
@@ -73,16 +104,21 @@ small {
 }
 
 .team-list,
-.team-form {
+.team-form,
+.period-list,
+.period-details {
   padding: var(--space-4);
 }
 
-.team-list {
+.team-list,
+.period-list,
+.period-details {
   display: grid;
   gap: var(--space-3);
 }
 
-.team-row {
+.team-row,
+.period-row {
   width: 100%;
   justify-content: space-between;
   border: 1px solid var(--color-border);
@@ -93,11 +129,13 @@ small {
   text-align: left;
 }
 
-.team-row.selected {
+.team-row.selected,
+.period-row.selected {
   border-color: var(--color-primary);
 }
 
-.team-row span:first-child {
+.team-row span:first-child,
+.period-row span:first-child {
   display: grid;
   gap: var(--space-1);
 }
@@ -132,13 +170,86 @@ fieldset {
 }
 
 input,
-select {
+select,
+textarea {
   width: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: var(--space-2);
   background: var(--color-bg);
   color: var(--color-text);
+}
+
+textarea {
+  min-height: calc(var(--space-16) * 2);
+  resize: vertical;
+}
+
+.period-field-grid,
+.metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--space-3);
+}
+
+.metadata-grid {
+  margin: 0;
+}
+
+.metadata-grid div,
+.readiness-panel,
+.goals-preview {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-3);
+  background: var(--color-bg);
+}
+
+.metadata-grid dt,
+.metadata-grid dd {
+  margin: 0;
+}
+
+.metadata-grid dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.status-badge,
+.hint {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.status-badge.open,
+.hint.ready {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.status-badge.closed,
+.status-badge.cancelled {
+  border-color: var(--color-text-faint);
+  color: var(--color-text-muted);
+}
+
+.readiness-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.goals-preview {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.goals-preview h3,
+.goals-preview p {
+  margin: 0;
 }
 
 .competency-grid {
@@ -185,6 +296,18 @@ select {
 .error-message {
   border-radius: var(--radius-base);
   background: color-mix(in srgb, var(--color-error), transparent 84%);
+  color: var(--color-text);
+}
+
+.error-message p {
+  margin: 0 0 var(--space-2);
+}
+
+.error-message button {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
   color: var(--color-text);
 }
 
