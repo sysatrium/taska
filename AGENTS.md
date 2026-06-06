@@ -174,17 +174,22 @@
 Задача считается выполненной **только когда все пункты пройдены:**
 
 1. Lint проходит без ошибок
-2. Тесты проходят (если есть)
-3. Acceptance Criteria из spec-файла выполнены
-4. Изменения применены только к файлам в scope текущей задачи
+2. Build/typecheck проходит, если затронут application code
+3. Тесты проходят (если есть)
+4. Acceptance Criteria из spec-файла выполнены
+5. Изменения применены только к файлам в scope текущей задачи
+6. Для user-facing / Golden Path изменений есть runtime/browser/API smoke evidence или явно зафиксирован Blocker
+7. Verification results сохранены в feature artifact (`verification.md`) там, где это требуется `SPEC_PROCESS.md`
+
+Коммиты, push, rebase и изменение git history агент не выполняет по умолчанию. Такие операции делает человек или агент только по явному отдельному запросу человека.
 
 
 ## When Writing Code
 
-- Читай текущий feature spec из `specs/features/` перед началом
-- Реализуй только то, что явно описано в spec — не добавляй "полезные" вещи самостоятельно
-- Один коммит = один AC или один логический шаг
-- Перед кодом — покажи план и жди подтверждения
+- Читай текущие feature artifacts из `specs/NNN-feature-name/` перед началом: `spec.md`, `plan.md`, `tasks.md`, `meta.yaml`, contracts при наличии
+- Реализуй только то, что явно описано в approved spec/tasks — не добавляй "полезные" вещи самостоятельно
+- Для approved implementation requests работай в working tree без отдельного ожидания подтверждения, если человек не просит сначала план
+- Сохраняй traceability к `tasks.md` и task markers: `User-facing`, `Affects Golden Path`, `Expected entry point affected`, `Evidence expected`
 - Используй Design Tokens из `specs/000-project-overview/constitution.md` для всех стилей
 
 ## When Blocked
@@ -205,23 +210,32 @@
 ### Структура проекта
 ```
 project/
-├── specs/          ← Только для человека (не изменяй без запроса)
-│   ├── constitution.md
-│   ├── spec.md
-│   └── features/
-├── src/            ← Твоя зона работы
-│   ├── components/ ← UI-компоненты (один компонент = один файл)
-│   ├── modules/    ← Бизнес-логика (изолированные модули)
-│   ├── services/   ← Внешние интеграции (API, БД)
-│   └── styles/     ← Токены и глобальные стили
+├── specs/
+│   ├── 000-project-overview/
+│   └── NNN-feature-name/
+│       ├── spec.md
+│       ├── plan.md
+│       ├── tasks.md
+│       ├── meta.yaml
+│       ├── verification.md
+│       └── contracts/
+├── prompts/
+├── prisma/
+├── tests/
+├── src/
+│   ├── backend/
+│   │   └── modules/
+│   └── frontend/
+│       ├── modules/
+│       └── styles/
 └── AGENTS.md
 ```
 
 ### Принципы
 - **Один файл — одна ответственность.** Файл > 150 строк — сигнал разбить на части
-- **Модули изолированы.** Модуль `tasks` не импортирует из модуля `projects` напрямую — только через общий интерфейс
-- **Бизнес-логика отдельно от UI.** Логика в `modules/`, отображение в `components/`
-- **Внешние зависимости только в `services/`.** Прямые вызовы API/БД только там
+- **Модули изолированы.** Feature/domain modules не импортируют соседние modules напрямую без явного shared interface или approved local pattern
+- **Бизнес-логика отдельно от UI.** Domain/application logic живёт в backend modules или dedicated frontend services/hooks, а не внутри React components
+- **Внешние зависимости только через boundary modules.** Прямые вызовы API/БД держатся в controllers/services/API clients, а не размазываются по UI
 
 
 ## UI & Design Rules
@@ -285,3 +299,4 @@ CSS-классы:     kebab-case    → .task-card, .status-badge
 
 <!-- Обновляй при изменении правил -->
 - 2026-05-28: Initial version
+- 2026-06-05: Синхронизированы implementation/release правила с SPEC_PROCESS: агент не делает git history operations по умолчанию, verification results сохраняются в feature artifacts, структура repository обновлена под текущий app/spec layout.

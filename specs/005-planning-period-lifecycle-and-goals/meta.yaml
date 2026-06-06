@@ -14,26 +14,32 @@ owner_approval:
 
 risk_register:
   - id: release-governance
+    type: mitigation
     status: mitigated
-    decision: "meta.yaml создан; feature остаётся in_progress до per-task и feature verification."
+    decision: "meta.yaml создан; release metadata выставлена только после per-task verification, feature-level verification и owner approval."
     release_blocking: false
   - id: contract-confidence
+    type: mitigation
     status: mitigated
     decision: "Добавлены focused API integration tests на HTTP routes, response shape и error envelope; unit tests + runtime e2e + API integration считаются достаточным implementation evidence."
     release_blocking: false
   - id: events-durability
+    type: follow_up
     status: follow_up
     decision: "In-memory publisher достаточен для MVP-контракта 005; durable event log/external bus относится к будущей governance/audit feature."
     release_blocking: false
   - id: goals-editor-depth
+    type: accepted_limitation
     status: accepted_for_mvp
     decision: "Structured markdown-like goals document принимается как базовое форматирование MVP; richer editor оформлять отдельным future slice."
     release_blocking: false
   - id: runtime-port-conflict
+    type: mitigation
     status: mitigated
     decision: "Backend и Playwright/Vite получили env-driven ports/proxy без изменения default behavior."
     release_blocking: false
   - id: verification-readiness
+    type: process_gate
     status: completed
     decision: "Per-task verification T01–T10 passed; feature-level verification passed with non-blocking follow-ups; owner UI checklist passed."
     release_blocking: false

@@ -16,13 +16,15 @@
 - `specs/NNN-feature-name/plan.md`
 - `specs/NNN-feature-name/tasks.md`
 - `specs/NNN-feature-name/meta.yaml`
+- `specs/000-project-overview/feature-meta.schema.md`, если он есть
+- `specs/000-project-overview/templates/verification.md`, если он есть
 - релевантные контракты
 - фактические изменения в working tree
 - доступный локальный toolchain
 
 ## Что нужно сделать
 
-1. Проверить, что `meta.yaml` существует и feature не находится в статусе `released`.
+1. Проверить, что `meta.yaml` существует, соответствует `feature-meta.schema.md` при наличии schema artifact, и feature не находится в статусе `released`.
 2. Выполнить базовые quality gates, если toolchain доступен:
    - lint;
    - build/typecheck;
@@ -39,7 +41,7 @@
 5. Проверить, что `Evidence expected` из `tasks.md` не расходится с фактическим evidence:
    - если ожидаются screenshots/video, либо подготовить их, либо явно зафиксировать, что заменяющим evidence является browser smoke transcript/e2e report;
    - если evidence отсутствует, пометить pre-verify blocker.
-6. Обновить или создать `specs/NNN-feature-name/verification.md` с командами, результатами, known blockers/follow-ups и ссылкой на risk register, если он есть.
+6. Обновить или создать `specs/NNN-feature-name/verification.md` с командами, результатами, known blockers/follow-ups и ссылкой на risk register, если он есть. Если есть `templates/verification.md`, использовать его структуру.
 7. Обновить `risk_register` в `meta.yaml`, если обнаружены или сняты риски.
 8. Не менять `status` на `released` и не запускать `07-mark-feature-release.md`.
 
@@ -55,7 +57,7 @@
 
 Результат принимается только если:
 
-- `meta.yaml` существует и release status проверен;
+- `meta.yaml` существует, release status проверен и schema expectations соблюдены;
 - quality gates выполнены или невозможность запуска явно классифицирована;
 - для user-facing/Golden Path feature есть runnable smoke evidence или release-blocking blocker;
 - API contract evidence подготовлен для изменённых endpoints;

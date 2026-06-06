@@ -19,6 +19,8 @@
 - `specs/NNN-feature-name/tasks.md`
 - `specs/NNN-feature-name/meta.yaml`
 - `SPEC_PROCESS.md`, если он есть в репозитории
+- `specs/000-project-overview/templates/verification.md`, если он есть
+- `specs/NNN-feature-name/verification.md`, если он уже создан
 - реализованная задача
 - изменённые исходные файлы
 - релевантные контракты
@@ -51,6 +53,7 @@
    - 1–2 предложения, что именно было реализовано в терминах пользователя/сценариев, а не кода.
    - 1–3 вопроса к owner по задаче (например: «Соответствует ли такой путь ожиданиям?», «Нормально ли, что сценарий доступен только из этого раздела?»).
    Checklist должен быть понятен без чтения кода и без знания внутренней архитектуры.
+16. Обновить `specs/NNN-feature-name/verification.md` результатом проверки задачи. Если artifact отсутствует, создать его по `templates/verification.md` при наличии template.
 
 ## Acceptance report format
 
@@ -78,3 +81,4 @@
 - поле `Evidence expected` не проигнорировано
 - путь к следующему действию ясен: принять, доработать или вынести follow-up
 - non-technical owner может понять результат по acceptance report без чтения кода
+- результат сохранён в `verification.md` или явно указан blocker, почему persistent artifact не может быть обновлён

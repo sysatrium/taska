@@ -19,6 +19,8 @@
 - `specs/NNN-feature-name/tasks.md`
 - `specs/NNN-feature-name/meta.yaml`
 - `SPEC_PROCESS.md`, если он есть в репозитории
+- `specs/000-project-overview/templates/verification.md`, если он есть
+- `specs/NNN-feature-name/verification.md`
 - результаты `06-verify-task.md` по всем задачам feature
 - релевантные контракты
 - изменённые исходные файлы
@@ -56,6 +58,7 @@
     - 2–4 вопроса к owner, которые помогают принять решение об одобрении feature (например: «Этот путь соответствует ожидаемому Golden Path?», «Допустим ли такой обходной шаг?», «Достаточно ли текущего уровня evidence для release?»).
     Checklist должен быть достаточно коротким, чтобы owner мог принять решение «approve / reject / доработать» за один просмотр.
 18. Явно зафиксировать, что данный шаг не меняет статус feature на `released` и не запускает `07-mark-feature-release.md`. Любое дальнейшее действие (release marking, дополнительная реализация, повторный verify) должно выполняться только по явному запросу человека.
+19. Обновить `specs/NNN-feature-name/verification.md` feature-level verdict, aggregated evidence, owner-checklist и recommendation.
 
 ## Acceptance report format
 
@@ -86,3 +89,4 @@
 - есть понятный acceptance report для owner
 - путь к следующему действию ясен: owner approval, доработка или Blocker
 - feature не помечена как `released` автоматически
+- feature-level результат сохранён в `verification.md`

@@ -18,6 +18,12 @@ Feature рассматривается как один vertical slice в кат�
   - `Expected entry point affected`
   - `Evidence expected`
 - `meta.yaml` — статус feature, связь с релизом и другие метаданные.
+- `verification.md` — persistent artifact с pre-verify, per-task verify, feature-level verify, owner checklist и release decision.
+
+Repository-wide metadata и verification форматы описываются в:
+
+- `specs/000-project-overview/feature-meta.schema.md`
+- `specs/000-project-overview/templates/verification.md`
 
 Feature считается определённой, когда spec/plan/tasks согласованы и описывают один связный сценарий.
 
@@ -29,11 +35,13 @@ Feature считается определённой, когда spec/plan/tasks 
 - Подготовка `spec.md` с описанием сценариев и Golden Path.
 - Подготовка `plan.md` с основными шагами и зонами изменений.
 - Подготовка `tasks.md` по шаблону с обязательными markers и expected evidence.
+- Подготовка `meta.yaml` по `feature-meta.schema.md`.
 
 На этом этапе фиксируются:
 
 - Основные сценарии и entry points (UI / API / integration / background).
 - Что именно считается достаточным evidence, чтобы признать сценарий реально работоспособным.
+- Какой artifact будет хранить verification evidence (`verification.md` по template by default).
 
 ### Этап: Build the slice (реализация)
 

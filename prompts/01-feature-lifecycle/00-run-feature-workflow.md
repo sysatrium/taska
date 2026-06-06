@@ -12,6 +12,8 @@
 - `specs/000-project-overview/constitution.md`
 - `AGENTS.md`
 - `SPEC_PROCESS.md`
+- `specs/000-project-overview/feature-meta.schema.md`, если есть
+- `specs/000-project-overview/templates/verification.md`, если есть
 - `specs/NNN-feature-name/spec.md`
 - `specs/NNN-feature-name/plan.md`
 - `specs/NNN-feature-name/tasks.md`

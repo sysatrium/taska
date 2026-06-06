@@ -1,11 +1,12 @@
 import { expect, test } from "@playwright/test";
 
-test("opens planning periods from the main UI and moves a period to open", async ({ page }) => {
+test("opens planning periods from the main UI and moves a period to open", async ({ page }, testInfo) => {
   const periodName = `E2E Planning Period ${Date.now()}`;
   const dates = futureDateRange();
 
   await page.goto("/");
   await page.getByRole("button", { name: "Периоды планирования" }).click();
+  await page.screenshot({ path: testInfo.outputPath("01-periods-entry.png"), fullPage: true });
 
   await expect(page.getByRole("heading", { name: "Создать planning period" })).toBeVisible();
   await page.getByLabel("Название периода").fill(periodName);
@@ -16,6 +17,7 @@ test("opens planning periods from the main UI and moves a period to open", async
   const periodRow = page.getByRole("button", { name: new RegExp(periodName) });
   await expect(periodRow).toBeVisible();
   await expect(periodRow).toContainText("draft");
+  await page.screenshot({ path: testInfo.outputPath("02-period-draft-list.png"), fullPage: true });
 
   await periodRow.click();
   await page.getByLabel("Goals").fill("# Period goals\n- Open with confidence\nKeep planning explainable");
@@ -24,11 +26,13 @@ test("opens planning periods from the main UI and moves a period to open", async
 
   await expect(page.getByLabel("Readiness hints")).toContainText("Goals заполнены");
   await expect(page.getByRole("region", { name: "Предпросмотр goals" })).toContainText("Period goals");
+  await page.screenshot({ path: testInfo.outputPath("03-goals-readiness.png"), fullPage: true });
   await page.getByRole("button", { name: "Open", exact: true }).click();
 
   await expect(periodRow).toContainText("open");
   await expect(page.getByText("open").last()).toBeVisible();
   await expect(page.getByRole("region", { name: "Предпросмотр goals" })).toContainText("Open with confidence");
+  await page.screenshot({ path: testInfo.outputPath("04-period-open.png"), fullPage: true });
 });
 
 function futureDateRange() {
