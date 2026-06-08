@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "predev:api": "npm run prisma:migrate",
     "dev:api": "tsx src/backend/main.ts",
     "dev:api:e2e": "PORT=3005 DATABASE_URL=\"file:./e2e.db\" npm run dev:api",
     "dev:e2e": "API_PROXY_TARGET=\"http://localhost:3005\" npm run dev",

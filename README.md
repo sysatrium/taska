@@ -51,6 +51,8 @@ Run the backend API:
 DATABASE_URL="file:./dev.db" npm run dev:api
 ```
 
+`npm run dev:api` runs Prisma migrations first, so the local SQLite schema stays aligned with the current code after new feature migrations are added.
+
 Run the frontend:
 
 ```sh
